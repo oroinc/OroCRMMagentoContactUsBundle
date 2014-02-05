@@ -17,7 +17,7 @@
     "require": {
         "php": ">=5.4.4",
         "oro/platform": "dev-master",
-        "oro/crm": "feature/CRM-801"
+        "oro/crm": "dev-feature/CRM-801"
     },
     "repositories": [
         {
