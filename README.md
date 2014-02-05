@@ -40,6 +40,6 @@ Use as dependency in composer
 
 ```yaml
     "require": {
-        oro/crm-contact-us": "dev-master",
+        "oro/crm-embedded-contact-us": "dev-master",
     }
 ```
