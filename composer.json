@@ -1,6 +1,6 @@
 {
-    "name": "oro/crm-contact-us",
-    "description": "'OroCRM Contact Us' package",
+    "name": "oro/crm-embedded-contact-us",
+    "description": "OroCRM Embedded Contact Us package",
     "homepage": "https://github.com/laboro/OroCRMContactUsBundle.git",
     "license": "The Open Software License version 3.0",
     "authors": [
