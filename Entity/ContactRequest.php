@@ -3,9 +3,10 @@
 namespace OroCRM\Bundle\ContactUsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Oro\Bundle\IntegrationBundle\Entity\Channel;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 
 /**

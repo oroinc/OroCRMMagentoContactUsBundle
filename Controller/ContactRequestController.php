@@ -4,16 +4,18 @@ namespace OroCRM\Bundle\ContactUsBundle\Controller;
 
 
 use FOS\Rest\Util\Codes;
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
-use OroCRM\Bundle\ContactUsBundle\Form\Type\ContactRequestType;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+
+use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
+use OroCRM\Bundle\ContactUsBundle\Form\Type\ContactRequestType;
 
 class ContactRequestController extends Controller
 {
@@ -108,6 +110,7 @@ class ContactRequestController extends Controller
 
     /**
      * @param ContactRequest $contactRequest
+     *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     protected function update(ContactRequest $contactRequest = null)
@@ -135,7 +138,7 @@ class ContactRequestController extends Controller
 
             return $this->get('oro_ui.router')->actionRedirect(
                 [
-                    'route' => 'orocrm_contactus_request_update',
+                    'route'      => 'orocrm_contactus_request_update',
                     'parameters' => ['id' => $contactRequest->getId()],
                 ],
                 [
@@ -147,7 +150,7 @@ class ContactRequestController extends Controller
 
         return [
             'entity' => $contactRequest,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ];
     }
 }

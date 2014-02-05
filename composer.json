@@ -1,0 +1,34 @@
+{
+    "name": "oro/crm-contact-us",
+    "description": "'OroCRM Contact Us' package",
+    "homepage": "https://github.com/laboro/OroCRMContactUsBundle.git",
+    "license": "The Open Software License version 3.0",
+    "authors": [
+        {
+            "name": "Oro, Inc",
+            "homepage": "http://www.orocrm.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "OroCRM\\Bundle": ""
+        }
+    },
+    "require": {
+        "php": ">=5.4.4",
+        "oro/platform": "dev-master",
+        "oro/crm": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/laboro/OroCRMContactUsBundle.git"
+        }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
