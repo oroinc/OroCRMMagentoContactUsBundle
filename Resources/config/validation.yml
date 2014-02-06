@@ -1,0 +1,21 @@
+OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest:
+    properties:
+        channel:
+            - NotBlank: ~
+        firstName:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        lastName:
+            - NotBlank: ~
+            - Length:
+                max: 100
+        preferredContactMethod:
+            - NotBlank: ~
+        email:
+            - Email: ~
+        comment:
+            - NotBlank: ~
+    constraints:
+        - Callback:
+            methods: [ validationCallback ]

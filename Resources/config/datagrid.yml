@@ -1,12 +1,13 @@
 datagrid:
     contact-requests-grid:
         source:
-#            acl_resource: orocrm_contactus_request_view
+            acl_resource: orocrm_contactus_request_view
             type: orm
             query:
                 select:
                     - contact_request.id
-                    - contact_request.name
+                    - contact_request.firstName
+                    - contact_request.lastName
                     - contact_request.email
                     - contact_request.phone
                     - contact_request.createdAt
@@ -16,10 +17,11 @@ datagrid:
                 join:
                     left:
                         - { join: contact_request.channel, alias: channel }
-
         columns:
-            name:
-                label: orocrm.contactus.contactrequest.name.label
+            firstName:
+                label: orocrm.contactus.contactrequest.firstName.label
+            lastName:
+                label: orocrm.contactus.contactrequest.lastName.label
             email:
                 label: orocrm.contactus.contactrequest.email.label
             phone:
@@ -29,11 +31,12 @@ datagrid:
             createdAt:
                 frontend_type: datetime
                 label: orocrm.contactus.contactrequest.created_at.label
-
         sorters:
             columns:
-                name:
-                    data_name: contact_request.name
+                firstName:
+                    data_name: contact_request.firstName
+                lastName:
+                    data_name: contact_request.lastName
                 email:
                     data_name: contact_request.email
                 phone:
@@ -44,12 +47,14 @@ datagrid:
                     data_name: contact_request.createdAt
             default:
                 createdAt: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC
-
         filters:
             columns:
-                name:
+                firstName:
                     type:      string
-                    data_name: contact_request.name
+                    data_name: contact_request.firstName
+                lastName:
+                    type:      string
+                    data_name: contact_request.lastName
                 email:
                     type:      string
                     data_name: contact_request.email
@@ -67,8 +72,6 @@ datagrid:
                 createdAt:
                     type: datetime
                     data_name: contact_request.createdAt
-
-
         properties:
             id: ~
             view_link:
@@ -83,7 +86,6 @@ datagrid:
                 type:       url
                 route:      orocrm_contactus_request_delete
                 params:     [ id ]
-
         actions:
             view:
                 acl_resource: oro_embedded_form_view
@@ -104,4 +106,5 @@ datagrid:
                 label: orocrm.contactus.contactrequest.datagrid.delete
                 icon: trash
                 link: delete_link
-
+        options:
+            entityHint: contact request

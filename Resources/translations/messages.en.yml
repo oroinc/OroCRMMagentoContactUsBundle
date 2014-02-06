@@ -5,8 +5,14 @@ orocrm:
             entity_plural_label: Contact Requests
             id:
                 label: ID
-            name:
-                label: Name
+            firstName:
+                label: First name
+            lastName:
+                label: Last name
+            organizationName:
+                label: Organization name
+            preferredContactMethod:
+                label: Preferred contact method
             email:
                 label: Email
             phone:
@@ -19,6 +25,13 @@ orocrm:
                 label: Created
             updated_at:
                 label: Updated
+            feedback:
+                label: Feedback
+
+            method:
+                email: Email
+                phone: Phone
+                both:  Both phone & email
 
             widget:
                 info:
