@@ -12,7 +12,8 @@
     "autoload": {
         "psr-0": {
             "OroCRM\\Bundle\\ContactUsBundle": ""
-        }
+        },
+        "target-dir": "src/OroCRM/Bundle/ContactUsBundle"
     },
     "require": {
         "php": ">=5.4.4",
