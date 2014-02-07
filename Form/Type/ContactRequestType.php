@@ -33,9 +33,9 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
             'choice',
             [
                 'choices'  => [
-                    ContactRequest::CONTACT_METHOD_BOTH => ContactRequest::CONTACT_METHOD_BOTH,
+                    ContactRequest::CONTACT_METHOD_BOTH  => ContactRequest::CONTACT_METHOD_BOTH,
                     ContactRequest::CONTACT_METHOD_PHONE => ContactRequest::CONTACT_METHOD_PHONE,
-                    ContactRequest::CONTACT_METHOD_PHONE => ContactRequest::CONTACT_METHOD_PHONE
+                    ContactRequest::CONTACT_METHOD_EMAIL => ContactRequest::CONTACT_METHOD_EMAIL
                 ],
                 'required' => true
             ]

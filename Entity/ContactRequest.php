@@ -60,7 +60,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="organization_name", type="string")
+     * @ORM\Column(name="organization_name", type="string", nullable=true)
      */
     protected $organizationName;
 
