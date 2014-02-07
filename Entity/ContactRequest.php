@@ -86,10 +86,11 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     protected $email;
 
     /**
-     * @var string
+     * @var ContactReason
      *
-     * @ORM\Column(name="contact_reason", type="string", length=100, nullable=true)
-     */
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\ContactUsBundle\Entity\ContactReason")
+     * @ORM\JoinColumn(name="contact_reason_id", referencedColumnName="id")
+     **/
     protected $contactReason;
 
     /**
@@ -237,17 +238,17 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     }
 
     /**
-     * @param string $contactReason
+     * @param ContactReason $contactReason
      *
      * @return $this
      */
-    public function setContactReason($contactReason)
+    public function setContactReason(ContactReason $contactReason = null)
     {
         $this->contactReason = $contactReason;
     }
 
     /**
-     * @return string
+     * @return ContactReason
      */
     public function getContactReason()
     {

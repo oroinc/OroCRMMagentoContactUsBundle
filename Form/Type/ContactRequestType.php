@@ -44,15 +44,10 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
         $builder->add('email', 'text', ['required' => false]);
         $builder->add(
             'contactReason',
-            'choice',
+            'entity',
             [
-                'choices'  => [
-                    'Want to know more about the product',
-                    'Interested in partnership',
-                    'Need help or assistance',
-                    'Have a compliant',
-                    'Other'
-                ],
+                'class'    => 'OroCRMContactUsBundle:ContactReason',
+                'property' => 'label',
                 'required' => false
             ]
         );

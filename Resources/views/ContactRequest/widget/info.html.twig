@@ -7,9 +7,10 @@
             {{ ui.renderProperty('orocrm.contactus.contactrequest.firstName.label'|trans, entity.firstName|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.lastName.label'|trans, entity.lastName|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.organizationName.label'|trans, entity.organizationName|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.preferredContactMethod.label'|trans, entity.preferredContactMethod|escape) }}
+            {{ ui.renderProperty('orocrm.contactus.contactrequest.preferredContactMethod.label'|trans, entity.preferredContactMethod|trans|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.email.label'|trans, entity.email|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.phone.label'|trans, entity.phone|escape) }}
+            {{ ui.renderProperty('orocrm.contactus.contactrequest.contactReason.label'|trans, entity.contactReason|trans|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.comment.label'|trans, entity.comment|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.feedback.label'|trans, entity.feedback|escape) }}
         </div>

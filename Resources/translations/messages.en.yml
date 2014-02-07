@@ -27,6 +27,8 @@ orocrm:
                 label: Updated
             feedback:
                 label: Feedback
+            contactReason:
+                label: Contact reason
 
             method:
                 email: Email
