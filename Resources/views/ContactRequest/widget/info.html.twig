@@ -3,6 +3,7 @@
 <div class="widget-content">
     <div class="row-fluid form-horizontal">
         <div class="responsive-block">
+            {{ ui.renderProperty('orocrm.contactus.contactrequest.status.label'|trans, entity.status.label|trans|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.channel.label'|trans, entity.channel.name|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.firstName.label'|trans, entity.firstName|escape) }}
             {{ ui.renderProperty('orocrm.contactus.contactrequest.lastName.label'|trans, entity.lastName|escape) }}

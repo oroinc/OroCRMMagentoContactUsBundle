@@ -2,14 +2,23 @@
 
 namespace OroCRM\Bundle\ContactUsBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
+use Oro\Bundle\EmailBundle\Entity\Email;
+use OroCRM\Bundle\CallBundle\Entity\Call;
 use Symfony\Component\Validator\ExecutionContext;
 
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\IntegrationBundle\Model\IntegrationEntityTrait;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
 use Oro\Bundle\LocaleBundle\Model\FirstNameInterface;
 use Oro\Bundle\LocaleBundle\Model\LastNameInterface;
+use Oro\Bundle\IntegrationBundle\Model\IntegrationEntityTrait;
+use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+
+use OroCRM\Bundle\SalesBundle\Entity\Lead;
+use OroCRM\Bundle\SalesBundle\Entity\Opportunity;
 
 /**
  * @ORM\Entity
@@ -94,6 +103,14 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     protected $contactReason;
 
     /**
+     * @var ContactRequestStatus
+     *
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus")
+     * @ORM\JoinColumn(name="contact_request_status_name", referencedColumnName="name", onDelete="SET NULL")
+     **/
+    protected $status;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="feedback", type="text", nullable=true)
@@ -120,6 +137,70 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      * @ORM\Column(type="datetime")
      */
     protected $updatedAt;
+
+    /**
+     * @var Opportunity
+     *
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\SalesBundle\Entity\Opportunity")
+     * @ORM\JoinColumn(name="opportunity_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $opportunity;
+
+    /**
+     * @var Lead
+     *
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\SalesBundle\Entity\Lead")
+     * @ORM\JoinColumn(name="lead_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $lead;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="OroCRM\Bundle\CallBundle\Entity\Call")
+     * @ORM\JoinTable(name="orocrm_contactus_request_calls",
+     *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="call_id", referencedColumnName="id", onDelete="CASCADE")}
+     * )
+     */
+    protected $calls;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Oro\Bundle\EmailBundle\Entity\Email")
+     * @ORM\JoinTable(name="orocrm_contactus_request_emails",
+     *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="email_id", referencedColumnName="id", onDelete="CASCADE")}
+     * )
+     */
+    protected $emails;
+
+    /**
+     * TODO: Move field to custom entity config https://magecore.atlassian.net/browse/BAP-2923
+     *
+     * @var WorkflowItem
+     *
+     * @ORM\OneToOne(targetEntity="Oro\Bundle\WorkflowBundle\Entity\WorkflowItem")
+     * @ORM\JoinColumn(name="workflow_item_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $workflowItem;
+
+    /**
+     * TODO: Move field to custom entity config https://magecore.atlassian.net/browse/BAP-2923
+     *
+     * @var WorkflowStep
+     *
+     * @ORM\ManyToOne(targetEntity="Oro\Bundle\WorkflowBundle\Entity\WorkflowStep")
+     * @ORM\JoinColumn(name="workflow_step_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $workflowStep;
+
+    public function __construct()
+    {
+        $this->calls  = new ArrayCollection();
+        $this->emails = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -256,6 +337,24 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     }
 
     /**
+     * @param ContactRequestStatus $status
+     *
+     * @return $this
+     */
+    public function setStatus(ContactRequestStatus $status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return ContactRequestStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
      * @param string $comment
      *
      * @return $this
@@ -328,13 +427,111 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     }
 
     /**
-     * Pre persist event listener
-     *
-     * @ORM\PrePersist
+     * @return ArrayCollection
      */
-    public function beforeSave()
+    public function getCalls()
     {
-        $this->createdAt = $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        return $this->calls;
+    }
+
+    /**
+     * @param Call $call
+     */
+    public function addCall(Call $call)
+    {
+        if (!$this->hasCall($call)) {
+            $this->getCalls()->add($call);
+        }
+    }
+
+    /**
+     * @param Call $call
+     */
+    public function removeCall(Call $call)
+    {
+        if ($this->hasCall($call)) {
+            $this->getCalls()->removeElement($call);
+        }
+    }
+
+    /**
+     * @param Call $call
+     *
+     * @return bool
+     */
+    public function hasCall(Call $call)
+    {
+        return $this->getCalls()->contains($call);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    /**
+     * @param Email $email
+     */
+    public function addEmail(Email $email)
+    {
+        if (!$this->hasEmail($email)) {
+            $this->getEmails()->add($email);
+        }
+    }
+
+    /**
+     * @param Email $email
+     */
+    public function removeEmail(Email $email)
+    {
+        if ($this->hasEmail($email)) {
+            $this->getEmails()->removeElement($email);
+        }
+    }
+
+    /**
+     * @param Email $email
+     *
+     * @return bool
+     */
+    public function hasEmail(Email $email)
+    {
+        return $this->getEmails()->contains($email);
+    }
+
+    /**
+     * @param WorkflowItem $workflowItem
+     */
+    public function setWorkflowItem($workflowItem)
+    {
+        $this->workflowItem = $workflowItem;
+    }
+
+    /**
+     * @return WorkflowItem
+     */
+    public function getWorkflowItem()
+    {
+        return $this->workflowItem;
+    }
+
+    /**
+     * @param WorkflowStep $workflowStep
+     */
+    public function setWorkflowStep($workflowStep)
+    {
+        $this->workflowStep = $workflowStep;
+    }
+
+    /**
+     * @return WorkflowStep
+     */
+    public function getWorkflowStep()
+    {
+        return $this->workflowStep;
     }
 
     /**
@@ -375,5 +572,16 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
         if ($phoneError) {
             $context->addViolationAt('phone', 'Phone is required for chosen contact method');
         }
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist(LifecycleEventArgs $eventArgs)
+    {
+        $this->createdAt = $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $em              = $eventArgs->getEntityManager();
+        $defaultStatus   = $em->getReference('OroCRMContactUsBundle:ContactRequestStatus', 'open');
+        $this->setStatus($defaultStatus);
     }
 }

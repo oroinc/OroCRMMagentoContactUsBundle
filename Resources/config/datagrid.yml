@@ -12,11 +12,13 @@ datagrid:
                     - contact_request.phone
                     - contact_request.createdAt
                     - channel.name as channelName
+                    - status.label as statusLabel
                 from:
                     - { table: OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest, alias: contact_request }
                 join:
                     left:
                         - { join: contact_request.channel, alias: channel }
+                        - { join: contact_request.status, alias: status }
         columns:
             channelName:
                 label: orocrm.contactus.contactrequest.channel.label
@@ -28,6 +30,9 @@ datagrid:
                 label: orocrm.contactus.contactrequest.phone.label
             email:
                 label: orocrm.contactus.contactrequest.email.label
+            statusLabel:
+                type:  translatable
+                label: orocrm.contactus.contactrequest.status.label
             createdAt:
                 frontend_type: datetime
                 label: orocrm.contactus.contactrequest.created_at.label
@@ -43,6 +48,8 @@ datagrid:
                     data_name: contact_request.phone
                 email:
                     data_name: contact_request.email
+                statusLabel:
+                    data_name: statusLabel
                 createdAt:
                     data_name: contact_request.createdAt
             default:
@@ -69,6 +76,13 @@ datagrid:
                 email:
                     type:      string
                     data_name: contact_request.email
+                statusLabel:
+                    type: entity
+                    data_name: status.label
+                    options:
+                        field_options:
+                            class: OroCRMContactUsBundle:ContactRequestStatus
+                            property: label
                 createdAt:
                     type: datetime
                     data_name: contact_request.createdAt

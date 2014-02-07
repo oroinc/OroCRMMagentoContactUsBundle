@@ -31,6 +31,8 @@ orocrm:
                 label: Contact reason
             choose_contact_reason:
                 label: Choose contact reason...
+            status:
+                label: Status
 
             method:
                 email: Email
