@@ -18,49 +18,37 @@ datagrid:
                     left:
                         - { join: contact_request.channel, alias: channel }
         columns:
+            channelName:
+                label: orocrm.contactus.contactrequest.channel.label
             firstName:
                 label: orocrm.contactus.contactrequest.firstName.label
             lastName:
                 label: orocrm.contactus.contactrequest.lastName.label
-            email:
-                label: orocrm.contactus.contactrequest.email.label
             phone:
                 label: orocrm.contactus.contactrequest.phone.label
-            channelName:
-                label: orocrm.contactus.contactrequest.channel.label
+            email:
+                label: orocrm.contactus.contactrequest.email.label
             createdAt:
                 frontend_type: datetime
                 label: orocrm.contactus.contactrequest.created_at.label
         sorters:
             columns:
+                channelName:
+                    data_name: channel.name
                 firstName:
                     data_name: contact_request.firstName
                 lastName:
                     data_name: contact_request.lastName
-                email:
-                    data_name: contact_request.email
                 phone:
                     data_name: contact_request.phone
-                channelName:
-                    data_name: channel.name
+                email:
+                    data_name: contact_request.email
                 createdAt:
                     data_name: contact_request.createdAt
             default:
                 createdAt: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC
         filters:
             columns:
-                firstName:
-                    type:      string
-                    data_name: contact_request.firstName
-                lastName:
-                    type:      string
-                    data_name: contact_request.lastName
-                email:
-                    type:      string
-                    data_name: contact_request.email
-                phone:
-                    type:      string
-                    data_name: contact_request.phone
                 channel:
                     type: entity
                     data_name: channel
@@ -69,6 +57,18 @@ datagrid:
                         field_options:
                           class: OroIntegrationBundle:Channel
                           property: name
+                firstName:
+                    type:      string
+                    data_name: contact_request.firstName
+                lastName:
+                    type:      string
+                    data_name: contact_request.lastName
+                phone:
+                    type:      string
+                    data_name: contact_request.phone
+                email:
+                    type:      string
+                    data_name: contact_request.email
                 createdAt:
                     type: datetime
                     data_name: contact_request.createdAt
