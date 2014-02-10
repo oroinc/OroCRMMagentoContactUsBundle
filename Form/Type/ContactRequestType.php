@@ -17,7 +17,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
      */
     public function getName()
     {
-        return 'contact_request';
+        return 'orocrm_contactus_contact_request';
     }
 
     /**

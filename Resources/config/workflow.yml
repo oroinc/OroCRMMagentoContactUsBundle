@@ -97,6 +97,9 @@ workflows:
             opportunity_budget:
                 label: 'Budget amount'
                 type:  float
+            opportunity_company_name:
+                label:    'Company name'
+                type:     string
 
             # lead attributes
             lead_owner:
@@ -295,6 +298,10 @@ workflows:
                             options:
                                 required: false
                                 label:    'Contact'
+                        opportunity_company_name:
+                            form_type: text
+                            options:
+                                required: false
                         opportunity_budget:
                             form_type: oro_money
                             options:
@@ -305,6 +312,7 @@ workflows:
                                 required: false
                     init_actions:
                         - @assign_active_user: $opportunity_owner
+                        - @assign_value: [$opportunity_company_name,  $request.organizationName]
                         - @format_name:
                             attribute: $opportunity_name
                             object:    $request
@@ -469,6 +477,11 @@ workflows:
                         - @not_empty:
                             parameters: $opportunity_owner
                             message:    'Owner must be set'
+                        - @or:
+                            parameters:
+                                - @not_empty: $opportunity_company_name
+                                - @not_empty: $account
+                            message: "Company name or account must be selected."
                 post_actions:
                     - @find_entity:
                         class:       OroCRM\Bundle\SalesBundle\Entity\OpportunityStatus
@@ -478,13 +491,13 @@ workflows:
                         conditions:
                             @and: # if account not selected and company name is selected
                                 - @empty:     $account
-                                - @not_empty: $lead_company_name
+                                - @not_empty: $opportunity_company_name
                         actions:
                             - @find_entity: # try to find account by company name
                                 class:     OroCRM\Bundle\AccountBundle\Entity\Account
                                 attribute: $account
                                 where:
-                                    name:  $lead_company_name
+                                    name:  $opportunity_company_name
                                 case_insensitive: true
                             - @create_entity: # if account not found - create new one
                                 conditions:
@@ -493,9 +506,9 @@ workflows:
                                     class:      OroCRM\Bundle\AccountBundle\Entity\Account
                                     attribute:  $account
                                     data:
-                                        name:        $lead_company_name
-                                        extendPhone: $lead_phone
-                                        extendEmail: $lead_email
+                                        name:        $opportunity_company_name
+                                        extendPhone: $request.phone
+                                        extendEmail: $request.emailAddress
                     - @create_entity: # create an opportunity
                         class:     OroCRM\Bundle\SalesBundle\Entity\Opportunity
                         attribute: $request.opportunity
@@ -508,8 +521,7 @@ workflows:
                             status:       $.result.opportunity_status
                             notes:        $feedback
             convert_to_lead_definition:
-                pre_conditions:
-                    @equal: [$request.status.name, 'open']
+                pre_conditions: []
                 conditions:
                     @and:
                         - @not_empty:
@@ -524,11 +536,6 @@ workflows:
                         - @not_empty:
                             parameters: $lead_owner
                             message:    'Lead must be set'
-                        - @or:
-                            parameters:
-                                - @not_empty: $lead_company_name
-                                - @not_empty: $account
-                            message: "Company name or account must be selected."
                 post_actions:
                     - @find_entity:
                         class:       OroCRM\Bundle\SalesBundle\Entity\LeadStatus
