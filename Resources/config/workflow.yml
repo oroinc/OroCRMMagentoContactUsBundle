@@ -85,7 +85,7 @@ workflows:
                 label:  'Email content'
                 type:   string
 
-            # oportunity attributes
+            # opportunity attributes
             opportunity_name:
                 label: 'Opportunity name'
                 type:   string

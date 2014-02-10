@@ -3,6 +3,7 @@
 namespace OroCRM\Bundle\ContactUsBundle\Tests\Unit\Datagrid;
 
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
+
 use OroCRM\Bundle\ContactUsBundle\Datagrid\ContactRequestDatagridHelper;
 
 class ContactRequestDatagridHelperTest extends \PHPUnit_Framework_TestCase
@@ -34,7 +35,7 @@ class ContactRequestDatagridHelperTest extends \PHPUnit_Framework_TestCase
         $step2 = new WorkflowStep();
         $step2->setLabel('Step 2 Label');
 
-        $mockRepo = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
+        $mockRepo = $this->getMockBuilder('Oro\Bundle\WorkflowBundle\Entity\Repository\WorkflowStepRepository')
             ->disableOriginalConstructor()->getMock();
 
         $mockRepo->expects($this->once())->method('findByRelatedEntityByName')

@@ -3,7 +3,6 @@
 namespace OroCRM\Bundle\ContactUsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Oro\Bundle\EmailBundle\Entity\Email;
@@ -202,8 +201,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $firstName
-     *
-     *
      */
     public function setFirstName($firstName)
     {
@@ -220,8 +217,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $lastName
-     *
-     *
      */
     public function setLastName($lastName)
     {
@@ -238,8 +233,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $organizationName
-     *
-     *
      */
     public function setOrganizationName($organizationName)
     {
@@ -256,8 +249,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $preferredContactMethod
-     *
-     *
      */
     public function setPreferredContactMethod($preferredContactMethod)
     {
@@ -274,8 +265,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $phone
-     *
-     *
      */
     public function setPhone($phone)
     {
@@ -324,8 +313,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $comment
-     *
-     *
      */
     public function setComment($comment)
     {
@@ -342,8 +329,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $feedback
-     *
-     *
      */
     public function setFeedback($feedback)
     {
@@ -360,8 +345,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param \DateTime $createdAt
-     *
-     *
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -378,8 +361,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param \DateTime $updatedAt
-     *
-     *
      */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
@@ -535,8 +516,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     }
 
     /**
-     * Pre update event handler
-     *
      * @ORM\PreUpdate
      */
     public function preUpdate()
@@ -550,6 +529,5 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     public function prePersist()
     {
         $this->createdAt = $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
-
     }
 }
