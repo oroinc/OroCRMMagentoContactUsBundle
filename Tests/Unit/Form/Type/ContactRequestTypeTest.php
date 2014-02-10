@@ -78,26 +78,17 @@ class ContactRequestTypeTest extends TypeTestCase
         ];
     }
 
-    /**
-     * @test
-     */
-    public function shouldHasName()
+    public function testHasName()
     {
         $this->assertEquals('orocrm_contactus_contact_request', $this->formType->getName());
     }
 
-    /**
-     * @test
-     */
-    public function shouldHasChannelAwareParent()
+    public function testHasChannelAwareParent()
     {
         $this->assertEquals('oro_channel_aware_form', $this->formType->getParent());
     }
 
-    /**
-     * @test
-     */
-    public function shouldImplementEmbeddedFormInterface()
+    public function testImplementEmbeddedFormInterface()
     {
         $this->assertTrue($this->formType instanceof EmbeddedFormInterface);
 
@@ -111,10 +102,7 @@ class ContactRequestTypeTest extends TypeTestCase
         $this->assertInternalType('string', $this->formType->geFormLayout());
     }
 
-    /**
-     * @test
-     */
-    public function shouldBuildForm()
+    public function testBuildForm()
     {
         $form = $this->factory->create($this->formType, null);
 
