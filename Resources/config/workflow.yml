@@ -11,26 +11,26 @@ workflows:
                 order: 10
                 allowed_transitions:
                     - log_call
-#                    - send_email
+                    - send_email
                     - resolve
             contacted:
                 label: 'Contacted'
                 order: 20
                 allowed_transitions:
                     - log_call
-#                    - send_email
+                    - send_email
+                    - convert_to_opportunity
+                    - convert_to_lead
                     - resolve
-#                    - convert_to_opportunity
-#                    - convert_to_lead
             resolved:
                 label: 'Resolved'
                 order: 40
-#            converted_to_opportunity:
-#                label: 'Converted to opportunity'
-#                order: 30
-#            converted_to_lead:
-#                label: 'Converted to lead'
-#                order: 30
+            converted_to_opportunity:
+                label: 'Converted to opportunity'
+                order: 30
+            converted_to_lead:
+                label: 'Converted to lead'
+                order: 30
 
         attributes:
             # Call related fields
@@ -66,6 +66,63 @@ workflows:
                 options:
                     class: DateTime
 
+            # Email related fields
+            email:
+                label: 'Email'
+                type:  entity
+                options:
+                    class: Oro\Bundle\EmailBundle\Entity\Email
+            email_from:
+                label:  'Email sender'
+                type:   string
+            email_to:
+                label:  'Email recipient'
+                type:   string
+            email_subject:
+                label:  'Email subject'
+                type:    string
+            email_body:
+                label:  'Email content'
+                type:   string
+
+            # oportunity attributes
+            opportunity_name:
+                label: 'Opportunity name'
+                type:   string
+            opportunity_owner:
+                label: 'Owner'
+                type:  entity
+                options:
+                    class: Oro\Bundle\UserBundle\Entity\User
+            opportunity_budget:
+                label: 'Budget amount'
+                type:  float
+
+            # lead attributes
+            lead_owner:
+                label: 'Owner'
+                type:  entity
+                options:
+                    class: Oro\Bundle\UserBundle\Entity\User
+            lead_name:
+                label:    'Lead name'
+                type:      string
+            lead_first_name:
+                label:    'First name'
+                type:      string
+            lead_last_name:
+                label:    'Last name'
+                type:      string
+            lead_phone:
+                label:    'Phone number'
+                type:     string
+            lead_email:
+                label:    'Email'
+                type:     string
+            lead_company_name:
+                label:    'Company name'
+                type:     string
+
             # Other workflow attributes
             feedback:
                 label: 'Feedback'
@@ -77,8 +134,8 @@ workflows:
                 options:
                     class: OroCRM\Bundle\AccountBundle\Entity\Account
             contact:
-                label: 'Contact'
-                type: entity
+                label:  'Contact'
+                type:   entity
                 options:
                     class: OroCRM\Bundle\ContactBundle\Entity\Contact
         transitions:
@@ -150,6 +207,177 @@ workflows:
                         - @create_datetime:
                             time: '00:00:00'
                             attribute: $call_duration
+            send_email:
+                label:    'Send email'
+                step_to:  contacted
+                is_start: true
+                is_unavailable_hidden: true
+                frontend_options:
+                    icon: 'icon-envelope-alt'
+                    dialog:
+                        dialogOptions:
+                            width: 700
+                transition_definition: send_email_definition
+                form_options:
+                    attribute_fields:
+                        email_from:
+                            form_type: oro_email_email_address
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                                    - Email: ~
+                        email_to:
+                            form_type: oro_email_email_address
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                                    - Email: ~
+                        email_subject:
+                            form_type: text
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                        email_body:
+                            form_type: textarea
+                            options:
+                                required: true
+                                attr:
+                                    style: 'width: 90%;height: 200px;'
+                                constraints:
+                                    - NotBlank: ~
+                        feedback:
+                            form_type: textarea
+                            options:
+                                required: false
+                                attr:
+                                    style: 'width: 90%;height: 60px'
+                    init_actions:
+                        - @assign_active_user: $.result.user
+                        - @assign_value: [$email_from, $.result.user.email]
+                        - @assign_value:
+                            conditions:
+                                @and:
+                                    - @empty: $email_to
+                                    - @not_empty: $request.emailAddress
+                            parameters: [$email_to, $request.emailAddress]
+            convert_to_opportunity:
+                label:    'Convert to opportunity'
+                step_to:  converted_to_opportunity
+                is_start: false
+                is_unavailable_hidden: true
+                frontend_options:
+                    icon: 'icon-usd'
+                transition_definition: convert_to_opportunity_definition
+                form_options:
+                    attribute_fields:
+                        opportunity_name:
+                            form_type: text
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                        opportunity_owner:
+                            form_type: oro_user_select
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                        account:
+                            form_type: orocrm_account_select
+                            options:
+                                required: false
+                                label:    'Account'
+                        contact:
+                            form_type: orocrm_contact_select
+                            options:
+                                required: false
+                                label:    'Contact'
+                        opportunity_budget:
+                            form_type: oro_money
+                            options:
+                                required: false
+                        feedback:
+                            form_type: textarea
+                            options:
+                                required: false
+                    init_actions:
+                        - @assign_active_user: $opportunity_owner
+                        - @format_name:
+                            attribute: $opportunity_name
+                            object:    $request
+            convert_to_lead:
+                label:     'Convert to lead'
+                step_to:   converted_to_lead
+                is_start:  false
+                is_unavailable_hidden: true
+                transition_definition: convert_to_lead_definition
+                form_options:
+                    attribute_fields:
+                        lead_owner:
+                            form_type: oro_user_select
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                        account:
+                            form_type: orocrm_account_select
+                            options:
+                                required: false
+                                label:    'Account'
+                        contact:
+                            form_type: orocrm_contact_select
+                            options:
+                                required: false
+                                label:    'Contact'
+                        lead_name:
+                            form_type: text
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                        lead_first_name:
+                            form_type: text
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                        lead_last_name:
+                            form_type: text
+                            options:
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
+                        lead_company_name:
+                            form_type: text
+                            options:
+                                required: false
+                        lead_phone:
+                            form_type: text
+                            options:
+                                required: false
+                        lead_email:
+                            form_type: oro_email_email_address
+                            options:
+                                required: false
+                                constraints:
+                                   - Email: ~
+                        feedback:
+                            form_type: textarea
+                            options:
+                                required: false
+                    init_actions:
+                        - @assign_active_user: $lead_owner
+                        - @format_name:
+                            attribute: $lead_name
+                            object:    $request
+                        - @assign_value: [$lead_first_name, $request.firstName]
+                        - @assign_value: [$lead_last_name,  $request.lastName]
+                        - @assign_value: [$lead_company_name,  $request.organizationName]
+                        - @assign_value: [$lead_phone,  $request.phone]
+                        - @assign_value: [$lead_email,  $request.emailAddress]
             resolve:
                 label:      'Resolve'
                 step_to:    resolved
@@ -205,6 +433,135 @@ workflows:
                         method:            'addCall'
                         object:            $request
                         method_parameters: [$call]
+            send_email_definition:
+                pre_conditions:
+                    @and:
+                        - @equal:     [$request.status.name, 'open']
+                        - @not_empty: $request.email_address
+                conditions:
+                    @and:
+                        - @not_empty:
+                            parameters: $email_from
+                            message: 'Email sender must be set'
+                        - @not_empty:
+                            parameters: $email_to
+                            message: 'Email recipient must be set'
+                        - @not_empty:
+                            parameters: $email_subject
+                            message: 'Email subject must be set'
+                        - @not_empty:
+                            parameters: $email_body
+                            message: 'Email content must be chosen'
+                post_actions:
+                    - @send_email: # Send email
+                        attribute: $email
+                        from:      $email_from
+                        to:        $email_to
+                        subject:   $email_subject
+                        body:      $email_body
+                    - @call_method:
+                        method:    'addEmail'
+                        object:    $request
+                        method_parameters: [ $email ]
+            convert_to_opportunity_definition:
+                pre_conditions:
+                    @equal: [$request.status.name, 'open']
+                conditions:
+                    @and:
+                        - @not_empty:
+                            parameters: $opportunity_name
+                            message:    'Opportunity name must be set'
+                        - @not_empty:
+                            parameters: $opportunity_owner
+                            message:    'Owner must be set'
+                post_actions:
+                    - @find_entity:
+                        class:       OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus
+                        identifier:  'converted_to_opportunity'
+                        attribute:   $request.status
+                    - @find_entity:
+                        class:       OroCRM\Bundle\SalesBundle\Entity\OpportunityStatus
+                        identifier:  'in_progress'
+                        attribute:   $.result.opportunity_status
+                    - @create_entity: # create an opportunity
+                        class:     OroCRM\Bundle\SalesBundle\Entity\Opportunity
+                        attribute: $request.opportunity
+                        data:
+                            name:         $opportunity_name
+                            owner:        $opportunity_owner
+                            budgetAmount: $opportunity_budget
+                            account:      $account
+                            contact:      $contact
+                            status:       $.result.opportunity_status
+                            notes:        $feedback
+            convert_to_lead_definition:
+                pre_conditions:
+                    @equal: [$request.status.name, 'open']
+                conditions:
+                    @and:
+                        - @not_empty:
+                            parameters: $lead_name
+                            message:    'Lead name must be set'
+                        - @not_empty:
+                            parameters: $lead_first_name
+                            message:    'Lead first name must be set'
+                        - @not_empty:
+                            parameters: $lead_last_name
+                            message:    'Lead last name must be set'
+                        - @not_empty:
+                            parameters: $lead_owner
+                            message:    'Lead must be set'
+                        - @or:
+                            parameters:
+                                - @not_empty: $lead_company_name
+                                - @not_empty: $account
+                            message: "Company name or account must be selected."
+                post_actions:
+                    - @find_entity:
+                        class:       OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus
+                        identifier:  'converted_to_lead'
+                        attribute:   $request.status
+                    - @find_entity:
+                        class:       OroCRM\Bundle\SalesBundle\Entity\LeadStatus
+                        identifier:  'new'
+                        attribute:   $.result.lead_status
+                    - @tree: # create and set Account
+                        conditions:
+                            @and: # if account not selected and company name is selected
+                                - @empty:     $account
+                                - @not_empty: $lead_company_name
+                        actions:
+                            - @find_entity: # try to find account by company name
+                                class:     OroCRM\Bundle\AccountBundle\Entity\Account
+                                attribute: $account
+                                where:
+                                    name:  $lead_company_name
+                                case_insensitive: true
+                            - @create_entity: # if account not found - create new one
+                                conditions:
+                                    @empty: $account
+                                parameters:
+                                    class:      OroCRM\Bundle\AccountBundle\Entity\Account
+                                    attribute:  $account
+                                    data:
+                                        name:        $lead_company_name
+                                        extendPhone: $lead_phone
+                                        extendEmail: $lead_email
+                    - @create_entity: # create a lead
+                        class:     OroCRM\Bundle\SalesBundle\Entity\Lead
+                        attribute: $request.lead
+                        data:
+                            name:         $lead_name
+                            firstName:    $lead_first_name
+                            lastName:     $lead_last_name
+                            companyName:  $lead_company_name
+                            owner:        $lead_owner
+                            phoneNumber:  $lead_phone
+                            email:        $lead_email
+                            account:      $account
+                            contact:      $contact
+                            status:       $.result.lead_status
+                            notes:        $feedback
             resolve_definition:
                 pre_conditions:
                     @equal: [$request.status.name, 'open']

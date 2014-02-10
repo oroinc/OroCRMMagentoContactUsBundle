@@ -2,14 +2,13 @@
 
 namespace OroCRM\Bundle\ContactUsBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Common\Collections\ArrayCollection;
 
-use Oro\Bundle\EmailBundle\Entity\Email;
-use OroCRM\Bundle\CallBundle\Entity\Call;
 use Symfony\Component\Validator\ExecutionContext;
 
+use Oro\Bundle\EmailBundle\Entity\Email;
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
 use Oro\Bundle\LocaleBundle\Model\FirstNameInterface;
@@ -17,6 +16,7 @@ use Oro\Bundle\LocaleBundle\Model\LastNameInterface;
 use Oro\Bundle\IntegrationBundle\Model\IntegrationEntityTrait;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 
+use OroCRM\Bundle\CallBundle\Entity\Call;
 use OroCRM\Bundle\SalesBundle\Entity\Lead;
 use OroCRM\Bundle\SalesBundle\Entity\Opportunity;
 
@@ -83,16 +83,16 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="phone", type="string", nullable=true)
      */
     protected $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="email_address", type="string", nullable=true)
      */
-    protected $email;
+    protected $emailAddress;
 
     /**
      * @var ContactReason
@@ -213,7 +213,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param string $firstName
      *
-     * @return $this
+     *
      */
     public function setFirstName($firstName)
     {
@@ -231,7 +231,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param string $lastName
      *
-     * @return $this
+     *
      */
     public function setLastName($lastName)
     {
@@ -249,7 +249,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param string $organizationName
      *
-     * @return $this
+     *
      */
     public function setOrganizationName($organizationName)
     {
@@ -267,7 +267,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param string $preferredContactMethod
      *
-     * @return $this
+     *
      */
     public function setPreferredContactMethod($preferredContactMethod)
     {
@@ -285,7 +285,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param string $phone
      *
-     * @return $this
+     *
      */
     public function setPhone($phone)
     {
@@ -301,27 +301,25 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     }
 
     /**
-     * @param string $email
-     *
-     * @return $this
+     * @param string $emailAddress
      */
-    public function setEmail($email)
+    public function setEmailAddress($emailAddress)
     {
-        $this->email = $email;
+        $this->emailAddress = $emailAddress;
     }
 
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmailAddress()
     {
-        return $this->email;
+        return $this->emailAddress;
     }
 
     /**
      * @param ContactReason $contactReason
      *
-     * @return $this
+     *
      */
     public function setContactReason(ContactReason $contactReason = null)
     {
@@ -339,7 +337,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param ContactRequestStatus $status
      *
-     * @return $this
+     *
      */
     public function setStatus(ContactRequestStatus $status)
     {
@@ -357,7 +355,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param string $comment
      *
-     * @return $this
+     *
      */
     public function setComment($comment)
     {
@@ -375,7 +373,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param string $feedback
      *
-     * @return $this
+     *
      */
     public function setFeedback($feedback)
     {
@@ -393,7 +391,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param \DateTime $createdAt
      *
-     * @return $this
+     *
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -411,7 +409,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param \DateTime $updatedAt
      *
-     * @return $this
+     *
      */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
@@ -424,6 +422,38 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @param Lead $lead
+     */
+    public function setLead(Lead $lead)
+    {
+        $this->lead = $lead;
+    }
+
+    /**
+     * @return Lead
+     */
+    public function getLead()
+    {
+        return $this->lead;
+    }
+
+    /**
+     * @param Opportunity $opportunity
+     */
+    public function setOpportunity(Opportunity $opportunity)
+    {
+        $this->opportunity = $opportunity;
+    }
+
+    /**
+     * @return Opportunity
+     */
+    public function getOpportunity()
+    {
+        return $this->opportunity;
     }
 
     /**
@@ -505,7 +535,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param WorkflowItem $workflowItem
      */
-    public function setWorkflowItem($workflowItem)
+    public function setWorkflowItem(WorkflowItem $workflowItem)
     {
         $this->workflowItem = $workflowItem;
     }
@@ -521,7 +551,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @param WorkflowStep $workflowStep
      */
-    public function setWorkflowStep($workflowStep)
+    public function setWorkflowStep(WorkflowStep $workflowStep)
     {
         $this->workflowStep = $workflowStep;
     }
@@ -558,16 +588,16 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
                 $phoneError = !$this->getPhone();
                 break;
             case self::CONTACT_METHOD_EMAIL:
-                $emailError = !$this->getEmail();
+                $emailError = !$this->getEmailAddress();
                 break;
             case self::CONTACT_METHOD_BOTH:
             default:
                 $phoneError = !$this->getPhone();
-                $emailError = !$this->getEmail();
+                $emailError = !$this->getEmailAddress();
         }
 
         if ($emailError) {
-            $context->addViolationAt('email', 'Email is required for chosen contact method');
+            $context->addViolationAt('emailAddress', 'Email is required for chosen contact method');
         }
         if ($phoneError) {
             $context->addViolationAt('phone', 'Phone is required for chosen contact method');

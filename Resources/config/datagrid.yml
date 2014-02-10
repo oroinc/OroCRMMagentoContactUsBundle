@@ -8,7 +8,7 @@ datagrid:
                     - contact_request.id
                     - contact_request.firstName
                     - contact_request.lastName
-                    - contact_request.email
+                    - contact_request.emailAddress
                     - contact_request.phone
                     - contact_request.createdAt
                     - channel.name as channelName
@@ -28,8 +28,8 @@ datagrid:
                 label: orocrm.contactus.contactrequest.lastName.label
             phone:
                 label: orocrm.contactus.contactrequest.phone.label
-            email:
-                label: orocrm.contactus.contactrequest.email.label
+            emailAddress:
+                label: orocrm.contactus.contactrequest.emailAddress.label
             statusLabel:
                 type:  translatable
                 label: orocrm.contactus.contactrequest.status.label
@@ -46,8 +46,8 @@ datagrid:
                     data_name: contact_request.lastName
                 phone:
                     data_name: contact_request.phone
-                email:
-                    data_name: contact_request.email
+                emailAddress:
+                    data_name: contact_request.emailAddress
                 statusLabel:
                     data_name: statusLabel
                 createdAt:
@@ -73,12 +73,12 @@ datagrid:
                 phone:
                     type:      string
                     data_name: contact_request.phone
-                email:
+                emailAddress:
                     type:      string
-                    data_name: contact_request.email
+                    data_name: contact_request.emailAddress
                 statusLabel:
                     type: entity
-                    data_name: status.label
+                    data_name: status
                     options:
                         field_options:
                             class: OroCRMContactUsBundle:ContactRequestStatus

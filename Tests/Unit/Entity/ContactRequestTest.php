@@ -37,7 +37,7 @@ class ContactRequestTest extends \PHPUnit_Framework_TestCase
         $request->setChannel($channel);
         $request->setComment($comment);
         $request->setFeedback($feedback);
-        $request->setEmail($email);
+        $request->setEmailAddress($email);
         $request->setFirstName($firstName);
         $request->setLastName($lastName);
         $request->setPhone($phone);
@@ -53,7 +53,7 @@ class ContactRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($comment, $request->getComment());
         $this->assertEquals($feedback, $request->getFeedback());
         $this->assertEquals($organizationName, $request->getOrganizationName());
-        $this->assertEquals($email, $request->getEmail());
+        $this->assertEquals($email, $request->getEmailAddress());
         $this->assertEquals($firstName, $request->getFirstName());
         $this->assertEquals($lastName, $request->getLastName());
         $this->assertEquals($phone, $request->getPhone());
@@ -104,7 +104,7 @@ class ContactRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = new ContactRequest();
         $request->setPhone($phone);
-        $request->setEmail($email);
+        $request->setEmailAddress($email);
         $request->setPreferredContactMethod($method);
 
         $context = $this->getMockBuilder('Symfony\Component\Validator\ExecutionContext')

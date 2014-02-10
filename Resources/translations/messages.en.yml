@@ -13,7 +13,7 @@ orocrm:
                 label: Organization name
             preferredContactMethod:
                 label: Preferred contact method
-            email:
+            emailAddress:
                 label: Email
             phone:
                 label: Phone
@@ -33,6 +33,10 @@ orocrm:
                 label: Choose contact reason...
             status:
                 label: Status
+            opportunity:
+                label: Opportunity
+            lead:
+                label: Lead
 
             method:
                 email: Email

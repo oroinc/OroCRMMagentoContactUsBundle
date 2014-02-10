@@ -10,7 +10,7 @@ OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest:
                 max: 100
         preferredContactMethod:
             - NotBlank: ~
-        email:
+        emailAddress:
             - Email: ~
         comment:
             - NotBlank: ~
