@@ -16,4 +16,5 @@ OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest:
             - NotBlank: ~
     constraints:
         - Callback:
-            methods: [ validationCallback ]
+            methods:
+                - [ OroCRM\Bundle\ContactUsBundle\Validator\ContactRequestCallbackValidator, validate]

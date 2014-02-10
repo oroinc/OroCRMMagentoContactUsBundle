@@ -2,8 +2,9 @@
 
 namespace OroCRM\Bundle\ContactUsBundle\Controller;
 
-
 use FOS\Rest\Util\Codes;
+
+use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

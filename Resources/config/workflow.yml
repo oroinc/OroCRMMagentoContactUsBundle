@@ -125,17 +125,17 @@ workflows:
 
             # Other workflow attributes
             feedback:
-                label: 'Feedback'
-                type: string
+                label:        'Feedback'
+                type:          string
                 property_path: request.feedback
             account:
-                label: 'Account'
-                type: entity
+                label:  'Account'
+                type:   entity
                 options:
                     class: OroCRM\Bundle\AccountBundle\Entity\Account
             contact:
-                label:  'Contact'
-                type:   entity
+                label:   'Contact'
+                type:     entity
                 options:
                     class: OroCRM\Bundle\ContactBundle\Entity\Contact
         transitions:
@@ -394,9 +394,7 @@ workflows:
         transition_definitions:
             log_call_definition:
                 pre_conditions:
-                    @and:
-                        - @equal:     [$request.status.name, 'open']
-                        - @not_empty: $request.phone
+                    @not_empty: $request.phone
                 conditions:
                     @and:
                         - @not_empty:
@@ -435,9 +433,7 @@ workflows:
                         method_parameters: [$call]
             send_email_definition:
                 pre_conditions:
-                    @and:
-                        - @equal:     [$request.status.name, 'open']
-                        - @not_empty: $request.email_address
+                    @not_empty: $request.email_address
                 conditions:
                     @and:
                         - @not_empty:
@@ -464,8 +460,7 @@ workflows:
                         object:    $request
                         method_parameters: [ $email ]
             convert_to_opportunity_definition:
-                pre_conditions:
-                    @equal: [$request.status.name, 'open']
+                pre_conditions: []
                 conditions:
                     @and:
                         - @not_empty:
@@ -476,13 +471,31 @@ workflows:
                             message:    'Owner must be set'
                 post_actions:
                     - @find_entity:
-                        class:       OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus
-                        identifier:  'converted_to_opportunity'
-                        attribute:   $request.status
-                    - @find_entity:
                         class:       OroCRM\Bundle\SalesBundle\Entity\OpportunityStatus
                         identifier:  'in_progress'
                         attribute:   $.result.opportunity_status
+                    - @tree: # create and set Account
+                        conditions:
+                            @and: # if account not selected and company name is selected
+                                - @empty:     $account
+                                - @not_empty: $lead_company_name
+                        actions:
+                            - @find_entity: # try to find account by company name
+                                class:     OroCRM\Bundle\AccountBundle\Entity\Account
+                                attribute: $account
+                                where:
+                                    name:  $lead_company_name
+                                case_insensitive: true
+                            - @create_entity: # if account not found - create new one
+                                conditions:
+                                    @empty: $account
+                                parameters:
+                                    class:      OroCRM\Bundle\AccountBundle\Entity\Account
+                                    attribute:  $account
+                                    data:
+                                        name:        $lead_company_name
+                                        extendPhone: $lead_phone
+                                        extendEmail: $lead_email
                     - @create_entity: # create an opportunity
                         class:     OroCRM\Bundle\SalesBundle\Entity\Opportunity
                         attribute: $request.opportunity
@@ -518,35 +531,9 @@ workflows:
                             message: "Company name or account must be selected."
                 post_actions:
                     - @find_entity:
-                        class:       OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus
-                        identifier:  'converted_to_lead'
-                        attribute:   $request.status
-                    - @find_entity:
                         class:       OroCRM\Bundle\SalesBundle\Entity\LeadStatus
                         identifier:  'new'
                         attribute:   $.result.lead_status
-                    - @tree: # create and set Account
-                        conditions:
-                            @and: # if account not selected and company name is selected
-                                - @empty:     $account
-                                - @not_empty: $lead_company_name
-                        actions:
-                            - @find_entity: # try to find account by company name
-                                class:     OroCRM\Bundle\AccountBundle\Entity\Account
-                                attribute: $account
-                                where:
-                                    name:  $lead_company_name
-                                case_insensitive: true
-                            - @create_entity: # if account not found - create new one
-                                conditions:
-                                    @empty: $account
-                                parameters:
-                                    class:      OroCRM\Bundle\AccountBundle\Entity\Account
-                                    attribute:  $account
-                                    data:
-                                        name:        $lead_company_name
-                                        extendPhone: $lead_phone
-                                        extendEmail: $lead_email
                     - @create_entity: # create a lead
                         class:     OroCRM\Bundle\SalesBundle\Entity\Lead
                         attribute: $request.lead
@@ -563,10 +550,5 @@ workflows:
                             status:       $.result.lead_status
                             notes:        $feedback
             resolve_definition:
-                pre_conditions:
-                    @equal: [$request.status.name, 'open']
-                post_actions:
-                    - @find_entity:
-                        class:       OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus
-                        identifier: 'resolved'
-                        attribute:   $request.status
+                pre_conditions: []
+                post_actions:   []

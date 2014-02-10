@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Symfony\Component\Validator\ExecutionContext;
-
 use Oro\Bundle\EmailBundle\Entity\Email;
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
@@ -101,14 +99,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      * @ORM\JoinColumn(name="contact_reason_id", referencedColumnName="id")
      **/
     protected $contactReason;
-
-    /**
-     * @var ContactRequestStatus
-     *
-     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus")
-     * @ORM\JoinColumn(name="contact_request_status_name", referencedColumnName="name", onDelete="SET NULL")
-     **/
-    protected $status;
 
     /**
      * @var string
@@ -318,8 +308,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param ContactReason $contactReason
-     *
-     *
      */
     public function setContactReason(ContactReason $contactReason = null)
     {
@@ -332,24 +320,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     public function getContactReason()
     {
         return $this->contactReason;
-    }
-
-    /**
-     * @param ContactRequestStatus $status
-     *
-     *
-     */
-    public function setStatus(ContactRequestStatus $status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * @return ContactRequestStatus
-     */
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     /**
@@ -569,49 +539,17 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      *
      * @ORM\PreUpdate
      */
-    public function doPreUpdate()
+    public function preUpdate()
     {
         $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     /**
-     * Validates contact method
-     *
-     * @param ExecutionContext $context
-     */
-    public function validationCallback(ExecutionContext $context)
-    {
-        $emailError = $phoneError = false;
-
-        switch ($this->getPreferredContactMethod()) {
-            case self::CONTACT_METHOD_PHONE:
-                $phoneError = !$this->getPhone();
-                break;
-            case self::CONTACT_METHOD_EMAIL:
-                $emailError = !$this->getEmailAddress();
-                break;
-            case self::CONTACT_METHOD_BOTH:
-            default:
-                $phoneError = !$this->getPhone();
-                $emailError = !$this->getEmailAddress();
-        }
-
-        if ($emailError) {
-            $context->addViolationAt('emailAddress', 'Email is required for chosen contact method');
-        }
-        if ($phoneError) {
-            $context->addViolationAt('phone', 'Phone is required for chosen contact method');
-        }
-    }
-
-    /**
      * @ORM\PrePersist
      */
-    public function prePersist(LifecycleEventArgs $eventArgs)
+    public function prePersist()
     {
         $this->createdAt = $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
-        $em              = $eventArgs->getEntityManager();
-        $defaultStatus   = $em->getReference('OroCRMContactUsBundle:ContactRequestStatus', 'open');
-        $this->setStatus($defaultStatus);
+
     }
 }

@@ -12,24 +12,24 @@ datagrid:
                     - contact_request.phone
                     - contact_request.createdAt
                     - channel.name as channelName
-                    - status.label as statusLabel
+                    - step.label as statusLabel
                 from:
                     - { table: OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest, alias: contact_request }
                 join:
                     left:
                         - { join: contact_request.channel, alias: channel }
-                        - { join: contact_request.status, alias: status }
+                        - { join: contact_request.workflowStep, alias: step }
         columns:
             channelName:
                 label: orocrm.contactus.contactrequest.channel.label
             firstName:
-                label: orocrm.contactus.contactrequest.firstName.label
+                label: orocrm.contactus.contactrequest.first_name.label
             lastName:
-                label: orocrm.contactus.contactrequest.lastName.label
+                label: orocrm.contactus.contactrequest.last_name.label
             phone:
                 label: orocrm.contactus.contactrequest.phone.label
             emailAddress:
-                label: orocrm.contactus.contactrequest.emailAddress.label
+                label: orocrm.contactus.contactrequest.email_address.label
             statusLabel:
                 type:  translatable
                 label: orocrm.contactus.contactrequest.status.label
@@ -77,12 +77,11 @@ datagrid:
                     type:      string
                     data_name: contact_request.emailAddress
                 statusLabel:
-                    type: entity
-                    data_name: status
+                    type: choice
+                    data_name: step.name
                     options:
                         field_options:
-                            class: OroCRMContactUsBundle:ContactRequestStatus
-                            property: label
+                            choices: @orocrm_contact_us.datagrid.helper->getStatusChoices()
                 createdAt:
                     type: datetime
                     data_name: contact_request.createdAt

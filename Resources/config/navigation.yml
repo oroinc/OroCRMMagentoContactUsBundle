@@ -14,6 +14,6 @@ oro_menu_config:
 
 oro_titles:
     orocrm_contactus_request_index:   ~
-    orocrm_contactus_request_view:    %%request.clientName%%'s contact request
+    orocrm_contactus_request_view:    %%request.clientName%%
     orocrm_contactus_request_create:  Create contact request
-    orocrm_contactus_request_update:  %%request.clientName%%'s contact request - Edit
+    orocrm_contactus_request_update:  %%request.clientName%% - Edit
