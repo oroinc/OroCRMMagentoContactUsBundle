@@ -15,8 +15,8 @@ services:
         factory_method: createNamed
         factory_service: form.factory
         arguments:
-            - "orocrm_contactus_contact_request"
-            - "orocrm_contactus_contact_request"
+            - "orocrm_magento_contactus_contact_request"
+            - "orocrm_magento_contactus_contact_request"
 
     orocrm_magento_contact_us.datagrid.helper:
         class: %orocrm_magento_contact_us.datagrid.helper.class%

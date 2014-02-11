@@ -21,21 +21,21 @@ datagrid:
                         - { join: cr.workflowStep, alias: step }
         columns:
             channelName:
-                label: orocrm.contactus.contactrequest.channel.label
+                label: orocrm.magentocontactus.contactrequest.channel.label
             firstName:
-                label: orocrm.contactus.contactrequest.first_name.label
+                label: orocrm.magentocontactus.contactrequest.first_name.label
             lastName:
-                label: orocrm.contactus.contactrequest.last_name.label
+                label: orocrm.magentocontactus.contactrequest.last_name.label
             phone:
-                label: orocrm.contactus.contactrequest.phone.label
+                label: orocrm.magentocontactus.contactrequest.phone.label
             emailAddress:
-                label: orocrm.contactus.contactrequest.email_address.label
+                label: orocrm.magentocontactus.contactrequest.email_address.label
             statusLabel:
                 type:  translatable
-                label: orocrm.contactus.contactrequest.status.label
+                label: orocrm.magentocontactus.contactrequest.status.label
             createdAt:
                 frontend_type: datetime
-                label: orocrm.contactus.contactrequest.created_at.label
+                label: orocrm.magentocontactus.contactrequest.created_at.label
         sorters:
             columns:
                 channelName:
@@ -59,7 +59,7 @@ datagrid:
                 channel:
                     type: entity
                     data_name: channel
-                    label: orocrm.contactus.contactrequest.channel.label
+                    label: orocrm.magentocontactus.contactrequest.channel.label
                     options:
                         field_options:
                           class: OroIntegrationBundle:Channel
@@ -103,7 +103,7 @@ datagrid:
             view:
                 acl_resource: oro_embedded_form_view
                 type: navigate
-                label: orocrm.contactus.contactrequest.datagrid.view
+                label: orocrm.magentocontactus.contactrequest.datagrid.view
                 icon: user
                 link: view_link
                 rowAction: true
@@ -116,7 +116,7 @@ datagrid:
             delete:
                 acl_resource: oro_embedded_form_delete
                 type: delete
-                label: orocrm.contactus.contactrequest.datagrid.delete
+                label: orocrm.magentocontactus.contactrequest.datagrid.delete
                 icon: trash
                 link: delete_link
         options:

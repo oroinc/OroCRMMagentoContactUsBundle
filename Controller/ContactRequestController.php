@@ -118,7 +118,7 @@ class ContactRequestController extends Controller
         if ($this->get('orocrm_magento_contact_us.contact_request.form.handler')->process($contactRequest)) {
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('orocrm.magento_contact_us.contact_request.entity.saved')
+                $this->get('translator')->trans('orocrm.magentocontactus.contactrequest.entity.saved')
             );
 
             return $this->get('oro_ui.router')->redirectAfterSave(
