@@ -166,7 +166,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     protected $emails;
 
     /**
-     * TODO: Move field to custom entity config https://magecore.atlassian.net/browse/BAP-2923
+     * TODO: Move field to custom entity config BAP-2923
      *
      * @var WorkflowItem
      *
@@ -176,7 +176,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     protected $workflowItem;
 
     /**
-     * TODO: Move field to custom entity config https://magecore.atlassian.net/browse/BAP-2923
+     * TODO: Move field to custom entity config BAP-2923
      *
      * @var WorkflowStep
      *
