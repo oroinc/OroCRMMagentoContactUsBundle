@@ -1,11 +1,11 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Migrations\DataFixtures\ORM\v1_0;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Migrations\DataFixtures\ORM\v1_0;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactReason;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactReason;
 
 class LoadContactReasonData extends AbstractFixture
 {

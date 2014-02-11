@@ -1,9 +1,9 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Tests\Unit\Validator;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Validator;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
-use OroCRM\Bundle\ContactUsBundle\Validator\ContactRequestCallbackValidator;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest;
+use OroCRM\Bundle\MagentoContactUsBundle\Validator\ContactRequestCallbackValidator;
 
 class ContactRequestCallbackValidatorTest extends \PHPUnit_Framework_TestCase
 {

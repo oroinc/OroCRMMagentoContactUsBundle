@@ -1,13 +1,13 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Tests\Unit\Entity;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Entity;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequestStatus;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequestStatus;
 
 class ContactRequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +37,7 @@ class ContactRequestTest extends \PHPUnit_Framework_TestCase
         /** @var Channel $channel */
         $channel                = $this->getMock('Oro\Bundle\IntegrationBundle\Entity\Channel');
         $contactReason          = $this->getMock(
-            'OroCRM\Bundle\ContactUsBundle\Entity\ContactReason',
+            'OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactReason',
             [],
             [uniqid('label')]
         );

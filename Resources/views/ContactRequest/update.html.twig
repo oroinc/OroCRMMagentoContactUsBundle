@@ -1,14 +1,14 @@
 {% extends 'OroUIBundle:actions:update.html.twig' %}
 
-{% set formAction = form.vars.value.id ? path('orocrm_contactus_request_update', { 'id': form.vars.value.id }) : path('orocrm_contactus_request_create') %}
+{% set formAction = form.vars.value.id ? path('orocrm_magento_contactus_request_update', { 'id': form.vars.value.id }) : path('orocrm_magento_contactus_request_create') %}
 {% set fullname = form.vars.value|oro_format_name|default('N/A') %}
 {% oro_title_set({ params : {"%request.clientName%": fullname} }) %}
 
 {% block navButtons %}
-    {% if form.vars.value.id and resource_granted('orocrm_contactus_request_delete') %}
+    {% if form.vars.value.id and resource_granted('orocrm_magento_contactus_request_delete') %}
         {{ UI.deleteButton({
-            'dataUrl': path('orocrm_contactus_request_delete', {'id': form.vars.value.id}),
-            'dataRedirect': path('orocrm_contactus_request_index'),
+            'dataUrl': path('orocrm_magento_contactus_request_delete', {'id': form.vars.value.id}),
+            'dataRedirect': path('orocrm_magento_contactus_request_index'),
             'aCss': 'no-hash remove-button',
             'id': 'btn-remove-contact-request-form',
             'dataId': form.vars.value.id,
@@ -16,8 +16,8 @@
         }) }}
         {{ UI.buttonSeparator() }}
     {% endif %}
-    {{ UI.button({'path' : path('orocrm_contactus_request_index'), 'title' : 'Cancel'|trans, 'label' : 'Cancel'|trans}) }}
-    {% if resource_granted('orocrm_contactus_request_edit') %}
+    {{ UI.button({'path' : path('orocrm_magento_contactus_request_index'), 'title' : 'Cancel'|trans, 'label' : 'Cancel'|trans}) }}
+    {% if resource_granted('orocrm_magento_contactus_request_edit') %}
         {{ UI.saveAndStayButton() }}
     {% endif %}
     {{ UI.saveAndCloseButton() }}
@@ -27,7 +27,7 @@
     {% if form.vars.value.id %}
         {% set breadcrumbs = {
             'entity':      form.vars.value,
-            'indexPath':   path('orocrm_contactus_request_index'),
+            'indexPath':   path('orocrm_magento_contactus_request_index'),
             'indexLabel': 'orocrm.contactus.contactrequest.entity_plural_label'|trans,
             'entityTitle': fullname
         } %}

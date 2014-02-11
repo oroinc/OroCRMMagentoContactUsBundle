@@ -1,14 +1,14 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Tests\Unit\Form\Handler;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Handler;
 
 use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
-use OroCRM\Bundle\ContactUsBundle\Form\Handler\ContactRequestHandler;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest;
+use OroCRM\Bundle\MagentoContactUsBundle\Form\Handler\ContactRequestHandler;
 
 class ContactRequestHandlerTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Entity;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,10 +19,10 @@ use OroCRM\Bundle\SalesBundle\Entity\Opportunity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="orocrm_contactus_request")
+ * @ORM\Table(name="orocrm_magento_contactus_request")
  * @ORM\HasLifecycleCallbacks()
  * @Config(
- *  routeName="orocrm_contactus_request_index",
+ *  routeName="orocrm_magento_contactus_request_index",
  *  defaultValues={
  *      "security"={
  *          "type"="ACL",
@@ -94,7 +94,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @var ContactReason
      *
-     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\ContactUsBundle\Entity\ContactReason")
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactReason")
      * @ORM\JoinColumn(name="contact_reason_id", referencedColumnName="id")
      **/
     protected $contactReason;
@@ -147,7 +147,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="OroCRM\Bundle\CallBundle\Entity\Call")
-     * @ORM\JoinTable(name="orocrm_contactus_request_calls",
+     * @ORM\JoinTable(name="orocrm_magento_contactus_request_calls",
      *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="call_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
@@ -158,7 +158,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Oro\Bundle\EmailBundle\Entity\Email")
-     * @ORM\JoinTable(name="orocrm_contactus_request_emails",
+     * @ORM\JoinTable(name="orocrm_magento_contactus_request_emails",
      *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="email_id", referencedColumnName="id", onDelete="CASCADE")}
      * )

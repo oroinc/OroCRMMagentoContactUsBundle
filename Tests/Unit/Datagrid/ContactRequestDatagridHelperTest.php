@@ -1,10 +1,10 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Tests\Unit\Datagrid;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Datagrid;
 
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
 
-use OroCRM\Bundle\ContactUsBundle\Datagrid\ContactRequestDatagridHelper;
+use OroCRM\Bundle\MagentoContactUsBundle\Datagrid\ContactRequestDatagridHelper;
 
 class ContactRequestDatagridHelperTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class ContactRequestDatagridHelperTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()->getMock();
 
         $mockRepo->expects($this->once())->method('findByRelatedEntityByName')
-            ->with('OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest')
+            ->with('OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest')
             ->will($this->returnValue(['step1' => $step1, 'step2' => $step2]));
 
         $this->em->expects($this->any())

@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Datagrid;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Datagrid;
 
 use Doctrine\ORM\EntityManager;
 
@@ -22,7 +22,7 @@ class ContactRequestDatagridHelper
     public function getStatusChoices()
     {
         $steps = $this->em->getRepository('OroWorkflowBundle:WorkflowStep')
-            ->findByRelatedEntityByName('OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest');
+            ->findByRelatedEntityByName('OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest');
 
         $choices = array_map(
             function (WorkflowStep $workflowStep) {

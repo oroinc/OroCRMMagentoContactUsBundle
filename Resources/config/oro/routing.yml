@@ -1,5 +1,5 @@
 oro_embedded_form:
-    resource: "@OroCRMContactUsBundle/Controller"
+    resource: "@OroCRMMagentoContactUsBundle/Controller"
     type: annotation
-    prefix: /contact-us
+    prefix: /magento-contact-us
 

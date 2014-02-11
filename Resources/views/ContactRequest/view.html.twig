@@ -7,7 +7,7 @@
 {% block pageHeader %}
     {% set breadcrumbs = {
         'entity': entity,
-        'indexPath': path('orocrm_contactus_request_index'),
+        'indexPath': path('orocrm_magento_contactus_request_index'),
         'indexLabel': 'orocrm.contactus.contactrequest.entity_plural_label'|trans,
         'entityTitle': fullname
     } %}
@@ -15,10 +15,10 @@
 {% endblock pageHeader %}
 
 {% block navButtons %}
-    {% if resource_granted('orocrm_contactus_request_delete') %}
+    {% if resource_granted('orocrm_magento_contactus_request_delete') %}
         {{ UI.deleteButton({
-            'dataUrl': path('orocrm_contactus_request_delete', {'id': entity.id}),
-            'dataRedirect': path('orocrm_contactus_request_index'),
+            'dataUrl': path('orocrm_magento_contactus_request_delete', {'id': entity.id}),
+            'dataRedirect': path('orocrm_magento_contactus_request_index'),
             'aCss': 'no-hash remove-button',
             'id': 'btn-remove-contact-request-form',
             'dataId': entity.id,
@@ -27,10 +27,10 @@
         {{ UI.buttonSeparator() }}
     {% endif %}
 
-    {{ UI.button({'path' : path('orocrm_contactus_request_index'), 'title' : 'Cancel'|trans, 'label' : 'Cancel'|trans}) }}
-    {% if resource_granted('orocrm_contactus_request_edit') %}
+    {{ UI.button({'path' : path('orocrm_magento_contactus_request_index'), 'title' : 'Cancel'|trans, 'label' : 'Cancel'|trans}) }}
+    {% if resource_granted('orocrm_magento_contactus_request_edit') %}
         {{ UI.editButton({
-            'path': path('orocrm_contactus_request_update', {'id': entity.id}),
+            'path': path('orocrm_magento_contactus_request_update', {'id': entity.id}),
             'entity_label': 'orocrm.contactus.contactrequest.entity_label'|trans,
         }) }}
     {% endif %}
@@ -40,7 +40,7 @@
     {% set contactRequestInformationWidget %}
         {{ oro_widget_render({
             'widgetType': 'block',
-            'url': path('orocrm_contactus_request_info', {id: entity.id}),
+            'url': path('orocrm_magento_contactus_request_info', {id: entity.id}),
             'title': 'Request Information'|trans
         }) }}
     {% endset %}

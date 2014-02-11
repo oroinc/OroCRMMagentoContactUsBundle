@@ -1,5 +1,5 @@
 <?php
-namespace OroCRM\Bundle\ContactUsBundle\Form\Type;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\CustomLayoutFormTypeInterface;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest;
 
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface, CustomLayoutFormTypeInterface
 {
@@ -17,7 +17,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
      */
     public function getName()
     {
-        return 'orocrm_contactus_contact_request';
+        return 'orocrm_magento_contactus_contact_request';
     }
 
     /**
@@ -46,7 +46,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
             'contactReason',
             'entity',
             [
-                'class'       => 'OroCRMContactUsBundle:ContactReason',
+                'class'       => 'OroCRMMagentoContactUsBundle:ContactReason',
                 'property'    => 'label',
                 'empty_value' => 'orocrm.contactus.contactrequest.choose_contact_reason.label',
                 'required'    => false
@@ -63,7 +63,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest',
+                'data_class' => 'OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest',
             ]
         );
     }
@@ -201,6 +201,6 @@ CSS;
      */
     public function geFormLayout()
     {
-        return 'OroCRMContactUsBundle::form.html.twig';
+        return 'OroCRMMagentoContactUsBundle::form.html.twig';
     }
 }

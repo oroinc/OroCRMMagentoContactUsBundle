@@ -5,10 +5,10 @@
 
 
 {% block navButtons %}
-    {% if resource_granted('orocrm_contactus_request_create') %}
+    {% if resource_granted('orocrm_magento_contactus_request_create') %}
         <div class="btn-group">
             {{ UI.addButton({
-                'path' : path('orocrm_contactus_request_create'),
+                'path' : path('orocrm_magento_contactus_request_create'),
                 'entity_label': 'orocrm.contactus.contactrequest.entity_label'|trans,
             }) }}
         </div>

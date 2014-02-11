@@ -1,16 +1,16 @@
 parameters:
-    orocrm_contact_us.embedded_form.class:                   OroCRM\Bundle\ContactUsBundle\Form\Type\ContactRequestType
-    orocrm_contact_us.datagrid.helper.class:                 OroCRM\Bundle\ContactUsBundle\Datagrid\ContactRequestDatagridHelper
-    orocrm_contact_us.contact_request.form.handler.class:    OroCRM\Bundle\ContactUsBundle\Form\Handler\ContactRequestHandler
+    orocrm_magento_contact_us.embedded_form.class:                   OroCRM\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType
+    orocrm_magento_contact_us.datagrid.helper.class:                 OroCRM\Bundle\MagentoContactUsBundle\Datagrid\ContactRequestDatagridHelper
+    orocrm_magento_contact_us.contact_request.form.handler.class:    OroCRM\Bundle\MagentoContactUsBundle\Form\Handler\ContactRequestHandler
 
 services:
-    orocrm_contact_us.embedded_form:
-        class: %orocrm_contact_us.embedded_form.class%
+    orocrm_magento_contact_us.embedded_form:
+        class: %orocrm_magento_contact_us.embedded_form.class%
         tags:
-            - { name: oro_embedded_form, label: orocrm.contactus.contactrequest.entity_label }
-            - { name: form.type, alias: orocrm_contactus_contact_request }
+            - { name: oro_embedded_form, label: orocrm.magentocontactus.contactrequest.entity_label }
+            - { name: form.type, alias: orocrm_magento_contactus_contact_request }
 
-    orocrm_contact_us.contact_request.form:
+    orocrm_magento_contact_us.contact_request.form:
         class: Symfony\Component\Form\Form
         factory_method: createNamed
         factory_service: form.factory
@@ -18,15 +18,15 @@ services:
             - "orocrm_contactus_contact_request"
             - "orocrm_contactus_contact_request"
 
-    orocrm_contact_us.datagrid.helper:
-        class: %orocrm_contact_us.datagrid.helper.class%
+    orocrm_magento_contact_us.datagrid.helper:
+        class: %orocrm_magento_contact_us.datagrid.helper.class%
         arguments:
             - @doctrine.orm.entity_manager
 
-    orocrm_contact_us.contact_request.form.handler:
-        class: %orocrm_contact_us.contact_request.form.handler.class%
+    orocrm_magento_contact_us.contact_request.form.handler:
+        class: %orocrm_magento_contact_us.contact_request.form.handler.class%
         scope: request
         arguments:
-            - @orocrm_contact_us.contact_request.form
+            - @orocrm_magento_contact_us.contact_request.form
             - @request
             - @doctrine.orm.entity_manager

@@ -1,7 +1,7 @@
 {
-    "name": "oro/crm-embedded-contact-us",
-    "description": "OroCRM Embedded Contact Us package",
-    "homepage": "https://github.com/laboro/OroCRMContactUsBundle.git",
+    "name": "oro/crm-magento-embedded-contact-us",
+    "description": "OroCRM Magento Embedded Contact Us package",
+    "homepage": "https://github.com/laboro/OroCRMMagentoContactUsBundle.git",
     "license": "The Open Software License version 3.0",
     "authors": [
         {
@@ -11,14 +11,14 @@
     ],
     "autoload": {
         "psr-0": {
-            "OroCRM\\Bundle\\ContactUsBundle": "src/"
+            "OroCRM\\Bundle\\MagentoContactUsBundle": "src/"
         }
     },
-    "target-dir": "src/OroCRM/Bundle/ContactUsBundle",
+    "target-dir": "src/OroCRM/Bundle/MagentoContactUsBundle",
     "require": {
         "php": ">=5.4.4",
-        "oro/platform": "dev-master",
-        "oro/crm": "dev-master"
+        "oro/platform": "dev-release",
+        "oro/crm": "dev-release"
     },
     "repositories": [
         {
@@ -31,7 +31,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/laboro/OroCRMContactUsBundle.git"
+            "url": "https://github.com/laboro/OroCRMMagentoContactUsBundle.git"
         }
     ],
     "minimum-stability": "dev",

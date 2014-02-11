@@ -1,13 +1,13 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Form\Handler;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Form\Handler;
 
 use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest;
 
 class ContactRequestHandler
 {
