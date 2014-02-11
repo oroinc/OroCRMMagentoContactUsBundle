@@ -1,8 +1,8 @@
 oro_menu_config:
     items:
         orocrm_magento_contactus_requests:
-            label: 'Magento Contact Requests'
-            route: 'orocrm_magento_contactus_request_index'
+            label: orocrm.magentocontactus.contactrequest.entity_plural_label
+            route: orocrm_magento_contactus_request_index
             extras:
                 routes: ['orocrm_magento_contactus_request_*']
     tree:
