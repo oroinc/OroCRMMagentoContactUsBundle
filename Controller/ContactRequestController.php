@@ -2,8 +2,9 @@
 
 namespace OroCRM\Bundle\ContactUsBundle\Controller;
 
-
 use FOS\Rest\Util\Codes;
+
+use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -85,7 +86,7 @@ class ContactRequestController extends Controller
      */
     public function createAction()
     {
-        return $this->update();
+        return $this->update(new ContactRequest());
     }
 
     /**
@@ -93,7 +94,7 @@ class ContactRequestController extends Controller
      * @Acl(
      *      id="orocrm_contactus_request_delete",
      *      type="entity",
-     *      permission="CREATE",
+     *      permission="DELETE",
      *      class="OroCRMContactUsBundle:ContactRequest"
      * )
      */
@@ -113,44 +114,24 @@ class ContactRequestController extends Controller
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    protected function update(ContactRequest $contactRequest = null)
+    protected function update(ContactRequest $contactRequest)
     {
-        if (!$contactRequest) {
-            $contactRequest = new ContactRequest();
-        }
-
-        $form = $this->createForm(new ContactRequestType(), $contactRequest);
-        $form->handleRequest($this->get('request'));
-
-        if ($form->isValid()) {
-            /** @var EntityManager $em */
-            $em = $this->get('doctrine.orm.entity_manager');
-
-            $contactRequest = $form->getData();
-            $em->persist($contactRequest);
-            $em->flush();
-
-
+        if ($this->get('orocrm_contact_us.contact_request.form.handler')->process($contactRequest)) {
             $this->get('session')->getFlashBag()->add(
                 'success',
                 $this->get('translator')->trans('orocrm.contact_request.entity.saved')
             );
 
-            return $this->get('oro_ui.router')->actionRedirect(
-                [
-                    'route'      => 'orocrm_contactus_request_update',
-                    'parameters' => ['id' => $contactRequest->getId()],
-                ],
-                [
-                    'route' => 'orocrm_contactus_request_index'
-                ]
+            return $this->get('oro_ui.router')->redirectAfterSave(
+                ['route' => 'orocrm_contactus_request_update', 'parameters' => ['id' => $contactRequest->getId()]],
+                ['route' => 'orocrm_contactus_request_view', 'parameters' => ['id' => $contactRequest->getId()]],
+                $contactRequest
             );
-
         }
 
         return [
             'entity' => $contactRequest,
-            'form'   => $form->createView(),
+            'form'   => $this->get('orocrm_contact_us.contact_request.form')->createView(),
         ];
     }
 }

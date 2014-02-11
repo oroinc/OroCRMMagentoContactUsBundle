@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\CustomLayoutFormTypeInterface;
 
+use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
+
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface, CustomLayoutFormTypeInterface
 {
     /**
@@ -15,7 +17,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
      */
     public function getName()
     {
-        return 'contact_request';
+        return 'orocrm_contactus_contact_request';
     }
 
     /**
@@ -23,11 +25,35 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
-            ->add('email')
-            ->add('phone')
-            ->add('comment', 'textarea')
-            ->add('submit', 'submit');
+        $builder->add('firstName', 'text');
+        $builder->add('lastName', 'text');
+        $builder->add('organizationName', 'text', ['required' => false]);
+        $builder->add(
+            'preferredContactMethod',
+            'choice',
+            [
+                'choices'  => [
+                    ContactRequest::CONTACT_METHOD_BOTH  => ContactRequest::CONTACT_METHOD_BOTH,
+                    ContactRequest::CONTACT_METHOD_PHONE => ContactRequest::CONTACT_METHOD_PHONE,
+                    ContactRequest::CONTACT_METHOD_EMAIL => ContactRequest::CONTACT_METHOD_EMAIL
+                ],
+                'required' => true
+            ]
+        );
+        $builder->add('phone', 'text', ['required' => false]);
+        $builder->add('emailAddress', 'text', ['required' => false]);
+        $builder->add(
+            'contactReason',
+            'entity',
+            [
+                'class'       => 'OroCRMContactUsBundle:ContactReason',
+                'property'    => 'label',
+                'empty_value' => 'orocrm.contactus.contactrequest.choose_contact_reason.label',
+                'required'    => false
+            ]
+        );
+        $builder->add('comment', 'textarea');
+        $builder->add('submit', 'submit');
     }
 
     /**
@@ -96,11 +122,6 @@ ul, li {
 
 .form-list .control-group {
     margin-bottom: 0px;
-}
-
-.form-list li.fields .control-group {
-    float: left;
-    width: 275px;
 }
 
 .form-list label {

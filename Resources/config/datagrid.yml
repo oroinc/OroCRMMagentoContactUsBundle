@@ -1,61 +1,61 @@
 datagrid:
     contact-requests-grid:
         source:
-#            acl_resource: orocrm_contactus_request_view
+            acl_resource: orocrm_contactus_request_view
             type: orm
             query:
                 select:
                     - contact_request.id
-                    - contact_request.name
-                    - contact_request.email
+                    - contact_request.firstName
+                    - contact_request.lastName
+                    - contact_request.emailAddress
                     - contact_request.phone
                     - contact_request.createdAt
                     - channel.name as channelName
+                    - step.label as statusLabel
                 from:
                     - { table: OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest, alias: contact_request }
                 join:
                     left:
                         - { join: contact_request.channel, alias: channel }
-
+                        - { join: contact_request.workflowStep, alias: step }
         columns:
-            name:
-                label: orocrm.contactus.contactrequest.name.label
-            email:
-                label: orocrm.contactus.contactrequest.email.label
-            phone:
-                label: orocrm.contactus.contactrequest.phone.label
             channelName:
                 label: orocrm.contactus.contactrequest.channel.label
+            firstName:
+                label: orocrm.contactus.contactrequest.first_name.label
+            lastName:
+                label: orocrm.contactus.contactrequest.last_name.label
+            phone:
+                label: orocrm.contactus.contactrequest.phone.label
+            emailAddress:
+                label: orocrm.contactus.contactrequest.email_address.label
+            statusLabel:
+                type:  translatable
+                label: orocrm.contactus.contactrequest.status.label
             createdAt:
                 frontend_type: datetime
                 label: orocrm.contactus.contactrequest.created_at.label
-
         sorters:
             columns:
-                name:
-                    data_name: contact_request.name
-                email:
-                    data_name: contact_request.email
-                phone:
-                    data_name: contact_request.phone
                 channelName:
                     data_name: channel.name
+                firstName:
+                    data_name: contact_request.firstName
+                lastName:
+                    data_name: contact_request.lastName
+                phone:
+                    data_name: contact_request.phone
+                emailAddress:
+                    data_name: contact_request.emailAddress
+                statusLabel:
+                    data_name: statusLabel
                 createdAt:
                     data_name: contact_request.createdAt
             default:
                 createdAt: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC
-
         filters:
             columns:
-                name:
-                    type:      string
-                    data_name: contact_request.name
-                email:
-                    type:      string
-                    data_name: contact_request.email
-                phone:
-                    type:      string
-                    data_name: contact_request.phone
                 channel:
                     type: entity
                     data_name: channel
@@ -64,11 +64,27 @@ datagrid:
                         field_options:
                           class: OroIntegrationBundle:Channel
                           property: name
+                firstName:
+                    type:      string
+                    data_name: contact_request.firstName
+                lastName:
+                    type:      string
+                    data_name: contact_request.lastName
+                phone:
+                    type:      string
+                    data_name: contact_request.phone
+                emailAddress:
+                    type:      string
+                    data_name: contact_request.emailAddress
+                statusLabel:
+                    type: choice
+                    data_name: step.name
+                    options:
+                        field_options:
+                            choices: @orocrm_contact_us.datagrid.helper->getStatusChoices()
                 createdAt:
                     type: datetime
                     data_name: contact_request.createdAt
-
-
         properties:
             id: ~
             view_link:
@@ -83,7 +99,6 @@ datagrid:
                 type:       url
                 route:      orocrm_contactus_request_delete
                 params:     [ id ]
-
         actions:
             view:
                 acl_resource: oro_embedded_form_view
@@ -104,4 +119,5 @@ datagrid:
                 label: orocrm.contactus.contactrequest.datagrid.delete
                 icon: trash
                 link: delete_link
-
+        options:
+            entityHint: contact request
