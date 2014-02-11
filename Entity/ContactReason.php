@@ -41,8 +41,6 @@ class ContactReason
 
     /**
      * @param string $label
-     *
-     * @return $this
      */
     public function setLabel($label)
     {

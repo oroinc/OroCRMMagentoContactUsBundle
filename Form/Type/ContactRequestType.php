@@ -17,7 +17,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
      */
     public function getName()
     {
-        return 'contact_request';
+        return 'orocrm_contactus_contact_request';
     }
 
     /**
@@ -41,7 +41,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
             ]
         );
         $builder->add('phone', 'text', ['required' => false]);
-        $builder->add('email', 'text', ['required' => false]);
+        $builder->add('emailAddress', 'text', ['required' => false]);
         $builder->add(
             'contactReason',
             'entity',

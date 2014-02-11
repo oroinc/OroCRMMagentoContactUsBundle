@@ -29,7 +29,7 @@
             'entity':      form.vars.value,
             'indexPath':   path('orocrm_contactus_request_index'),
             'indexLabel': 'orocrm.contactus.contactrequest.entity_plural_label'|trans,
-            'entityTitle': '%request.clientName%\'s contact request'|trans({'%request.clientName%': fullname})
+            'entityTitle': fullname
         } %}
         {{ parent() }}
     {% else %}
@@ -54,7 +54,7 @@
                     form_row(form.organizationName),
                     form_row(form.preferredContactMethod),
                     form_row(form.phone),
-                    form_row(form.email),
+                    form_row(form.emailAddress),
                     form_row(form.contactReason),
                     form_row(form.comment)
                 ]

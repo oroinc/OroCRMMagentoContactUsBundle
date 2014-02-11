@@ -18,7 +18,7 @@ class LoadContactReasonData extends AbstractFixture
             'Want to know more about the product',
             'Interested in partnership',
             'Need help or assistance',
-            'Have a compliant',
+            'Have a complaint',
             'Other'
         ];
 

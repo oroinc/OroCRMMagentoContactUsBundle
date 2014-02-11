@@ -8,26 +8,31 @@ datagrid:
                     - contact_request.id
                     - contact_request.firstName
                     - contact_request.lastName
-                    - contact_request.email
+                    - contact_request.emailAddress
                     - contact_request.phone
                     - contact_request.createdAt
                     - channel.name as channelName
+                    - step.label as statusLabel
                 from:
                     - { table: OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest, alias: contact_request }
                 join:
                     left:
                         - { join: contact_request.channel, alias: channel }
+                        - { join: contact_request.workflowStep, alias: step }
         columns:
             channelName:
                 label: orocrm.contactus.contactrequest.channel.label
             firstName:
-                label: orocrm.contactus.contactrequest.firstName.label
+                label: orocrm.contactus.contactrequest.first_name.label
             lastName:
-                label: orocrm.contactus.contactrequest.lastName.label
+                label: orocrm.contactus.contactrequest.last_name.label
             phone:
                 label: orocrm.contactus.contactrequest.phone.label
-            email:
-                label: orocrm.contactus.contactrequest.email.label
+            emailAddress:
+                label: orocrm.contactus.contactrequest.email_address.label
+            statusLabel:
+                type:  translatable
+                label: orocrm.contactus.contactrequest.status.label
             createdAt:
                 frontend_type: datetime
                 label: orocrm.contactus.contactrequest.created_at.label
@@ -41,8 +46,10 @@ datagrid:
                     data_name: contact_request.lastName
                 phone:
                     data_name: contact_request.phone
-                email:
-                    data_name: contact_request.email
+                emailAddress:
+                    data_name: contact_request.emailAddress
+                statusLabel:
+                    data_name: statusLabel
                 createdAt:
                     data_name: contact_request.createdAt
             default:
@@ -66,9 +73,15 @@ datagrid:
                 phone:
                     type:      string
                     data_name: contact_request.phone
-                email:
+                emailAddress:
                     type:      string
-                    data_name: contact_request.email
+                    data_name: contact_request.emailAddress
+                statusLabel:
+                    type: choice
+                    data_name: step.name
+                    options:
+                        field_options:
+                            choices: @orocrm_contact_us.datagrid.helper->getStatusChoices()
                 createdAt:
                     type: datetime
                     data_name: contact_request.createdAt

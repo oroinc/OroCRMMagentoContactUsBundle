@@ -5,15 +5,15 @@ orocrm:
             entity_plural_label: Contact Requests
             id:
                 label: ID
-            firstName:
+            first_name:
                 label: First name
-            lastName:
+            last_name:
                 label: Last name
-            organizationName:
+            organization_name:
                 label: Organization name
-            preferredContactMethod:
+            preferred_contact_method:
                 label: Preferred contact method
-            email:
+            email_address:
                 label: Email
             phone:
                 label: Phone
@@ -27,10 +27,20 @@ orocrm:
                 label: Updated
             feedback:
                 label: Feedback
-            contactReason:
+            contact_reason:
                 label: Contact reason
             choose_contact_reason:
                 label: Choose contact reason...
+            status:
+                label: Status
+            opportunity:
+                label: Opportunity
+            lead:
+                label: Lead
+            calls:
+                label: Calls
+            emails:
+                label: Emails
 
             method:
                 email: Email

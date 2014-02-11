@@ -3,13 +3,19 @@
 namespace OroCRM\Bundle\ContactUsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
-use Symfony\Component\Validator\ExecutionContext;
-
-use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Oro\Bundle\IntegrationBundle\Model\IntegrationEntityTrait;
+use Oro\Bundle\EmailBundle\Entity\Email;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
 use Oro\Bundle\LocaleBundle\Model\FirstNameInterface;
 use Oro\Bundle\LocaleBundle\Model\LastNameInterface;
+use Oro\Bundle\IntegrationBundle\Model\IntegrationEntityTrait;
+use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+
+use OroCRM\Bundle\CallBundle\Entity\Call;
+use OroCRM\Bundle\SalesBundle\Entity\Lead;
+use OroCRM\Bundle\SalesBundle\Entity\Opportunity;
 
 /**
  * @ORM\Entity
@@ -74,16 +80,16 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="phone", type="string", nullable=true)
      */
     protected $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="email_address", type="string", nullable=true)
      */
-    protected $email;
+    protected $emailAddress;
 
     /**
      * @var ContactReason
@@ -122,6 +128,70 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     protected $updatedAt;
 
     /**
+     * @var Opportunity
+     *
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\SalesBundle\Entity\Opportunity")
+     * @ORM\JoinColumn(name="opportunity_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $opportunity;
+
+    /**
+     * @var Lead
+     *
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\SalesBundle\Entity\Lead")
+     * @ORM\JoinColumn(name="lead_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $lead;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="OroCRM\Bundle\CallBundle\Entity\Call")
+     * @ORM\JoinTable(name="orocrm_contactus_request_calls",
+     *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="call_id", referencedColumnName="id", onDelete="CASCADE")}
+     * )
+     */
+    protected $calls;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Oro\Bundle\EmailBundle\Entity\Email")
+     * @ORM\JoinTable(name="orocrm_contactus_request_emails",
+     *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="email_id", referencedColumnName="id", onDelete="CASCADE")}
+     * )
+     */
+    protected $emails;
+
+    /**
+     * TODO: Move field to custom entity config BAP-2923
+     *
+     * @var WorkflowItem
+     *
+     * @ORM\OneToOne(targetEntity="Oro\Bundle\WorkflowBundle\Entity\WorkflowItem")
+     * @ORM\JoinColumn(name="workflow_item_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $workflowItem;
+
+    /**
+     * TODO: Move field to custom entity config BAP-2923
+     *
+     * @var WorkflowStep
+     *
+     * @ORM\ManyToOne(targetEntity="Oro\Bundle\WorkflowBundle\Entity\WorkflowStep")
+     * @ORM\JoinColumn(name="workflow_step_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $workflowStep;
+
+    public function __construct()
+    {
+        $this->calls  = new ArrayCollection();
+        $this->emails = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -131,8 +201,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $firstName
-     *
-     * @return $this
      */
     public function setFirstName($firstName)
     {
@@ -149,8 +217,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $lastName
-     *
-     * @return $this
      */
     public function setLastName($lastName)
     {
@@ -167,8 +233,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $organizationName
-     *
-     * @return $this
      */
     public function setOrganizationName($organizationName)
     {
@@ -185,8 +249,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $preferredContactMethod
-     *
-     * @return $this
      */
     public function setPreferredContactMethod($preferredContactMethod)
     {
@@ -203,8 +265,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $phone
-     *
-     * @return $this
      */
     public function setPhone($phone)
     {
@@ -220,27 +280,23 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     }
 
     /**
-     * @param string $email
-     *
-     * @return $this
+     * @param string $emailAddress
      */
-    public function setEmail($email)
+    public function setEmailAddress($emailAddress)
     {
-        $this->email = $email;
+        $this->emailAddress = $emailAddress;
     }
 
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmailAddress()
     {
-        return $this->email;
+        return $this->emailAddress;
     }
 
     /**
      * @param ContactReason $contactReason
-     *
-     * @return $this
      */
     public function setContactReason(ContactReason $contactReason = null)
     {
@@ -257,8 +313,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $comment
-     *
-     * @return $this
      */
     public function setComment($comment)
     {
@@ -275,8 +329,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param string $feedback
-     *
-     * @return $this
      */
     public function setFeedback($feedback)
     {
@@ -293,8 +345,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param \DateTime $createdAt
-     *
-     * @return $this
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -311,8 +361,6 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
 
     /**
      * @param \DateTime $updatedAt
-     *
-     * @return $this
      */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
@@ -328,52 +376,158 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     }
 
     /**
-     * Pre persist event listener
-     *
-     * @ORM\PrePersist
+     * @param Lead $lead
      */
-    public function beforeSave()
+    public function setLead(Lead $lead)
     {
-        $this->createdAt = $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->lead = $lead;
     }
 
     /**
-     * Pre update event handler
+     * @return Lead
+     */
+    public function getLead()
+    {
+        return $this->lead;
+    }
+
+    /**
+     * @param Opportunity $opportunity
+     */
+    public function setOpportunity(Opportunity $opportunity)
+    {
+        $this->opportunity = $opportunity;
+    }
+
+    /**
+     * @return Opportunity
+     */
+    public function getOpportunity()
+    {
+        return $this->opportunity;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCalls()
+    {
+        return $this->calls;
+    }
+
+    /**
+     * @param Call $call
+     */
+    public function addCall(Call $call)
+    {
+        if (!$this->hasCall($call)) {
+            $this->getCalls()->add($call);
+        }
+    }
+
+    /**
+     * @param Call $call
+     */
+    public function removeCall(Call $call)
+    {
+        if ($this->hasCall($call)) {
+            $this->getCalls()->removeElement($call);
+        }
+    }
+
+    /**
+     * @param Call $call
      *
+     * @return bool
+     */
+    public function hasCall(Call $call)
+    {
+        return $this->getCalls()->contains($call);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    /**
+     * @param Email $email
+     */
+    public function addEmail(Email $email)
+    {
+        if (!$this->hasEmail($email)) {
+            $this->getEmails()->add($email);
+        }
+    }
+
+    /**
+     * @param Email $email
+     */
+    public function removeEmail(Email $email)
+    {
+        if ($this->hasEmail($email)) {
+            $this->getEmails()->removeElement($email);
+        }
+    }
+
+    /**
+     * @param Email $email
+     *
+     * @return bool
+     */
+    public function hasEmail(Email $email)
+    {
+        return $this->getEmails()->contains($email);
+    }
+
+    /**
+     * @param WorkflowItem $workflowItem
+     */
+    public function setWorkflowItem(WorkflowItem $workflowItem)
+    {
+        $this->workflowItem = $workflowItem;
+    }
+
+    /**
+     * @return WorkflowItem
+     */
+    public function getWorkflowItem()
+    {
+        return $this->workflowItem;
+    }
+
+    /**
+     * @param WorkflowStep $workflowStep
+     */
+    public function setWorkflowStep(WorkflowStep $workflowStep)
+    {
+        $this->workflowStep = $workflowStep;
+    }
+
+    /**
+     * @return WorkflowStep
+     */
+    public function getWorkflowStep()
+    {
+        return $this->workflowStep;
+    }
+
+    /**
      * @ORM\PreUpdate
      */
-    public function doPreUpdate()
+    public function preUpdate()
     {
         $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     /**
-     * Validates contact method
-     *
-     * @param ExecutionContext $context
+     * @ORM\PrePersist
      */
-    public function validationCallback(ExecutionContext $context)
+    public function prePersist()
     {
-        $emailError = $phoneError = false;
-
-        switch ($this->getPreferredContactMethod()) {
-            case self::CONTACT_METHOD_PHONE:
-                $phoneError = !$this->getPhone();
-                break;
-            case self::CONTACT_METHOD_EMAIL:
-                $emailError = !$this->getEmail();
-                break;
-            case self::CONTACT_METHOD_BOTH:
-            default:
-                $phoneError = !$this->getPhone();
-                $emailError = !$this->getEmail();
-        }
-
-        if ($emailError) {
-            $context->addViolationAt('email', 'Email is required for chosen contact method');
-        }
-        if ($phoneError) {
-            $context->addViolationAt('phone', 'Phone is required for chosen contact method');
-        }
+        $this->createdAt = $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 }

@@ -10,10 +10,11 @@ OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest:
                 max: 100
         preferredContactMethod:
             - NotBlank: ~
-        email:
+        emailAddress:
             - Email: ~
         comment:
             - NotBlank: ~
     constraints:
         - Callback:
-            methods: [ validationCallback ]
+            methods:
+                - [ OroCRM\Bundle\ContactUsBundle\Validator\ContactRequestCallbackValidator, validate]
