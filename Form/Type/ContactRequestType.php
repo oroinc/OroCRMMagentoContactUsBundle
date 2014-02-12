@@ -25,9 +25,13 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstName', 'text');
-        $builder->add('lastName', 'text');
-        $builder->add('organizationName', 'text', ['required' => false]);
+        $builder->add('firstName', 'text', ['label' => 'orocrm.magentocontactus.contactrequest.first_name.label']);
+        $builder->add('lastName', 'text', ['label' => 'orocrm.magentocontactus.contactrequest.last_name.label']);
+        $builder->add(
+            'organizationName',
+            'text',
+            ['required' => false, 'label' => 'orocrm.magentocontactus.contactrequest.organization_name.label']
+        );
         $builder->add(
             'preferredContactMethod',
             'choice',
@@ -37,11 +41,20 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
                     ContactRequest::CONTACT_METHOD_PHONE => ContactRequest::CONTACT_METHOD_PHONE,
                     ContactRequest::CONTACT_METHOD_EMAIL => ContactRequest::CONTACT_METHOD_EMAIL
                 ],
-                'required' => true
+                'required' => true,
+                'label'    => 'orocrm.magentocontactus.contactrequest.preferred_contact_method.label'
             ]
         );
-        $builder->add('phone', 'text', ['required' => false]);
-        $builder->add('emailAddress', 'text', ['required' => false]);
+        $builder->add(
+            'phone',
+            'text',
+            ['required' => false, 'label' => 'orocrm.magentocontactus.contactrequest.phone.label']
+        );
+        $builder->add(
+            'emailAddress',
+            'text',
+            ['required' => false, 'label' => 'orocrm.magentocontactus.contactrequest.email_address.label']
+        );
         $builder->add(
             'contactReason',
             'entity',
@@ -49,10 +62,11 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
                 'class'       => 'OroCRMMagentoContactUsBundle:ContactReason',
                 'property'    => 'label',
                 'empty_value' => 'orocrm.magentocontactus.contactrequest.choose_contact_reason.label',
-                'required'    => false
+                'required'    => false,
+                'label'       => 'orocrm.magentocontactus.contactrequest.contact_reason.label'
             ]
         );
-        $builder->add('comment', 'textarea');
+        $builder->add('comment', 'textarea', ['label' => 'orocrm.magentocontactus.contactrequest.comment.label']);
         $builder->add('submit', 'submit');
     }
 
