@@ -58,7 +58,7 @@ orocrm:
             datagrid:
                 update: Update
                 delete: Delete
-                view: View
+                view:   View
 
             embedded_form: Contact Us
             entity:

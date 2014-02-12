@@ -3,16 +3,16 @@
 <div class="widget-content">
     <div class="row-fluid form-horizontal">
         <div class="responsive-block">
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.channel.label'|trans, entity.channel.name|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.first_name.label'|trans, entity.firstName|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.last_name.label'|trans, entity.lastName|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.organization_name.label'|trans, entity.organizationName|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.preferred_contact_method.label'|trans, entity.preferredContactMethod|trans|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.email_address.label'|trans, entity.emailAddress|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.phone.label'|trans, entity.phone|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.contact_reason.label'|trans, entity.contactReason|trans|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.comment.label'|trans, entity.comment|escape) }}
-            {{ ui.renderProperty('orocrm.contactus.contactrequest.feedback.label'|trans, entity.feedback|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.channel.label'|trans, entity.channel.name|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.first_name.label'|trans, entity.firstName|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.last_name.label'|trans, entity.lastName|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.organization_name.label'|trans, entity.organizationName|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.preferred_contact_method.label'|trans, entity.preferredContactMethod|trans|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.email_address.label'|trans, entity.emailAddress|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.phone.label'|trans, entity.phone|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.contact_reason.label'|trans, entity.contactReason|trans|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.comment.label'|trans, entity.comment|escape) }}
+            {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.feedback.label'|trans, entity.feedback|escape) }}
 
             {% if entity.opportunity %}
                 {%- if entity.opportunity and resource_granted('VIEW', entity.opportunity) -%}
@@ -21,7 +21,7 @@
                     {% set opportunityView = entity.opportunity.name %}
                 {%- endif -%}
 
-                {{ ui.renderProperty('orocrm.contactus.contactrequest.opportunity.label'|trans, opportunityView) }}
+                {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.opportunity.label'|trans, opportunityView) }}
             {% endif %}
             {% if entity.lead %}
                 {%- if entity.lead and resource_granted('VIEW', entity.lead) -%}
@@ -30,7 +30,7 @@
                     {% set leadView = entity.lead.name %}
                 {%- endif -%}
 
-                {{ ui.renderProperty('orocrm.contactus.contactrequest.lead.label'|trans, leadView) }}
+                {{ ui.renderProperty('orocrm.magentocontactus.contactrequest.lead.label'|trans, leadView) }}
             {% endif %}
         </div>
     </div>

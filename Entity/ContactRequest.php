@@ -34,9 +34,9 @@ use OroCRM\Bundle\SalesBundle\Entity\Opportunity;
  */
 class ContactRequest implements FirstNameInterface, LastNameInterface
 {
-    const CONTACT_METHOD_BOTH  = 'orocrm.contactus.contactrequest.method.both';
-    const CONTACT_METHOD_PHONE = 'orocrm.contactus.contactrequest.method.phone';
-    const CONTACT_METHOD_EMAIL = 'orocrm.contactus.contactrequest.method.email';
+    const CONTACT_METHOD_BOTH  = 'orocrm.magentocontactus.contactrequest.method.both';
+    const CONTACT_METHOD_PHONE = 'orocrm.magentocontactus.contactrequest.method.phone';
+    const CONTACT_METHOD_EMAIL = 'orocrm.magentocontactus.contactrequest.method.email';
 
     use IntegrationEntityTrait;
 
@@ -73,7 +73,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="preferred_contact_method", type="string", length=50)
+     * @ORM\Column(name="preferred_contact_method", type="string", length=100)
      */
     protected $preferredContactMethod;
 

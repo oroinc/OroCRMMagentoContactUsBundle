@@ -48,7 +48,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
             [
                 'class'       => 'OroCRMMagentoContactUsBundle:ContactReason',
                 'property'    => 'label',
-                'empty_value' => 'orocrm.contactus.contactrequest.choose_contact_reason.label',
+                'empty_value' => 'orocrm.magentocontactus.contactrequest.choose_contact_reason.label',
                 'required'    => false
             ]
         );

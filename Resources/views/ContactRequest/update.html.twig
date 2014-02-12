@@ -12,7 +12,7 @@
             'aCss': 'no-hash remove-button',
             'id': 'btn-remove-contact-request-form',
             'dataId': form.vars.value.id,
-            'entity_label': 'orocrm.contactus.contactrequest.entity_label'|trans,
+            'entity_label': 'orocrm.magentocontactus.contactrequest.entity_label'|trans,
         }) }}
         {{ UI.buttonSeparator() }}
     {% endif %}
@@ -28,12 +28,12 @@
         {% set breadcrumbs = {
             'entity':      form.vars.value,
             'indexPath':   path('orocrm_magento_contactus_request_index'),
-            'indexLabel': 'orocrm.contactus.contactrequest.entity_plural_label'|trans,
+            'indexLabel': 'orocrm.magentocontactus.contactrequest.entity_plural_label'|trans,
             'entityTitle': fullname
         } %}
         {{ parent() }}
     {% else %}
-        {% set title = 'New'|trans ~ ' ' ~ 'orocrm.contactus.contactrequest.entity_label'|trans|lower %}
+        {% set title = 'New'|trans ~ ' ' ~ 'orocrm.magentocontactus.contactrequest.entity_label'|trans|lower %}
         {% include 'OroUIBundle::page_title_block.html.twig' %}
     {% endif %}
 {% endblock pageHeader %}
