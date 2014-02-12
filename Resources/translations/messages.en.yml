@@ -59,7 +59,5 @@ orocrm:
                 update: Update
                 delete: Delete
                 view:   View
-
-            embedded_form: Contact Us
             entity:
                 saved: Contact request has been saved successfully
