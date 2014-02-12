@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Controller;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Controller;
 
 use FOS\Rest\Util\Codes;
 
@@ -15,19 +15,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Oro\Bundle\SecurityBundle\Annotation\Acl;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
-use OroCRM\Bundle\ContactUsBundle\Form\Type\ContactRequestType;
+use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest;
 
 class ContactRequestController extends Controller
 {
     /**
-     * @Route("/view/{id}", name="orocrm_contactus_request_view", requirements={"id"="\d+"})
+     * @Route("/view/{id}", name="orocrm_magento_contactus_request_view", requirements={"id"="\d+"})
      * @Template
      * @Acl(
-     *      id="orocrm_contactus_request_view",
+     *      id="orocrm_magento_contactus_request_view",
      *      type="entity",
      *      permission="VIEW",
-     *      class="OroCRMContactUsBundle:ContactRequest"
+     *      class="OroCRMMagentoContactUsBundle:ContactRequest"
      * )
      */
     public function viewAction(ContactRequest $contactRequest)
@@ -38,9 +37,9 @@ class ContactRequestController extends Controller
     }
 
     /**
-     * @Route(name="orocrm_contactus_request_index")
+     * @Route(name="orocrm_magento_contactus_request_index")
      * @Template
-     * @AclAncestor("orocrm_contactus_request_view")
+     * @AclAncestor("orocrm_magento_contactus_request_view")
      */
     public function indexAction()
     {
@@ -48,9 +47,9 @@ class ContactRequestController extends Controller
     }
 
     /**
-     * @Route("/info/{id}", name="orocrm_contactus_request_info", requirements={"id"="\d+"})
+     * @Route("/info/{id}", name="orocrm_magento_contactus_request_info", requirements={"id"="\d+"})
      * @Template
-     * @AclAncestor("orocrm_contactus_request_view")
+     * @AclAncestor("orocrm_magento_contactus_request_view")
      */
     public function infoAction(ContactRequest $contactRequest)
     {
@@ -60,13 +59,13 @@ class ContactRequestController extends Controller
     }
 
     /**
-     * @Route("/update/{id}", name="orocrm_contactus_request_update", requirements={"id"="\d+"})
+     * @Route("/update/{id}", name="orocrm_magento_contactus_request_update", requirements={"id"="\d+"})
      * @Template
      * @Acl(
-     *      id="orocrm_contactus_request_edit",
+     *      id="orocrm_magento_contactus_request_edit",
      *      type="entity",
      *      permission="EDIT",
-     *      class="OroCRMContactUsBundle:ContactRequest"
+     *      class="OroCRMMagentoContactUsBundle:ContactRequest"
      * )
      */
     public function updateAction(ContactRequest $contactRequest)
@@ -75,13 +74,13 @@ class ContactRequestController extends Controller
     }
 
     /**
-     * @Route("/create", name="orocrm_contactus_request_create")
-     * @Template("OroCRMContactUsBundle:ContactRequest:update.html.twig")
+     * @Route("/create", name="orocrm_magento_contactus_request_create")
+     * @Template("OroCRMMagentoContactUsBundle:ContactRequest:update.html.twig")
      * @Acl(
-     *      id="orocrm_contactus_request_create",
+     *      id="orocrm_magento_contactus_request_create",
      *      type="entity",
      *      permission="CREATE",
-     *      class="OroCRMContactUsBundle:ContactRequest"
+     *      class="OroCRMMagentoContactUsBundle:ContactRequest"
      * )
      */
     public function createAction()
@@ -90,12 +89,12 @@ class ContactRequestController extends Controller
     }
 
     /**
-     * @Route("/delete/{id}", name="orocrm_contactus_request_delete", requirements={"id"="\d+"})
+     * @Route("/delete/{id}", name="orocrm_magento_contactus_request_delete", requirements={"id"="\d+"})
      * @Acl(
-     *      id="orocrm_contactus_request_delete",
+     *      id="orocrm_magento_contactus_request_delete",
      *      type="entity",
      *      permission="DELETE",
-     *      class="OroCRMContactUsBundle:ContactRequest"
+     *      class="OroCRMMagentoContactUsBundle:ContactRequest"
      * )
      */
     public function deleteAction(ContactRequest $contactRequest)
@@ -116,22 +115,26 @@ class ContactRequestController extends Controller
      */
     protected function update(ContactRequest $contactRequest)
     {
-        if ($this->get('orocrm_contact_us.contact_request.form.handler')->process($contactRequest)) {
+        if ($this->get('orocrm_magento_contact_us.contact_request.form.handler')->process($contactRequest)) {
             $this->get('session')->getFlashBag()->add(
                 'success',
-                $this->get('translator')->trans('orocrm.contact_request.entity.saved')
+                $this->get('translator')->trans('orocrm.magentocontactus.contactrequest.entity.saved')
             );
 
             return $this->get('oro_ui.router')->redirectAfterSave(
-                ['route' => 'orocrm_contactus_request_update', 'parameters' => ['id' => $contactRequest->getId()]],
-                ['route' => 'orocrm_contactus_request_view', 'parameters' => ['id' => $contactRequest->getId()]],
+                ['route'      => 'orocrm_magento_contactus_request_update',
+                 'parameters' => ['id' => $contactRequest->getId()]
+                ],
+                ['route'      => 'orocrm_magento_contactus_request_view',
+                 'parameters' => ['id' => $contactRequest->getId()]
+                ],
                 $contactRequest
             );
         }
 
         return [
             'entity' => $contactRequest,
-            'form'   => $this->get('orocrm_contact_us.contact_request.form')->createView(),
+            'form'   => $this->get('orocrm_magento_contact_us.contact_request.form')->createView(),
         ];
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Entity;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="orocrm_contactus_contact_reason")
+ * @ORM\Table(name="orocrm_magento_contactus_contact_reason")
  */
 class ContactReason
 {

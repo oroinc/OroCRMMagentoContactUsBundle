@@ -1,4 +1,4 @@
-OroCRMContactUsBundle
+OroCRMMagentoContactUsBundle
 =====================
 
 This document contains information on how to download, install "OroCRM Contact Us" package.
@@ -14,7 +14,7 @@ Table of content
 Requirements
 ------------
 
-OroCRMContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.4.4 or above.
+OroCRMMagentoContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.4.4 or above.
 
 Installation
 ------------
@@ -23,7 +23,7 @@ Package is available through Oro Package Manager.
 For development purposes it might be cloned from github repository directly.
 
 ```bash
-git clone https://github.com/laboro/OroCRMContactUsBundle.git
+git clone https://github.com/laboro/OroCRMMagentoContactUsBundle.git
 ```
 
 Run unit tests
@@ -40,6 +40,6 @@ Use as dependency in composer
 
 ```yaml
     "require": {
-        "oro/crm-embedded-contact-us": "dev-master",
+        "oro/crm-magento-embedded-contact-us": "dev-master",
     }
 ```

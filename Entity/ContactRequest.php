@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Entity;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,10 +19,10 @@ use OroCRM\Bundle\SalesBundle\Entity\Opportunity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="orocrm_contactus_request")
+ * @ORM\Table(name="orocrm_magento_contactus_request")
  * @ORM\HasLifecycleCallbacks()
  * @Config(
- *  routeName="orocrm_contactus_request_index",
+ *  routeName="orocrm_magento_contactus_request_index",
  *  defaultValues={
  *      "security"={
  *          "type"="ACL",
@@ -34,9 +34,9 @@ use OroCRM\Bundle\SalesBundle\Entity\Opportunity;
  */
 class ContactRequest implements FirstNameInterface, LastNameInterface
 {
-    const CONTACT_METHOD_BOTH  = 'orocrm.contactus.contactrequest.method.both';
-    const CONTACT_METHOD_PHONE = 'orocrm.contactus.contactrequest.method.phone';
-    const CONTACT_METHOD_EMAIL = 'orocrm.contactus.contactrequest.method.email';
+    const CONTACT_METHOD_BOTH  = 'orocrm.magentocontactus.contactrequest.method.both';
+    const CONTACT_METHOD_PHONE = 'orocrm.magentocontactus.contactrequest.method.phone';
+    const CONTACT_METHOD_EMAIL = 'orocrm.magentocontactus.contactrequest.method.email';
 
     use IntegrationEntityTrait;
 
@@ -44,7 +44,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      * @var integer
      *
      * @ORM\Id
-     * @ORM\Column(type="smallint", name="id")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
@@ -73,7 +73,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="preferred_contact_method", type="string", length=50)
+     * @ORM\Column(name="preferred_contact_method", type="string", length=100)
      */
     protected $preferredContactMethod;
 
@@ -94,7 +94,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
     /**
      * @var ContactReason
      *
-     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\ContactUsBundle\Entity\ContactReason")
+     * @ORM\ManyToOne(targetEntity="OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactReason")
      * @ORM\JoinColumn(name="contact_reason_id", referencedColumnName="id")
      **/
     protected $contactReason;
@@ -147,7 +147,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="OroCRM\Bundle\CallBundle\Entity\Call")
-     * @ORM\JoinTable(name="orocrm_contactus_request_calls",
+     * @ORM\JoinTable(name="orocrm_magento_contactus_request_calls",
      *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="call_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
@@ -158,7 +158,7 @@ class ContactRequest implements FirstNameInterface, LastNameInterface
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Oro\Bundle\EmailBundle\Entity\Email")
-     * @ORM\JoinTable(name="orocrm_contactus_request_emails",
+     * @ORM\JoinTable(name="orocrm_magento_contactus_request_emails",
      *      joinColumns={@ORM\JoinColumn(name="request_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="email_id", referencedColumnName="id", onDelete="CASCADE")}
      * )

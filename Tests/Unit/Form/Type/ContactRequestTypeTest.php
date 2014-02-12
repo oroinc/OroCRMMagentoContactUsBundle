@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\Tests\Unit\Form\Type;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -8,7 +8,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\ChannelAwareFormType;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 
-use OroCRM\Bundle\ContactUsBundle\Form\Type\ContactRequestType;
+use OroCRM\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
 
 class ContactRequestTypeTest extends TypeTestCase
 {
@@ -80,7 +80,7 @@ class ContactRequestTypeTest extends TypeTestCase
 
     public function testHasName()
     {
-        $this->assertEquals('orocrm_contactus_contact_request', $this->formType->getName());
+        $this->assertEquals('orocrm_magento_contactus_contact_request', $this->formType->getName());
     }
 
     public function testHasChannelAwareParent()
@@ -107,7 +107,7 @@ class ContactRequestTypeTest extends TypeTestCase
         $form = $this->factory->create($this->formType, null);
 
         $this->assertSame(
-            'OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest',
+            'OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest',
             $form->getConfig()->getOption('data_class')
         );
 

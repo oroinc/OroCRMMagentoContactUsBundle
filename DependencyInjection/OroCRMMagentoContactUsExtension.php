@@ -1,13 +1,13 @@
 <?php
 
-namespace OroCRM\Bundle\ContactUsBundle\DependencyInjection;
+namespace OroCRM\Bundle\MagentoContactUsBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class OroCRMContactUsExtension extends Extension
+class OroCRMMagentoContactUsExtension extends Extension
 {
     /**
      * {@inheritDoc}

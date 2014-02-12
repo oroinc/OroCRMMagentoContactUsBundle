@@ -1,2 +1,2 @@
 bundles:
-    - OroCRM\Bundle\ContactUsBundle\OroCRMContactUsBundle
+    - OroCRM\Bundle\MagentoContactUsBundle\OroCRMMagentoContactUsBundle
