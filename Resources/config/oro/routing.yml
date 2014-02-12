@@ -2,4 +2,3 @@ orocrm_magento_contactus:
     resource: "@OroCRMMagentoContactUsBundle/Controller"
     type: annotation
     prefix: /magento-contact-us
-
