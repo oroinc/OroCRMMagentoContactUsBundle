@@ -102,22 +102,22 @@ datagrid:
         actions:
             view:
                 acl_resource: orocrm_magento_contactus_request_view
-                type: navigate
-                label: orocrm.magentocontactus.contactrequest.datagrid.view
-                icon: user
-                link: view_link
-                rowAction: true
+                type:         navigate
+                label:        orocrm.magentocontactus.contactrequest.datagrid.view
+                icon:         user
+                link:         view_link
+                rowAction:    true
             update:
                 acl_resource: orocrm_magento_contactus_request_edit
-                type: navigate
-                label: Edit
-                icon: edit
-                link: update_link
+                type:         navigate
+                label:        orocrm.magentocontactus.contactrequest.datagrid.update
+                icon:         edit
+                link:         update_link
             delete:
                 acl_resource: orocrm_magento_contactus_request_delete
-                type: delete
-                label: orocrm.magentocontactus.contactrequest.datagrid.delete
-                icon: trash
-                link: delete_link
+                type:         delete
+                label:        orocrm.magentocontactus.contactrequest.datagrid.delete
+                icon:         trash
+                link:         delete_link
         options:
             entityHint: contact request
