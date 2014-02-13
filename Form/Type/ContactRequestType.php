@@ -207,7 +207,7 @@ CSS;
      */
     public function getDefaultSuccessMessage()
     {
-        return '<h3>Form has been submitted successfully</h3>{back_link}';
+        return '<p>Form has been submitted successfully</p>{back_link}';
     }
 
     /**
