@@ -43,20 +43,23 @@
         Oro.Utils = function () {
             /**
              * Set Em text node
+             * @param {HTMLElement} el
+             * @param {Boolean} required
              */
             var setRequired = function (el, required) {
                 var labelNode = el.parentNode.previousSibling
                     , emNodes = labelNode.getElementsByTagName('em')
+                    , emNode
                 ;
 
                 if (emNodes.length) {
-                    var emNode = emNodes[0];
+                    emNode = emNodes[0];
                 } else {
-                    var emNode = labelNode.createElement('em');
+                    emNode = labelNode.createElement('em');
                 }
 
                 if (emNode) {
-                    labelNode.className = labelNode.className.replace(/(\s+required)/, '');
+                    labelNode.className = labelNode.className.replace(/(\s*required)/, '');
                     if (required) {
                         emNode.innerText = '*';
                         labelNode.className = [labelNode.className, 'required'].join(' ');
