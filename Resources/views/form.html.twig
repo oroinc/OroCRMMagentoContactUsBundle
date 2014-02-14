@@ -69,28 +69,26 @@
                 }
             };
 
-            return {
-                /**
-                 * On change listener
-                 *
-                 * @param {HTMLSelectElement} el
-                 */
-                change: function (el) {
-                    var value = el.value
-                        , emailFieldId = document.getElementById({{ form.emailAddress.vars.id|json_encode|raw }})
-                        , phoneFieldId = document.getElementById({{ form.phone.vars.id|json_encode|raw }})
-                    ;
+            /**
+             * On change listener
+             *
+             * @param {HTMLSelectElement} el
+             */
+            this.change = function (el) {
+                var value = el.value
+                    , emailFieldId = document.getElementById({{ form.emailAddress.vars.id|json_encode|raw }})
+                    , phoneFieldId = document.getElementById({{ form.phone.vars.id|json_encode|raw }})
+                ;
 
-                    if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_BOTH')|json_encode|raw }}) {
-                        setRequired(emailFieldId, true);
-                        setRequired(phoneFieldId, true);
-                    } else if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_PHONE')|json_encode|raw }}) {
-                        setRequired(phoneFieldId, true);
-                        setRequired(emailFieldId, false);
-                    } else if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_EMAIL')|json_encode|raw }}) {
-                        setRequired(emailFieldId, true);
-                        setRequired(phoneFieldId, false);
-                    }
+                if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_BOTH')|json_encode|raw }}) {
+                    setRequired(emailFieldId, true);
+                    setRequired(phoneFieldId, true);
+                } else if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_PHONE')|json_encode|raw }}) {
+                    setRequired(phoneFieldId, true);
+                    setRequired(emailFieldId, false);
+                } else if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_EMAIL')|json_encode|raw }}) {
+                    setRequired(emailFieldId, true);
+                    setRequired(phoneFieldId, false);
                 }
             }
         };
