@@ -36,3 +36,68 @@
     {{ form_widget(form.submit) }}
 </div>
 {{ form_end(form) }}
+
+<script type="text/javascript">
+    (function () {
+        var Oro = Oro || {};
+        Oro.Utils = function () {
+            /**
+             * Set Em text node
+             */
+            var setRequired = function (el, required) {
+                var labelNode = el.parentNode.previousSibling
+                    , emNodes = labelNode.getElementsByTagName('em')
+                ;
+
+                if (emNodes.length) {
+                    var emNode = emNodes[0];
+                } else {
+                    var emNode = labelNode.createElement('em');
+                }
+
+                if (emNode) {
+                    labelNode.className = labelNode.className.replace(/(\s+required)/, '');
+                    if (required) {
+                        emNode.innerText = '*';
+                        labelNode.className = [labelNode.className, 'required'].join(' ');
+                    } else {
+                        emNode.innerText = '';
+                    }
+                }
+            };
+
+            return {
+                /**
+                 * On change listener
+                 *
+                 * @param {HTMLSelectElement} el
+                 */
+                change: function (el) {
+                    var value = el.value
+                        , emailFieldId = document.getElementById({{ form.emailAddress.vars.id|json_encode|raw }})
+                        , phoneFieldId = document.getElementById({{ form.phone.vars.id|json_encode|raw }})
+                    ;
+
+                    if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ExtendedContactRequest::CONTACT_METHOD_BOTH')|json_encode|raw }}) {
+                        setRequired(emailFieldId, true);
+                        setRequired(phoneFieldId, true);
+                    } else if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ExtendedContactRequest::CONTACT_METHOD_PHONE')|json_encode|raw }}) {
+                        setRequired(phoneFieldId, true);
+                        setRequired(emailFieldId, false);
+                    } else if (value === {{ constant('OroCRM\\Bundle\\MagentoContactUsBundle\\Entity\\ExtendedContactRequest::CONTACT_METHOD_EMAIL')|json_encode|raw }}) {
+                        setRequired(emailFieldId, true);
+                        setRequired(phoneFieldId, false);
+                    }
+                }
+            }
+        };
+
+        Oro.Utils = new Oro.Utils();
+
+        var selectEl = document.getElementById({{ form.preferredContactMethod.vars.id|json_encode|raw }});
+        selectEl.onchange = function (event) {
+            return Oro.Utils.change(event.target);
+        }
+        Oro.Utils.change(selectEl)
+    })();
+</script>
