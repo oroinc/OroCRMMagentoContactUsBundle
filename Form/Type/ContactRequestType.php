@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\CustomLayoutFormTypeInterface;
 
-use OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest;
+use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
 
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface, CustomLayoutFormTypeInterface
 {
@@ -25,12 +25,12 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstName', 'text', ['label' => 'orocrm.magentocontactus.contactrequest.first_name.label']);
-        $builder->add('lastName', 'text', ['label' => 'orocrm.magentocontactus.contactrequest.last_name.label']);
+        $builder->add('firstName', 'text', ['label' => 'orocrm.contactus.contactrequest.first_name.label']);
+        $builder->add('lastName', 'text', ['label' => 'orocrm.contactus.contactrequest.last_name.label']);
         $builder->add(
             'organizationName',
             'text',
-            ['required' => false, 'label' => 'orocrm.magentocontactus.contactrequest.organization_name.label']
+            ['required' => false, 'label' => 'orocrm.contactus.contactrequest.organization_name.label']
         );
         $builder->add(
             'preferredContactMethod',
@@ -42,31 +42,31 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
                     ContactRequest::CONTACT_METHOD_EMAIL => ContactRequest::CONTACT_METHOD_EMAIL
                 ],
                 'required' => true,
-                'label'    => 'orocrm.magentocontactus.contactrequest.preferred_contact_method.label'
+                'label'    => 'orocrm.contactus.contactrequest.preferred_contact_method.label'
             ]
         );
         $builder->add(
             'phone',
             'text',
-            ['required' => false, 'label' => 'orocrm.magentocontactus.contactrequest.phone.label']
+            ['required' => false, 'label' => 'orocrm.contactus.contactrequest.phone.label']
         );
         $builder->add(
             'emailAddress',
             'text',
-            ['required' => false, 'label' => 'orocrm.magentocontactus.contactrequest.email_address.label']
+            ['required' => false, 'label' => 'orocrm.contactus.contactrequest.email_address.label']
         );
         $builder->add(
             'contactReason',
             'entity',
             [
-                'class'       => 'OroCRMMagentoContactUsBundle:ContactReason',
+                'class'       => 'OroCRMContactUsBundle:ContactReason',
                 'property'    => 'label',
-                'empty_value' => 'orocrm.magentocontactus.contactrequest.choose_contact_reason.label',
+                'empty_value' => 'orocrm.contactus.contactrequest.choose_contact_reason.label',
                 'required'    => false,
-                'label'       => 'orocrm.magentocontactus.contactrequest.contact_reason.label'
+                'label'       => 'orocrm.contactus.contactrequest.contact_reason.label'
             ]
         );
-        $builder->add('comment', 'textarea', ['label' => 'orocrm.magentocontactus.contactrequest.comment.label']);
+        $builder->add('comment', 'textarea', ['label' => 'orocrm.contactus.contactrequest.comment.label']);
         $builder->add('submit', 'submit');
     }
 
@@ -77,7 +77,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest',
+                'data_class' => 'OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest',
             ]
         );
     }
@@ -207,7 +207,7 @@ CSS;
      */
     public function getDefaultSuccessMessage()
     {
-        return '<h3>Form has been submitted successfully</h3>{back_link}';
+        return '<p>Form has been submitted successfully</p>{back_link}';
     }
 
     /**
@@ -215,6 +215,6 @@ CSS;
      */
     public function geFormLayout()
     {
-        return 'OroCRMMagentoContactUsBundle::form.html.twig';
+        return 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig';
     }
 }

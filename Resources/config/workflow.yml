@@ -1,8 +1,8 @@
 workflows:
-    orocrm_magento_contact_us_contact_request:
+    orocrm_contact_us_contact_request:
         label:   'Contact Request'
         enabled:  true
-        entity:   OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest
+        entity:   OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest
         entity_attribute: request
         start_step: open
         steps:
@@ -441,7 +441,7 @@ workflows:
                         method_parameters: [$call]
             send_email_definition:
                 pre_conditions:
-                    @not_empty: $request.email_address
+                    @not_empty: $request.emailAddress
                 conditions:
                     @and:
                         - @not_empty:
