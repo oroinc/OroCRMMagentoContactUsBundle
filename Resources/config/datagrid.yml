@@ -1,123 +1,26 @@
 datagrid:
-    orcrm-magento-contact-requests-grid:
+    orcrm-contact-requests-grid-extended:
+        extend: orcrm-contact-requests-grid
         source:
-            acl_resource: orocrm_magento_contactus_request_view
-            type: orm
             query:
                 select:
-                    - cr.id
-                    - cr.firstName
-                    - cr.lastName
-                    - cr.emailAddress
-                    - cr.phone
-                    - cr.createdAt
-                    - channel.name as channelName
                     - step.label as statusLabel
-                from:
-                    - { table: OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest, alias: cr }
                 join:
                     left:
-                        - { join: cr.channel, alias: channel }
                         - { join: cr.workflowStep, alias: step }
         columns:
-            channelName:
-                label: orocrm.magentocontactus.contactrequest.channel.label
-            firstName:
-                label: orocrm.magentocontactus.contactrequest.first_name.label
-            lastName:
-                label: orocrm.magentocontactus.contactrequest.last_name.label
-            phone:
-                label: orocrm.magentocontactus.contactrequest.phone.label
-            emailAddress:
-                label: orocrm.magentocontactus.contactrequest.email_address.label
             statusLabel:
                 type:  translatable
-                label: orocrm.magentocontactus.contactrequest.status.label
-            createdAt:
-                frontend_type: datetime
-                label: orocrm.magentocontactus.contactrequest.created_at.label
+                label: orocrm.contactus.contactrequest.status.label
         sorters:
             columns:
-                channelName:
-                    data_name: channel.name
-                firstName:
-                    data_name: cr.firstName
-                lastName:
-                    data_name: cr.lastName
-                phone:
-                    data_name: cr.phone
-                emailAddress:
-                    data_name: cr.emailAddress
                 statusLabel:
                     data_name: statusLabel
-                createdAt:
-                    data_name: cr.createdAt
-            default:
-                createdAt: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC
         filters:
             columns:
-                channel:
-                    type: entity
-                    data_name: channel
-                    label: orocrm.magentocontactus.contactrequest.channel.label
-                    options:
-                        field_options:
-                          class: OroIntegrationBundle:Channel
-                          property: name
-                firstName:
-                    type:      string
-                    data_name: cr.firstName
-                lastName:
-                    type:      string
-                    data_name: cr.lastName
-                phone:
-                    type:      string
-                    data_name: cr.phone
-                emailAddress:
-                    type:      string
-                    data_name: cr.emailAddress
                 statusLabel:
                     type: choice
                     data_name: step.name
                     options:
                         field_options:
                             choices: @orocrm_magento_contact_us.datagrid.helper->getStatusChoices()
-                createdAt:
-                    type: datetime
-                    data_name: cr.createdAt
-        properties:
-            id: ~
-            view_link:
-                type:       url
-                route:      orocrm_magento_contactus_request_view
-                params:     [ id ]
-            update_link:
-                type:       url
-                route:      orocrm_magento_contactus_request_update
-                params:     [ id ]
-            delete_link:
-                type:       url
-                route:      orocrm_magento_contactus_request_delete
-                params:     [ id ]
-        actions:
-            view:
-                acl_resource: orocrm_magento_contactus_request_view
-                type:         navigate
-                label:        orocrm.magentocontactus.contactrequest.datagrid.view
-                icon:         user
-                link:         view_link
-                rowAction:    true
-            update:
-                acl_resource: orocrm_magento_contactus_request_edit
-                type:         navigate
-                label:        orocrm.magentocontactus.contactrequest.datagrid.update
-                icon:         edit
-                link:         update_link
-            delete:
-                acl_resource: orocrm_magento_contactus_request_delete
-                type:         delete
-                label:        orocrm.magentocontactus.contactrequest.datagrid.delete
-                icon:         trash
-                link:         delete_link
-        options:
-            entityHint: contact request

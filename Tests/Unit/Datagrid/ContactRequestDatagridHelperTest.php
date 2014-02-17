@@ -39,7 +39,7 @@ class ContactRequestDatagridHelperTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()->getMock();
 
         $mockRepo->expects($this->once())->method('findByRelatedEntityByName')
-            ->with('OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest')
+            ->with('OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest')
             ->will($this->returnValue(['step1' => $step1, 'step2' => $step2]));
 
         $this->em->expects($this->any())

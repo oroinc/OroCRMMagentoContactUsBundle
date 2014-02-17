@@ -107,7 +107,7 @@ class ContactRequestTypeTest extends TypeTestCase
         $form = $this->factory->create($this->formType, null);
 
         $this->assertSame(
-            'OroCRM\Bundle\MagentoContactUsBundle\Entity\ContactRequest',
+            'OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest',
             $form->getConfig()->getOption('data_class')
         );
 
