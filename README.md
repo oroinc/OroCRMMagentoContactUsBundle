@@ -23,7 +23,7 @@ Package is available through Oro Package Manager.
 For development purposes it might be cloned from github repository directly.
 
 ```bash
-git clone https://github.com/laboro/OroCRMMagentoContactUsBundle.git
+git clone https://github.com/orocrm/OroCRMMagentoContactUsBundle.git
 ```
 
 Run unit tests
