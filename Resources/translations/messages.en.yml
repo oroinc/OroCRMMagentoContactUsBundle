@@ -1,0 +1,4 @@
+orocrm:
+    magentocontactus:
+        embedded_form:
+            label: Magento Contact Us Request

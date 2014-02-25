@@ -1,0 +1,26 @@
+datagrid:
+    orcrm-contact-requests-grid-extended:
+        extend: orcrm-contact-requests-grid
+        source:
+            query:
+                select:
+                    - step.label as statusLabel
+                join:
+                    left:
+                        - { join: cr.workflowStep, alias: step }
+        columns:
+            statusLabel:
+                type:  translatable
+                label: orocrm.contactus.contactrequest.status.label
+        sorters:
+            columns:
+                statusLabel:
+                    data_name: statusLabel
+        filters:
+            columns:
+                statusLabel:
+                    type: choice
+                    data_name: step.name
+                    options:
+                        field_options:
+                            choices: @orocrm_magento_contact_us.datagrid.helper->getStatusChoices()
