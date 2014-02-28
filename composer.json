@@ -17,8 +17,8 @@
     "target-dir": "src/OroCRM/Bundle/MagentoContactUsBundle",
     "require": {
         "php": ">=5.4.4",
-        "oro/platform": "1.0.x-dev",
-        "oro/crm": "1.0.x-dev"
+        "oro/platform": "*",
+        "oro/crm": "*"
     },
     "repositories": [
         {
