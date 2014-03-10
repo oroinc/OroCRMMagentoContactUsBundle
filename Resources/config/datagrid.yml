@@ -1,6 +1,6 @@
 datagrid:
     orcrm-contact-requests-grid-extended:
-        extend: orcrm-contact-requests-grid
+        extends: orcrm-contact-requests-grid
         source:
             query:
                 select:
