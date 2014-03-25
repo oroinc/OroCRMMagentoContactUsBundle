@@ -7,6 +7,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\ChannelAwareFormType;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
+use Oro\Bundle\FormBundle\Form\Extension\ClientValidationExtension;
 
 use OroCRM\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
 
@@ -66,6 +67,7 @@ class ContactRequestTypeTest extends TypeTestCase
             ->will($this->returnValue([]));
 
         $parentType = new ChannelAwareFormType();
+        $clientValidationExtension = new ClientValidationExtension();
 
         return [
             new PreloadedExtension(
@@ -73,7 +75,9 @@ class ContactRequestTypeTest extends TypeTestCase
                     $parentType->getName()     => $parentType,
                     $mockEntityType->getName() => $mockEntityType
                 ),
-                array()
+                array(
+                    $clientValidationExtension->getExtendedType() => [$clientValidationExtension]
+                )
             )
         ];
     }
