@@ -42,7 +42,8 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
                     ContactRequest::CONTACT_METHOD_EMAIL => ContactRequest::CONTACT_METHOD_EMAIL
                 ],
                 'required' => true,
-                'label'    => 'orocrm.contactus.contactrequest.preferred_contact_method.label'
+                'label'    => 'orocrm.contactus.contactrequest.preferred_contact_method.label',
+                'client_validation' => false,
             ]
         );
         $builder->add(
@@ -63,7 +64,8 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
                 'property'    => 'label',
                 'empty_value' => 'orocrm.contactus.contactrequest.choose_contact_reason.label',
                 'required'    => false,
-                'label'       => 'orocrm.contactus.contactrequest.contact_reason.label'
+                'label'       => 'orocrm.contactus.contactrequest.contact_reason.label',
+                'client_validation' => false,
             ]
         );
         $builder->add('comment', 'textarea', ['label' => 'orocrm.contactus.contactrequest.comment.label']);
