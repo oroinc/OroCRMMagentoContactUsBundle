@@ -18,7 +18,5 @@ services:
 
     orocrm_magento_contact_us.datagrid.helper:
          class: %orocrm_magento_contact_us.datagrid.helper.class%
-         arguments:
-            - @doctrine.orm.entity_manager
          tags:
              - { name: kernel.event_listener, event: oro_datagrid.datgrid.build.before.orcrm-contact-requests-grid-extended, method: buildBefore }
