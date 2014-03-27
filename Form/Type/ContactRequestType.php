@@ -276,14 +276,13 @@ select {
     font: 20px/24px Arial, Helvetica, sans-serif;
 }
 span.validation-failed {
-    clear: both;
-    color: #C81717;
+    color: #c81717;
     display: block;
-    line-height: 1.1em;
-    margin: 5px 0 5px 14px
+    margin: 3px 0 5px 0px;
+    font: bold 1em/1.1em 'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 label em {
-    color: #FF0000;
+    color: #eb340a;
     font-size: 16px;
 }
 CSS;
