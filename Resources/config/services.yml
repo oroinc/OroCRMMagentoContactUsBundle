@@ -19,4 +19,4 @@ services:
     orocrm_magento_contact_us.datagrid.helper:
          class: %orocrm_magento_contact_us.datagrid.helper.class%
          tags:
-             - { name: kernel.event_listener, event: oro_datagrid.datgrid.build.before.orcrm-contact-requests-grid-extended, method: buildBefore }
+             - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.before.orcrm-contact-requests-grid-extended, method: buildBefore }
