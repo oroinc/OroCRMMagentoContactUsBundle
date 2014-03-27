@@ -275,6 +275,17 @@ select {
 .page-title h1{
     font: 20px/24px Arial, Helvetica, sans-serif;
 }
+span.validation-failed {
+    clear: both;
+    color: #C81717;
+    display: block;
+    line-height: 1.1em;
+    margin: 5px 0 5px 14px
+}
+label em {
+    color: #FF0000;
+    font-size: 16px;
+}
 CSS;
     }
 
