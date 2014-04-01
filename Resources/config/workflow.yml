@@ -1,7 +1,6 @@
 workflows:
     orocrm_contact_us_contact_request:
         label:   'Contact Request'
-        enabled:  true
         entity:   OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest
         entity_attribute: request
         start_step: open
@@ -391,6 +390,8 @@ workflows:
                 step_to:    resolved
                 is_start:   true
                 is_unavailable_hidden: true
+                frontend_options:
+                    icon: 'icon-check'
                 transition_definition: resolve_definition
                 form_options:
                     attribute_fields:

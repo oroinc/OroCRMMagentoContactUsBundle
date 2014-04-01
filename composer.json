@@ -15,10 +15,16 @@
         }
     },
     "target-dir": "src/OroCRM/Bundle/MagentoContactUsBundle",
+    "repositories": [
+       {
+            "type": "composer",
+            "url": "http://packagist.orocrm.com"
+        }
+    ],
     "require": {
         "php": ">=5.4.4",
-        "oro/platform": "1.0.0-rc3",
-        "oro/crm": "1.0.0-rc2"
+        "oro/platform": "1.0.*",
+        "oro/crm": "1.0.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

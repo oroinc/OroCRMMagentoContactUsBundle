@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Migrations\DataFixtures\ORM\v1_1;
+namespace OroCRM\Bundle\MagentoContactUsBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
