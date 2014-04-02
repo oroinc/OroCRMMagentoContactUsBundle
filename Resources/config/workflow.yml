@@ -146,6 +146,7 @@ workflows:
                 step_to:      contacted
                 is_start:     true
                 is_unavailable_hidden: true
+                acl_resource: orocrm_call_create
                 frontend_options:
                     icon: 'icon-phone'
                 transition_definition: log_call_definition
@@ -214,6 +215,7 @@ workflows:
                 step_to:  contacted
                 is_start: true
                 is_unavailable_hidden: true
+                acl_resource: oro_email_create
                 frontend_options:
                     icon: 'icon-envelope-alt'
                     dialog:
@@ -270,6 +272,7 @@ workflows:
                 step_to:  converted_to_opportunity
                 is_start: false
                 is_unavailable_hidden: true
+                acl_resource: orocrm_sales_opportunity_create
                 frontend_options:
                     icon: 'icon-usd'
                 transition_definition: convert_to_opportunity_definition
@@ -320,6 +323,7 @@ workflows:
                 step_to:   converted_to_lead
                 is_start:  false
                 is_unavailable_hidden: true
+                acl_resource: orocrm_sales_lead_create
                 transition_definition: convert_to_lead_definition
                 form_options:
                     attribute_fields:
