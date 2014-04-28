@@ -4,21 +4,21 @@ datagrid:
         source:
             query:
                 select:
-                    - step.label as statusLabel
+                    - step.label as stepLabel
                 join:
                     left:
                         - { join: cr.workflowStep, alias: step }
         columns:
-            statusLabel:
+            stepLabel:
                 type:  translatable
                 label: orocrm.contactus.contactrequest.status.label
         sorters:
             columns:
-                statusLabel:
-                    data_name: statusLabel
+                stepLabel:
+                    data_name: stepLabel
         filters:
             columns:
-                statusLabel:
+                stepLabel:
                     type: entity
                     data_name: cr.workflowStep
                     options:
