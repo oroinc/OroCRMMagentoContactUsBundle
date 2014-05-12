@@ -23,8 +23,8 @@
     ],
     "require": {
         "php": ">=5.4.4",
-        "oro/platform": "1.2.0-rc1",
-        "oro/crm": "1.2.0-rc1"
+        "oro/platform": "1.2.*",
+        "oro/crm": "1.2.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
