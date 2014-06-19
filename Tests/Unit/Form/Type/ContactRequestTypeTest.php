@@ -66,13 +66,11 @@ class ContactRequestTypeTest extends TypeTestCase
         $mockRepo->expects($this->any())->method('findAll')
             ->will($this->returnValue([]));
 
-        $parentType = new ChannelAwareFormType();
         $clientValidationExtension = new ClientValidationExtension();
 
         return [
             new PreloadedExtension(
                 array(
-                    $parentType->getName()     => $parentType,
                     $mockEntityType->getName() => $mockEntityType
                 ),
                 array(
@@ -89,7 +87,7 @@ class ContactRequestTypeTest extends TypeTestCase
 
     public function testHasChannelAwareParent()
     {
-        $this->assertEquals('oro_channel_aware_form', $this->formType->getParent());
+        $this->assertEquals('form', $this->formType->getParent());
     }
 
     public function testImplementEmbeddedFormInterface()
