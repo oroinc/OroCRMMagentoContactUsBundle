@@ -5,7 +5,6 @@ namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-use Oro\Bundle\EmbeddedFormBundle\Form\Type\ChannelAwareFormType;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Oro\Bundle\FormBundle\Form\Extension\ClientValidationExtension;
 
@@ -85,7 +84,7 @@ class ContactRequestTypeTest extends TypeTestCase
         $this->assertEquals('orocrm_magento_contactus_contact_request', $this->formType->getName());
     }
 
-    public function testHasChannelAwareParent()
+    public function testParent()
     {
         $this->assertEquals('form', $this->formType->getParent());
     }
