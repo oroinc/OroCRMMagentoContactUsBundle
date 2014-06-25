@@ -86,14 +86,6 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface, 
 
     /**
      * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return 'oro_channel_aware_form';
-    }
-
-    /**
-     * {@inheritdoc}
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function getDefaultCss()
