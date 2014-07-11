@@ -107,4 +107,9 @@
     {% set id = 'contactRequestView' %}
     {% set data = {'dataBlocks': dataBlocks} %}
     {{ parent() }}
+    <script type="text/javascript">
+         require(['orocrm/magentocontactus/transition-error-handler'], function(handler) {
+             handler.handleEmailTransitionError();
+         });
+    </script>
 {% endblock %}
