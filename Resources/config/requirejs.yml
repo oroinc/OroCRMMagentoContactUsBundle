@@ -1,0 +1,3 @@
+config:
+    paths:
+        'orocrm/magentocontactus/transition-error-handler': 'bundles/orocrmmagentocontactus/js/transition-error-handler.js'
