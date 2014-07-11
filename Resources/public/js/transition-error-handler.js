@@ -1,9 +1,17 @@
+/*global define*/
 define([
     'jquery',
     'oroui/js/messenger',
     'orotranslation/js/translator'
 ], function ($, messenger, __) {
         'use strict';
+
+        /**
+         * Transition error handler
+         *
+         * @export  orocrm/magentocontactus/transition-error-handler
+         * @class   orocrm.transitionErrorHandler
+         */
         return {
             handleEmailTransitionError: function() {
                 var element = $('#transition-orocrm_contact_us_contact_request-send_email');
