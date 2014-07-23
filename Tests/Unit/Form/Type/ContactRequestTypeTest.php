@@ -5,7 +5,6 @@ namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-use Oro\Bundle\EmbeddedFormBundle\Form\Type\ChannelAwareFormType;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Oro\Bundle\FormBundle\Form\Extension\ClientValidationExtension;
 
@@ -66,13 +65,11 @@ class ContactRequestTypeTest extends TypeTestCase
         $mockRepo->expects($this->any())->method('findAll')
             ->will($this->returnValue([]));
 
-        $parentType = new ChannelAwareFormType();
         $clientValidationExtension = new ClientValidationExtension();
 
         return [
             new PreloadedExtension(
                 array(
-                    $parentType->getName()     => $parentType,
                     $mockEntityType->getName() => $mockEntityType
                 ),
                 array(
@@ -87,9 +84,9 @@ class ContactRequestTypeTest extends TypeTestCase
         $this->assertEquals('orocrm_magento_contactus_contact_request', $this->formType->getName());
     }
 
-    public function testHasChannelAwareParent()
+    public function testParent()
     {
-        $this->assertEquals('oro_channel_aware_form', $this->formType->getParent());
+        $this->assertEquals('form', $this->formType->getParent());
     }
 
     public function testImplementEmbeddedFormInterface()
@@ -102,8 +99,8 @@ class ContactRequestTypeTest extends TypeTestCase
         $this->assertNotEmpty($this->formType->getDefaultSuccessMessage());
         $this->assertInternalType('string', $this->formType->getDefaultSuccessMessage());
 
-        $this->assertNotEmpty($this->formType->geFormLayout());
-        $this->assertInternalType('string', $this->formType->geFormLayout());
+        $this->assertNotEmpty($this->formType->getFormLayout());
+        $this->assertInternalType('string', $this->formType->getFormLayout());
     }
 
     public function testBuildForm()
