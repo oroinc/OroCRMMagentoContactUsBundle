@@ -96,9 +96,6 @@ workflows:
             opportunity_budget:
                 label: 'Budget amount'
                 type:  float
-            opportunity_company_name:
-                label:    'Company name'
-                type:     string
 
             # lead attributes
             lead_owner:
@@ -120,9 +117,6 @@ workflows:
                 type:     string
             lead_email:
                 label:    'Email'
-                type:     string
-            lead_company_name:
-                label:    'Company name'
                 type:     string
 
             # Other workflow attributes
@@ -290,20 +284,11 @@ workflows:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
-                        account:
-                            form_type: orocrm_account_select
-                            options:
-                                required: false
-                                label:    'Account'
                         contact:
                             form_type: orocrm_contact_select
                             options:
                                 required: false
                                 label:    'Contact'
-                        opportunity_company_name:
-                            form_type: text
-                            options:
-                                required: false
                         opportunity_budget:
                             form_type: oro_money
                             options:
@@ -314,7 +299,6 @@ workflows:
                                 required: false
                     init_actions:
                         - @assign_active_user: $opportunity_owner
-                        - @assign_value: [$opportunity_company_name,  $request.organizationName]
                         - @format_name:
                             attribute: $opportunity_name
                             object:    $request
@@ -335,11 +319,6 @@ workflows:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
-                        account:
-                            form_type: orocrm_account_select
-                            options:
-                                required: false
-                                label:    'Account'
                         contact:
                             form_type: orocrm_contact_select
                             options:
@@ -363,10 +342,6 @@ workflows:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
-                        lead_company_name:
-                            form_type: text
-                            options:
-                                required: false
                         lead_phone:
                             form_type: text
                             options:
@@ -388,7 +363,6 @@ workflows:
                             object:    $request
                         - @assign_value: [$lead_first_name, $request.firstName]
                         - @assign_value: [$lead_last_name,  $request.lastName]
-                        - @assign_value: [$lead_company_name,  $request.organizationName]
                         - @assign_value: [$lead_phone,  $request.phone]
                         - @assign_value: [$lead_email,  $request.emailAddress]
             resolve:
@@ -487,36 +461,11 @@ workflows:
                         - @not_empty:
                             parameters: $opportunity_owner
                             message:    'Owner must be set'
-                        - @or:
-                            parameters:
-                                - @not_empty: $opportunity_company_name
-                                - @not_empty: $account
-                            message: "Company name or account must be selected."
                 post_actions:
                     - @find_entity:
                         class:       OroCRM\Bundle\SalesBundle\Entity\OpportunityStatus
                         identifier:  'in_progress'
                         attribute:   $.result.opportunity_status
-                    - @tree: # create and set Account
-                        conditions:
-                            @and: # if account not selected and company name is selected
-                                - @empty:     $account
-                                - @not_empty: $opportunity_company_name
-                        actions:
-                            - @find_entity: # try to find account by company name
-                                class:     OroCRM\Bundle\AccountBundle\Entity\Account
-                                attribute: $account
-                                where:
-                                    name:  $opportunity_company_name
-                                case_insensitive: true
-                            - @create_entity: # if account not found - create new one
-                                conditions:
-                                    @empty: $account
-                                parameters:
-                                    class:      OroCRM\Bundle\AccountBundle\Entity\Account
-                                    attribute:  $account
-                                    data:
-                                        name:        $opportunity_company_name
                     - @create_entity: # create an opportunity
                         class:     OroCRM\Bundle\SalesBundle\Entity\Opportunity
                         attribute: $request.opportunity
@@ -524,7 +473,6 @@ workflows:
                             name:         $opportunity_name
                             owner:        $opportunity_owner
                             budgetAmount: $opportunity_budget
-                            account:      $account
                             contact:      $contact
                             status:       $.result.opportunity_status
                             notes:        $feedback
@@ -556,11 +504,9 @@ workflows:
                             name:         $lead_name
                             firstName:    $lead_first_name
                             lastName:     $lead_last_name
-                            companyName:  $lead_company_name
                             owner:        $lead_owner
                             phoneNumber:  $lead_phone
                             email:        $lead_email
-                            account:      $account
                             contact:      $contact
                             status:       $.result.lead_status
                             notes:        $feedback
