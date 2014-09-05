@@ -2,81 +2,23 @@
 
 namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 
-use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
-
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-use Oro\Bundle\FormBundle\Form\Extension\ClientValidationExtension;
 
 use OroCRM\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
 
-class ContactRequestTypeTest extends TypeTestCase
+class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 {
     /** @var ContactRequestType */
     protected $formType;
 
     public function setUp()
     {
-        parent::setUp();
         $this->formType = new ContactRequestType();
     }
 
     public function tearDown()
     {
-        parent::tearDown();
         unset($this->formType);
-    }
-
-    protected function getExtensions()
-    {
-        $mockEntityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()->getMock();
-
-        $mockMetadata = $this->getMockBuilder('Doctrine\Common\Persistence\Mapping\ClassMetadata')
-            ->disableOriginalConstructor()->getMock();
-
-        $mockEntityManager->expects($this->any())->method('getClassMetadata')
-            ->will($this->returnValue($mockMetadata));
-
-        $mockRegistry = $this->getMockBuilder('Doctrine\Bundle\DoctrineBundle\Registry')
-            ->disableOriginalConstructor()
-            ->setMethods(['getManagerForClass'])
-            ->getMock();
-
-        $mockRegistry->expects($this->any())->method('getManagerForClass')
-            ->will($this->returnValue($mockEntityManager));
-
-        $mockEntityType = $this->getMockBuilder('Symfony\Bridge\Doctrine\Form\Type\EntityType')
-            ->setMethods(['getName', 'buildForm'])
-            ->setConstructorArgs([$mockRegistry])
-            ->getMock();
-
-        $mockEntityType->expects($this->any())->method('getName')
-            ->will($this->returnValue('entity'));
-
-        $mockRepo = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $mockEntityManager->expects($this->any())
-            ->method('getRepository')
-            ->will($this->returnValue($mockRepo));
-
-        $mockRepo->expects($this->any())->method('findAll')
-            ->will($this->returnValue([]));
-
-        $clientValidationExtension = new ClientValidationExtension();
-
-        return [
-            new PreloadedExtension(
-                array(
-                    $mockEntityType->getName() => $mockEntityType
-                ),
-                array(
-                    $clientValidationExtension->getExtendedType() => [$clientValidationExtension]
-                )
-            )
-        ];
     }
 
     public function testHasName()
@@ -105,26 +47,28 @@ class ContactRequestTypeTest extends TypeTestCase
 
     public function testBuildForm()
     {
-        $form = $this->factory->create($this->formType, null);
+        $builder = $this->getMockBuilder('Symfony\Component\Form\FormBuilder')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->assertSame(
-            'OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest',
-            $form->getConfig()->getOption('data_class')
-        );
-
-        $fields = [
-            'firstName',
-            'lastName',
-            'organizationName',
-            'preferredContactMethod',
-            'phone',
-            'emailAddress',
-            'contactReason',
-            'comment',
-            'submit'
-        ];
-        foreach ($fields as $field) {
-            $this->assertTrue($form->has($field));
-        }
+        $builder->expects($this->exactly(10))
+            ->method('add')
+            ->will(
+                $this->returnValueMap(
+                    [
+                        [['dataChannel', 'orocrm_channel_select_type'], $this->returnSelf()],
+                        [['firstName', 'text'], $this->returnSelf()],
+                        [['lastName', 'text'], $this->returnSelf()],
+                        [['organizationName', 'text'], $this->returnSelf()],
+                        [['preferredContactMethod', 'choice'], $this->returnSelf()],
+                        [['phone', 'text'], $this->returnSelf()],
+                        [['emailAddress', 'text'], $this->returnSelf()],
+                        [['contactReason', 'entity'], $this->returnSelf()],
+                        [['comment', 'textarea'], $this->returnSelf()],
+                        [['submit', 'submit'], $this->returnSelf()],
+                    ]
+                )
+            );
+        $this->formType->buildForm($builder, []);
     }
 }
