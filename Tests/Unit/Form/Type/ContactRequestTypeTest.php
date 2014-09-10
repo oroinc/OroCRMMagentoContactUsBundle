@@ -63,7 +63,7 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->formType->buildForm($builder, []);
+        $this->formType->buildForm($builder, ['dataChannelField' => true]);
 
         $this->assertSame(
             [
