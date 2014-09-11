@@ -96,7 +96,6 @@ workflows:
             opportunity_budget:
                 label: 'Budget amount'
                 type:  float
-
             opportunity_company_name:
                 label: 'Company name'
                 type:   string
