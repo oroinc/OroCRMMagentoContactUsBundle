@@ -134,6 +134,11 @@ workflows:
                 type:     entity
                 options:
                     class: OroCRM\Bundle\ContactBundle\Entity\Contact
+            dataChannel:
+                label:   'Data Channel'
+                type:     entity
+                options:
+                    class: OroCRM\Bundle\ChannelBundle\Entity\Channel
         transitions:
             log_call:
                 label:        'Log call'
@@ -476,6 +481,8 @@ workflows:
                             contact:      $contact
                             status:       $.result.opportunity_status
                             notes:        $feedback
+                            dataChannel:  $request.dataChannel
+
             convert_to_lead_definition:
                 pre_conditions: []
                 conditions:
@@ -510,6 +517,7 @@ workflows:
                             contact:      $contact
                             status:       $.result.lead_status
                             notes:        $feedback
+                            dataChannel:  $request.dataChannel
             resolve_definition:
                 pre_conditions:
                     @not_empty: $request.id
