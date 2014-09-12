@@ -135,10 +135,7 @@ workflows:
                 options:
                     class: OroCRM\Bundle\ContactBundle\Entity\Contact
             dataChannel:
-                label:   'Data Channel'
-                type:     entity
-                options:
-                    class: OroCRM\Bundle\ChannelBundle\Entity\Channel
+                property_path: request.dataChannel
         transitions:
             log_call:
                 label:        'Log call'
@@ -457,7 +454,8 @@ workflows:
                         object:    $request
                         method_parameters: [ $email ]
             convert_to_opportunity_definition:
-                pre_conditions: []
+                pre_conditions:
+                    @channel_entity_availiable: [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Opportunity']]
                 conditions:
                     @and:
                         - @not_empty:
@@ -481,10 +479,11 @@ workflows:
                             contact:      $contact
                             status:       $.result.opportunity_status
                             notes:        $feedback
-                            dataChannel:  $request.dataChannel
+                            dataChannel:  $dataChannel
 
             convert_to_lead_definition:
-                pre_conditions: []
+                pre_conditions:
+                    @channel_entity_availiable: [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Lead']]
                 conditions:
                     @and:
                         - @not_empty:
@@ -517,7 +516,7 @@ workflows:
                             contact:      $contact
                             status:       $.result.lead_status
                             notes:        $feedback
-                            dataChannel:  $request.dataChannel
+                            dataChannel:  $dataChannel
             resolve_definition:
                 pre_conditions:
                     @not_empty: $request.id
