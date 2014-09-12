@@ -2,3 +2,4 @@ orocrm:
     magentocontactus:
         embedded_form:
             label: Magento Contact Us Request
+        required_fields: "* Required Fields"
