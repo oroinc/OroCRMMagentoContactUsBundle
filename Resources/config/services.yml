@@ -15,6 +15,9 @@ services:
         arguments:
             - "orocrm_magento_contactus_contact_request"
             - "orocrm_magento_contactus_contact_request"
+            - null
+            - { dataChannelField : true }
+
 
     orocrm_magento_contact_us.datagrid.helper:
          class: %orocrm_magento_contact_us.datagrid.helper.class%
