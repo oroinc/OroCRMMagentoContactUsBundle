@@ -29,7 +29,7 @@
 
         {# Custom(extended) fields #}
         {% for child in form.children if child.vars.extra_field is defined and child.vars.extra_field %}
-            <li>
+            <li id="{{ child.vars.id ~ '_holder' }}">
                 {{ form_row(child) }}
             </li>
         {% endfor %}
