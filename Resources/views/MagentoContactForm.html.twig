@@ -26,6 +26,14 @@
         <li>
             {{ form_row(form.contactReason) }}
         </li>
+
+        {# Custom(extended) fields #}
+        {% for child in form.children if child.vars.extra_field is defined and child.vars.extra_field %}
+            <li>
+                {{ form_row(child) }}
+            </li>
+        {% endfor %}
+
         <li class="wide">
             {{ form_row(form.comment) }}
         </li>
