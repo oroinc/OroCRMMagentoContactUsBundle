@@ -5,12 +5,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Oro\Component\Layout\LayoutBuilderInterface;
+use Oro\Component\Layout\LayoutUpdateInterface;
+
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-use Oro\Bundle\EmbeddedFormBundle\Form\Type\CustomLayoutFormInterface;
 
 use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
 
-class ContactRequestType extends AbstractType implements EmbeddedFormInterface, CustomLayoutFormInterface
+class ContactRequestType extends AbstractType implements EmbeddedFormInterface, LayoutUpdateInterface
 {
     /**
      * {@inheritdoc}
@@ -306,8 +308,8 @@ CSS;
     /**
      * {@inheritdoc}
      */
-    public function getFormLayout()
+    public function updateLayout(LayoutBuilderInterface $layoutBuilder)
     {
-        return 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig';
+        $layoutBuilder->setBlockTheme('OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig');
     }
 }
