@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Oro\Component\Layout\LayoutBuilderInterface;
+use Oro\Component\Layout\LayoutManipulatorInterface;
 use Oro\Component\Layout\LayoutUpdateInterface;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
@@ -308,8 +308,8 @@ CSS;
     /**
      * {@inheritdoc}
      */
-    public function updateLayout(LayoutBuilderInterface $layoutBuilder)
+    public function updateLayout(LayoutManipulatorInterface $layoutManipulator)
     {
-        $layoutBuilder->setBlockTheme('OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig');
+        $layoutManipulator->setBlockTheme('OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig');
     }
 }
