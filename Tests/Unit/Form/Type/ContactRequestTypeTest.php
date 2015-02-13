@@ -40,9 +40,6 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEmpty($this->formType->getDefaultSuccessMessage());
         $this->assertInternalType('string', $this->formType->getDefaultSuccessMessage());
-
-        $this->assertNotEmpty($this->formType->getFormLayout());
-        $this->assertInternalType('string', $this->formType->getFormLayout());
     }
 
     public function testBuildForm()
