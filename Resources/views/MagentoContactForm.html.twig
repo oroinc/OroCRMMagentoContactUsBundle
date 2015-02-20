@@ -1,114 +1,101 @@
-{% block _form_widget %}
-<div class="page-title">
-    <h1>{% trans %}Contact Us{% endtrans %}</h1>
-</div>
-{{ form_start(form, {'attr': {'id': form.vars.name, 'novalidate': 'novalidate' }}) }}
-<div class="fieldset">
-    <h2 class="legend">{% trans %}Contact Information{% endtrans %}</h2>
-    <ul class="form-list">
-        <li>
-            {{ form_row(form.firstName) }}
-        </li>
-        <li>
-            {{ form_row(form.lastName) }}
-        </li>
-        <li>
-            {{ form_row(form.organizationName) }}
-        </li>
-        <li>
-            {{ form_row(form.preferredContactMethod) }}
-        </li>
-        <li>
-            {{ form_row(form.phone) }}
-        </li>
-        <li>
-            {{ form_row(form.emailAddress) }}
-        </li>
-        <li>
-            {{ form_row(form.contactReason) }}
-        </li>
+{% block fieldset_widget %}
+    <div class="fieldset">
+        <h2 class="legend">{{ title|trans({}, translation_domain) }}</h2>
+        <ul class="form-list">
+            {{ block_widget(block) }}
+        </ul>
+    </div>
+{% endblock %}
 
-        {# Custom(extended) fields #}
-        {% for child in form.children if child.vars.extra_field is defined and child.vars.extra_field %}
-            <li id="{{ child.vars.id ~ '_holder' }}">
-                {{ form_row(child) }}
-            </li>
-        {% endfor %}
+{% block form_field_widget %}
+    <li>
+        {{ form_row(form) }}
+    </li>
+{% endblock %}
 
-        <li class="wide">
-            {{ form_row(form.comment) }}
-        </li>
-    </ul>
-</div>
-<div class="buttons-set">
-    <p class="required">{% trans %}orocrm.magentocontactus.required_fields{% endtrans %}</p>
-    {{ form_widget(form.submit) }}
-</div>
-{{ form_end(form) }}
+{% block _embedded_form_widget %}
+    <div class="page-title">
+        <h1>{% trans %}Contact Us{% endtrans %}</h1>
+    </div>
+    {{ form_start(form, {'attr': {'id': form.vars.name, 'novalidate': 'novalidate' }}) }}
+    {{ block_widget(block) }}
+    {{ form_end(form) }}
+    <script type="text/javascript">
+        (function () {
+            var Oro = Oro || {};
+            Oro.Utils = function () {
+                /**
+                 * Set Em text node
+                 * @param {HTMLElement} el
+                 * @param {boolean} required
+                 */
+                var setRequired = function (el, required) {
+                    var labelNode = el.parentNode.previousSibling
+                            , emNodes = labelNode.getElementsByTagName('em')
+                            , emNode
+                            ;
 
-<script type="text/javascript">
-    (function () {
-        var Oro = Oro || {};
-        Oro.Utils = function () {
-            /**
-             * Set Em text node
-             * @param {HTMLElement} el
-             * @param {boolean} required
-             */
-            var setRequired = function (el, required) {
-                var labelNode = el.parentNode.previousSibling
-                    , emNodes = labelNode.getElementsByTagName('em')
-                    , emNode
-                ;
-
-                if (emNodes.length) {
-                    emNode = emNodes[0];
-                } else {
-                    emNode = labelNode.createElement('em');
-                }
-
-                if (emNode) {
-                    labelNode.className = labelNode.className.replace(/(\s*required)/, '');
-                    if (required) {
-                        emNode.innerText = '*';
-                        labelNode.className = [labelNode.className, 'required'].join(' ');
+                    if (emNodes.length) {
+                        emNode = emNodes[0];
                     } else {
-                        emNode.innerText = '';
+                        emNode = labelNode.createElement('em');
+                    }
+
+                    if (emNode) {
+                        labelNode.className = labelNode.className.replace(/(\s*required)/, '');
+                        if (required) {
+                            emNode.innerText = '*';
+                            labelNode.className = [labelNode.className, 'required'].join(' ');
+                        } else {
+                            emNode.innerText = '';
+                        }
+                    }
+                };
+
+                /**
+                 * On change listener
+                 *
+                 * @param {HTMLSelectElement} el
+                 */
+                this.change = function (el) {
+                    var value = el.value
+                            , emailFieldId = document.getElementById({{ form.emailAddress.vars.id|json_encode|raw }})
+                            , phoneFieldId = document.getElementById({{ form.phone.vars.id|json_encode|raw }})
+                            ;
+
+                    if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_BOTH')|json_encode|raw }}) {
+                        setRequired(emailFieldId, true);
+                        setRequired(phoneFieldId, true);
+                    } else if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_PHONE')|json_encode|raw }}) {
+                        setRequired(phoneFieldId, true);
+                        setRequired(emailFieldId, false);
+                    } else if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_EMAIL')|json_encode|raw }}) {
+                        setRequired(emailFieldId, true);
+                        setRequired(phoneFieldId, false);
                     }
                 }
             };
 
-            /**
-             * On change listener
-             *
-             * @param {HTMLSelectElement} el
-             */
-            this.change = function (el) {
-                var value = el.value
-                    , emailFieldId = document.getElementById({{ form.emailAddress.vars.id|json_encode|raw }})
-                    , phoneFieldId = document.getElementById({{ form.phone.vars.id|json_encode|raw }})
-                ;
+            Oro.Utils = new Oro.Utils();
 
-                if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_BOTH')|json_encode|raw }}) {
-                    setRequired(emailFieldId, true);
-                    setRequired(phoneFieldId, true);
-                } else if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_PHONE')|json_encode|raw }}) {
-                    setRequired(phoneFieldId, true);
-                    setRequired(emailFieldId, false);
-                } else if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_EMAIL')|json_encode|raw }}) {
-                    setRequired(emailFieldId, true);
-                    setRequired(phoneFieldId, false);
-                }
+            var selectEl = document.getElementById({{ form.preferredContactMethod.vars.id|json_encode|raw }});
+            selectEl.onchange = function (event) {
+                return Oro.Utils.change(event.target);
             }
-        };
+            Oro.Utils.change(selectEl)
+        })();
+    </script>
+{% endblock %}
 
-        Oro.Utils = new Oro.Utils();
+{% block _embedded_form_comment_widget %}
+    <li class="wide">
+        {{ form_row(form) }}
+    </li>
+{% endblock %}
 
-        var selectEl = document.getElementById({{ form.preferredContactMethod.vars.id|json_encode|raw }});
-        selectEl.onchange = function (event) {
-            return Oro.Utils.change(event.target);
-        }
-        Oro.Utils.change(selectEl)
-    })();
-</script>
+{% block _embedded_form_submit_widget %}
+    <div class="buttons-set">
+        <p class="required">{% trans %}orocrm.magentocontactus.required_fields{% endtrans %}</p>
+        {{ form_row(form) }}
+    </div>
 {% endblock %}
