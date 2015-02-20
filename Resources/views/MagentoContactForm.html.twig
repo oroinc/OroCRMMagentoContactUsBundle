@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block form_field_widget %}
-    <li>
+    <li {% if form.vars.extra_field is defined and form.vars.extra_field %} id="{{ form.vars.id ~ '_holder' }}" {% endif %}>
         {{ form_row(form) }}
     </li>
 {% endblock %}
