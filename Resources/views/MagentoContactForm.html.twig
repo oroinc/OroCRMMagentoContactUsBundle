@@ -8,12 +8,12 @@
 {% endblock %}
 
 {% block form_field_widget %}
-    <li {% if form.vars.extra_field is defined and form.vars.extra_field %} id="{{ form.vars.id ~ '_holder' }}" {% endif %}>
+    <li{% if form.vars.extra_field is defined and form.vars.extra_field %} id="{{ form.vars.id ~ '_holder' }}" {% endif %}>
         {{ form_row(form) }}
     </li>
 {% endblock %}
 
-{% block _embedded_form_widget %}
+{% block form_widget %}
     <div class="page-title">
         <h1>{% trans %}Contact Us{% endtrans %}</h1>
     </div>
@@ -96,6 +96,6 @@
 {% block _embedded_form_submit_widget %}
     <div class="buttons-set">
         <p class="required">{% trans %}orocrm.magentocontactus.required_fields{% endtrans %}</p>
-        {{ form_row(form) }}
+        {{ form_widget(form) }}
     </div>
 {% endblock %}
