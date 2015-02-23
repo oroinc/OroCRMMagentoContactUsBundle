@@ -311,5 +311,31 @@ CSS;
     public function updateLayout(LayoutManipulatorInterface $layoutManipulator)
     {
         $layoutManipulator->setBlockTheme('OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig');
+        $layoutManipulator
+            ->remove('form')
+            ->add(
+                'embedded_form',
+                'content',
+                'form',
+                [
+                    'form_name' => 'embedded_form',
+                    'preferred_fields' => [
+                        'firstName',
+                        'lastName',
+                        'organizationName',
+                        'preferredContactMethod',
+                        'phone',
+                        'emailAddress',
+                        'contactReason'
+                    ],
+                    'groups'    => [
+                        'contact' => [
+                            'title'   => 'Contact Information',
+                            'default' => true,
+                        ],
+                    ],
+                ]
+            )
+            ->move('embedded_form_submit', 'embedded_form', 'embedded_form:group_contact');
     }
 }
