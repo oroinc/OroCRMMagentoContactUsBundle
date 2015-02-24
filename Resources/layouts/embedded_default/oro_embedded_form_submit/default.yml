@@ -1,0 +1,34 @@
+oro_layout:
+    actions:
+        - @remove:
+            id: form
+        - @add:
+           id:        embedded_form
+           parent:    content
+           blockType: form
+           options:
+                form_name: embedded_form
+                preferred_fields: 
+                    - firstName
+                    - lastName
+                    - organizationName
+                    - preferredContactMethod
+                    - phone
+                    - emailAddress
+                    - contactReason
+                groups:
+                    contact:
+                        title:   Contact Information
+                        default: true
+        - @move:
+            id:      embedded_form_submit
+            parent:  embedded_form
+            sibling: 'embedded_form:group_contact'
+        - @setBlockTheme:
+            themeName: 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig'
+
+    condition:
+        @eq:
+            - $context.embedded_form_type
+            - 'orocrm_magento_contact_us.embedded_form'
+

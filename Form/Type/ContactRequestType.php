@@ -1,18 +1,16 @@
 <?php
+
 namespace OroCRM\Bundle\MagentoContactUsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Oro\Component\Layout\LayoutManipulatorInterface;
-
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-use Oro\Bundle\EmbeddedFormBundle\Manager\LayoutUpdateInterface;
 
 use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
 
-class ContactRequestType extends AbstractType implements EmbeddedFormInterface, LayoutUpdateInterface
+class ContactRequestType extends AbstractType implements EmbeddedFormInterface
 {
     /**
      * {@inheritdoc}
@@ -303,39 +301,5 @@ CSS;
     public function getDefaultSuccessMessage()
     {
         return '<p>Form has been submitted successfully</p>{back_link}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function updateLayout(LayoutManipulatorInterface $layoutManipulator)
-    {
-        $layoutManipulator->setBlockTheme('OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig');
-        $layoutManipulator
-            ->remove('form')
-            ->add(
-                'embedded_form',
-                'content',
-                'form',
-                [
-                    'form_name' => 'embedded_form',
-                    'preferred_fields' => [
-                        'firstName',
-                        'lastName',
-                        'organizationName',
-                        'preferredContactMethod',
-                        'phone',
-                        'emailAddress',
-                        'contactReason'
-                    ],
-                    'groups'    => [
-                        'contact' => [
-                            'title'   => 'Contact Information',
-                            'default' => true,
-                        ],
-                    ],
-                ]
-            )
-            ->move('embedded_form_submit', 'embedded_form', 'embedded_form:group_contact');
     }
 }
