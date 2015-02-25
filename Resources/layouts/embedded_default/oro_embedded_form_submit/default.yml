@@ -4,11 +4,11 @@ oro_layout:
             id: form
         - @add:
            id:        embedded_form
-           parent:    content
            blockType: form
+           parentId:  content
            options:
                 form_name: embedded_form
-                preferred_fields: 
+                preferred_fields:
                     - firstName
                     - lastName
                     - organizationName
@@ -21,11 +21,11 @@ oro_layout:
                         title:   Contact Information
                         default: true
         - @move:
-            id:      embedded_form_submit
-            parent:  embedded_form
-            sibling: 'embedded_form:group_contact'
+            id:          embedded_form_submit
+            parentId:    embedded_form
+            siblingId:   'embedded_form:group_contact'
         - @setBlockTheme:
-            themeName: 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig'
+            themes: 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig'
 
     condition:
         @eq:
