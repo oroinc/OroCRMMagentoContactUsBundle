@@ -27,8 +27,7 @@ oro_layout:
         - @setBlockTheme:
             themes: 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig'
 
-    condition:
+    conditions:
         @eq:
             - $context.embedded_form_type
             - 'orocrm_magento_contact_us.embedded_form'
-
