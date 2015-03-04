@@ -1,7 +1,7 @@
 oro_layout:
     actions:
         - @setBlockTheme:
-            themes: 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig'
+            themes: 'OroCRMMagentoContactUsBundle:layouts:embedded_default/oro_embedded_form_submit/magento_form.html.twig'
         - @setOption:
             id:          embedded_form
             optionName:  preferred_fields
