@@ -1,4 +1,4 @@
-oro_layout:
+layout:
     actions:
         - @setBlockTheme:
             themes: 'OroCRMMagentoContactUsBundle:layouts:embedded_default/oro_embedded_form_submit/magento_form.html.twig'
