@@ -1,4 +1,5 @@
 <?php
+
 namespace OroCRM\Bundle\MagentoContactUsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -6,11 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-use Oro\Bundle\EmbeddedFormBundle\Form\Type\CustomLayoutFormInterface;
 
 use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
 
-class ContactRequestType extends AbstractType implements EmbeddedFormInterface, CustomLayoutFormInterface
+class ContactRequestType extends AbstractType implements EmbeddedFormInterface
 {
     /**
      * {@inheritdoc}
@@ -301,13 +301,5 @@ CSS;
     public function getDefaultSuccessMessage()
     {
         return '<p>Form has been submitted successfully</p>{back_link}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormLayout()
-    {
-        return 'OroCRMMagentoContactUsBundle::MagentoContactForm.html.twig';
     }
 }

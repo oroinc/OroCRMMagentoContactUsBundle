@@ -1,0 +1,101 @@
+{% block fieldset_widget %}
+    <div class="fieldset">
+        <h2 class="legend">{{ title|block_text(translation_domain) }}</h2>
+        <ul class="form-list">
+            {{ block_widget(block) }}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block form_field_widget %}
+    <li{% if form.vars.extra_field is defined and form.vars.extra_field %} id="{{ form.vars.id ~ '_holder' }}" {% endif %}>
+        {{ form_row(form) }}
+    </li>
+{% endblock %}
+
+{% block form_widget %}
+    <div class="page-title">
+        <h1>{% trans %}Contact Us{% endtrans %}</h1>
+    </div>
+    {{ form_start(form, {'attr': {'id': form.vars.name, 'novalidate': 'novalidate' }}) }}
+    {{ block_widget(block) }}
+    {{ form_end(form) }}
+    <script type="text/javascript">
+        (function () {
+            var Oro = Oro || {};
+            Oro.Utils = function () {
+                /**
+                 * Set Em text node
+                 * @param {HTMLElement} el
+                 * @param {boolean} required
+                 */
+                var setRequired = function (el, required) {
+                    var labelNode = el.parentNode.previousSibling
+                            , emNodes = labelNode.getElementsByTagName('em')
+                            , emNode
+                            ;
+
+                    if (emNodes.length) {
+                        emNode = emNodes[0];
+                    } else {
+                        emNode = labelNode.createElement('em');
+                    }
+
+                    if (emNode) {
+                        labelNode.className = labelNode.className.replace(/(\s*required)/, '');
+                        if (required) {
+                            emNode.innerText = '*';
+                            labelNode.className = [labelNode.className, 'required'].join(' ');
+                        } else {
+                            emNode.innerText = '';
+                        }
+                    }
+                };
+
+                /**
+                 * On change listener
+                 *
+                 * @param {HTMLSelectElement} el
+                 */
+                this.change = function (el) {
+                    var value = el.value
+                            , emailFieldId = document.getElementById({{ form.emailAddress.vars.id|json_encode|raw }})
+                            , phoneFieldId = document.getElementById({{ form.phone.vars.id|json_encode|raw }})
+                            ;
+
+                    if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_BOTH')|json_encode|raw }}) {
+                        setRequired(emailFieldId, true);
+                        setRequired(phoneFieldId, true);
+                    } else if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_PHONE')|json_encode|raw }}) {
+                        setRequired(phoneFieldId, true);
+                        setRequired(emailFieldId, false);
+                    } else if (value === {{ constant('OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest::CONTACT_METHOD_EMAIL')|json_encode|raw }}) {
+                        setRequired(emailFieldId, true);
+                        setRequired(phoneFieldId, false);
+                    }
+                }
+            };
+
+            Oro.Utils = new Oro.Utils();
+
+            var selectEl = document.getElementById({{ form.preferredContactMethod.vars.id|json_encode|raw }});
+            selectEl.onchange = function (event) {
+                return Oro.Utils.change(event.target);
+            }
+            Oro.Utils.change(selectEl)
+        })();
+    </script>
+{% endblock %}
+
+{% block _embedded_form_comment_widget %}
+    <li class="wide">
+        {{ form_row(form) }}
+    </li>
+{% endblock %}
+
+{% block _embedded_form_submit_widget %}
+    <div class="buttons-set">
+        <p class="required">{% trans %}orocrm.magentocontactus.required_fields{% endtrans %}</p>
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
