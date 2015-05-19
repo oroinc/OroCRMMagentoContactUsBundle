@@ -14,7 +14,7 @@ define([
          */
         return {
             handleEmailTransitionError: function() {
-                var element = $('#transition-orocrm_contact_us_contact_request-send_email');
+                var element = $('[id^=transition-orocrm_contact_us_contact_request-send_email]');
                 element.off('transitions_failure');
                 element.on('transitions_failure', function(event, jqxhr){
                     if (jqxhr.status != 500) {
