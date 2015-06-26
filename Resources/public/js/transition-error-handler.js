@@ -3,7 +3,7 @@ define([
     'jquery',
     'oroui/js/messenger',
     'orotranslation/js/translator'
-], function ($, messenger, __) {
+], function($, messenger, __) {
         'use strict';
 
         /**
@@ -16,7 +16,7 @@ define([
             handleEmailTransitionError: function() {
                 var element = $('#transition-orocrm_contact_us_contact_request-send_email');
                 element.off('transitions_failure');
-                element.on('transitions_failure', function(event, jqxhr){
+                element.on('transitions_failure', function(event, jqxhr) {
                     if (jqxhr.status != 500) {
                         return;
                     }
