@@ -1,4 +1,3 @@
-/*global define*/
 define([
     'jquery',
     'oroui/js/messenger',
