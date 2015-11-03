@@ -9,12 +9,6 @@ workflows:
                 label: 'Open'
                 order: 10
                 allowed_transitions:
-                    - convert_to_contacted
-                    - resolve
-            contacted:
-                label: 'Contacted'
-                order: 20
-                allowed_transitions:
                     - convert_to_opportunity
                     - convert_to_lead
                     - resolve
@@ -29,6 +23,58 @@ workflows:
                 order: 30
 
         attributes:
+            # Call related fields
+            call:
+                label: 'Call log'
+                type: entity
+                options:
+                    class: OroCRM\Bundle\CallBundle\Entity\Call
+            call_phone_number:
+                label: 'Phone number'
+                type: string
+            call_subject:
+                label: 'Call subject'
+                type: string
+            call_date:
+                label: 'Call date'
+                type: object
+                options:
+                    class: DateTime
+            call_direction:
+                label: 'Call direction'
+                type: entity
+                options:
+                    class: OroCRM\Bundle\CallBundle\Entity\CallDirection
+            call_status:
+                label: 'Call status'
+                type: entity
+                options:
+                    class: OroCRM\Bundle\CallBundle\Entity\CallStatus
+            call_duration:
+                label: 'Call duration'
+                type: object
+                options:
+                    class: DateTime
+
+            # Email related fields
+            email:
+                label: 'Email'
+                type:  entity
+                options:
+                    class: Oro\Bundle\EmailBundle\Entity\Email
+            email_from:
+                label:  'Email sender'
+                type:   string
+            email_to:
+                label:  'Email recipient'
+                type:   string
+            email_subject:
+                label:  'Email subject'
+                type:    string
+            email_body:
+                label:  'Email content'
+                type:   string
+
             # opportunity attributes
             opportunity_name:
                 label: 'Opportunity name'
@@ -82,15 +128,10 @@ workflows:
             dataChannel:
                 property_path: request.dataChannel
         transitions:
-            convert_to_contacted:
-                label:   'Convert to contacted' # @todo: ask for the label
-                step_to:  contacted
-                is_start: true
-                transition_definition: convert_to_contacted_definition
             convert_to_opportunity:
                 label:    'Convert to opportunity'
                 step_to:  converted_to_opportunity
-                is_start: false
+                is_start: true
                 is_unavailable_hidden: true
                 acl_resource: orocrm_sales_opportunity_create
                 frontend_options:
@@ -131,7 +172,7 @@ workflows:
             convert_to_lead:
                 label:     'Convert to lead'
                 step_to:   converted_to_lead
-                is_start:  false
+                is_start:  true
                 is_unavailable_hidden: true
                 acl_resource: orocrm_sales_lead_create
                 frontend_options:
@@ -210,7 +251,6 @@ workflows:
             __start___definition:
                 pre_conditions:
                     @not_empty: $request.id
-            convert_to_contacted_definition:
             convert_to_opportunity_definition:
                 pre_conditions:
                     @channel_entity_availiable: [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Opportunity']]
