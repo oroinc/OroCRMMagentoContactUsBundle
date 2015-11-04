@@ -23,6 +23,7 @@ workflows:
                 order: 30
 
         attributes:
+            # Do not remove this attributes. Need to correct restoring data for the workflow item.
             # Call related fields
             call:
                 label: 'Call log'
@@ -56,6 +57,7 @@ workflows:
                 options:
                     class: DateTime
 
+            # Do not remove this attributes. Need to correct restoring data for the workflow item.
             # Email related fields
             email:
                 label: 'Email'
