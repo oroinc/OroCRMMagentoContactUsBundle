@@ -111,5 +111,4 @@ class UpdateWorkflowItemStepData extends ParametrizedMigrationQuery
 
         return $this->connection->fetchColumn($sql, $params, 0, $types);
     }
-
 }
