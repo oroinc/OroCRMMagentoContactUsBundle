@@ -43,11 +43,11 @@
     {% set id = 'contact-request-form' %}
 
     {% set dataBlocks = [{
-        'title': 'General'|trans,
+        'title': 'orocrm.contactus.block.general'|trans,
         'class': 'active',
         'subblocks': [
             {
-                'title': 'Request Information'|trans,
+                'title': 'orocrm.contactus.block.request_information'|trans,
                 'data': [
                     form_row(form.firstName),
                     form_row(form.lastName),

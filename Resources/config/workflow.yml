@@ -9,15 +9,6 @@ workflows:
                 label: 'Open'
                 order: 10
                 allowed_transitions:
-                    - log_call
-                    - send_email
-                    - resolve
-            contacted:
-                label: 'Contacted'
-                order: 20
-                allowed_transitions:
-                    - log_call
-                    - send_email
                     - convert_to_opportunity
                     - convert_to_lead
                     - resolve
@@ -32,58 +23,6 @@ workflows:
                 order: 30
 
         attributes:
-            # Call related fields
-            call:
-                label: 'Call log'
-                type: entity
-                options:
-                    class: OroCRM\Bundle\CallBundle\Entity\Call
-            call_phone_number:
-                label: 'Phone number'
-                type: string
-            call_subject:
-                label: 'Call subject'
-                type: string
-            call_date:
-                label: 'Call date'
-                type: object
-                options:
-                    class: DateTime
-            call_direction:
-                label: 'Call direction'
-                type: entity
-                options:
-                    class: OroCRM\Bundle\CallBundle\Entity\CallDirection
-            call_status:
-                label: 'Call status'
-                type: entity
-                options:
-                    class: OroCRM\Bundle\CallBundle\Entity\CallStatus
-            call_duration:
-                label: 'Call duration'
-                type: object
-                options:
-                    class: DateTime
-
-            # Email related fields
-            email:
-                label: 'Email'
-                type:  entity
-                options:
-                    class: Oro\Bundle\EmailBundle\Entity\Email
-            email_from:
-                label:  'Email sender'
-                type:   string
-            email_to:
-                label:  'Email recipient'
-                type:   string
-            email_subject:
-                label:  'Email subject'
-                type:    string
-            email_body:
-                label:  'Email content'
-                type:   string
-
             # opportunity attributes
             opportunity_name:
                 label: 'Opportunity name'
@@ -137,136 +76,10 @@ workflows:
             dataChannel:
                 property_path: request.dataChannel
         transitions:
-            log_call:
-                label:        'Log call'
-                step_to:      contacted
-                is_start:     true
-                is_unavailable_hidden: true
-                acl_resource: orocrm_call_create
-                frontend_options:
-                    icon: 'icon-phone-sign'
-                transition_definition: log_call_definition
-                form_options:
-                    attribute_fields:
-                        call_phone_number:
-                            form_type: text
-                            options:
-                                required: true
-                                constraints:
-                                    - NotBlank: ~
-                        call_subject:
-                            form_type: text
-                            options:
-                                required: true
-                                constraints:
-                                    - NotBlank: ~
-                        call_date:
-                            form_type: oro_datetime
-                            options:
-                                required: true
-                                constraints:
-                                    - NotBlank: ~
-                        account:
-                            form_type: orocrm_account_select
-                            options:
-                                required: false
-                                label: 'Related to'
-                        contact:
-                            form_type: orocrm_contact_select
-                            options:
-                                required: false
-                                label: 'Related contact'
-                        call_direction:
-                            form_type: entity
-                            options:
-                                class: OroCRM\Bundle\CallBundle\Entity\CallDirection
-                                property: label
-                                required: true
-                                constraints:
-                                    - NotBlank: ~
-                        call_duration:
-                            form_type: oro_time_interval
-                            options:
-                                required: false
-                                widget: single_text
-                                with_seconds: true
-                        feedback:
-                            form_type: textarea
-                            options:
-                                required: false
-                    init_actions:
-                        - @assign_value:
-                            conditions:
-                                @and:
-                                    - @empty:     $call_phone_number
-                                    - @not_empty: $request.phone
-                            parameters: [$call_phone_number, $request.phone]
-                        - @create_datetime:
-                            attribute: $call_date
-                        - @create_datetime:
-                            time: '00:00:00'
-                            attribute: $call_duration
-            send_email:
-                label:    'Send email'
-                step_to:  contacted
-                is_start: true
-                is_unavailable_hidden: true
-                acl_resource: oro_email_create
-                frontend_options:
-                    icon: 'icon-envelope-alt'
-                    dialog:
-                        dialogOptions:
-                            width: 700
-                transition_definition: send_email_definition
-                form_options:
-                    attribute_fields:
-                        email_from:
-                            form_type: oro_email_email_address
-                            options:
-                                required: true
-                                constraints:
-                                    - NotBlank: ~
-                                    - Email: ~
-                        email_to:
-                            form_type: oro_email_email_address
-                            options:
-                                required: true
-                                constraints:
-                                    - NotBlank: ~
-                                    - Email: ~
-                        email_subject:
-                            form_type: text
-                            options:
-                                required: true
-                                constraints:
-                                    - NotBlank: ~
-                        email_body:
-                            form_type: textarea
-                            options:
-                                required: true
-                                attr:
-                                    style: 'width: 90%;height: 200px;'
-                                constraints:
-                                    - NotBlank: ~
-                        feedback:
-                            form_type: textarea
-                            options:
-                                required: false
-                                attr:
-                                    style: 'width: 90%;height: 60px'
-                    init_actions:
-                        - @assign_active_user: $.result.user
-                        - @assign_value: [$email_from, $.result.user.email]
-                        - @assign_value:
-                            conditions:
-                                @and:
-                                    - @empty: $email_to
-                                    - @not_empty: $request.emailAddress
-                            parameters: [$email_to, $request.emailAddress]
             convert_to_opportunity:
                 label:    'Convert to opportunity'
                 step_to:  converted_to_opportunity
-                is_start: false
+                is_start: true
                 is_unavailable_hidden: true
                 acl_resource: orocrm_sales_opportunity_create
                 frontend_options:
@@ -307,7 +120,7 @@ workflows:
             convert_to_lead:
                 label:     'Convert to lead'
                 step_to:   converted_to_lead
-                is_start:  false
+                is_start:  true
                 is_unavailable_hidden: true
                 acl_resource: orocrm_sales_lead_create
                 frontend_options:
@@ -386,74 +199,6 @@ workflows:
             __start___definition:
                 pre_conditions:
                     @not_empty: $request.id
-            log_call_definition:
-                pre_conditions:
-                    @not_empty: $request.phone
-                conditions:
-                    @and:
-                        - @not_empty:
-                            parameters: $call_phone_number
-                            message:    'Phone number must be set'
-                        - @not_empty:
-                            parameters: $call_subject
-                            message:    'Call subject must be set'
-                        - @not_empty:
-                            parameters: $call_date
-                            message:   'Call date must be set'
-                        - @not_empty:
-                            parameters: $call_direction
-                            message:    'Call direction must be chosen'
-                post_actions:
-                    - @find_entity:
-                        class:       OroCRM\Bundle\CallBundle\Entity\CallStatus
-                        identifier:  'completed'
-                        attribute:   $call_status
-                    - @create_entity: # create Call
-                        class:        OroCRM\Bundle\CallBundle\Entity\Call
-                        attribute:    $call
-                        data:
-                            # remove commented relatedContact and relatedAccount in BAP-5485
-                            # relatedContact: $contact
-                            # relatedAccount: $account
-                            subject:        $call_subject
-                            phoneNumber:    $call_phone_number
-                            notes:          $feedback
-                            callDateTime:   $call_date
-                            callStatus:     $call_status
-                            duration:       $call_duration
-                            direction:      $call_direction
-                    - @call_method:
-                        method:            'addCall'
-                        object:            $request
-                        method_parameters: [$call]
-            send_email_definition:
-                pre_conditions:
-                    @not_empty: $request.emailAddress
-                conditions:
-                    @and:
-                        - @not_empty:
-                            parameters: $email_from
-                            message: 'Email sender must be set'
-                        - @not_empty:
-                            parameters: $email_to
-                            message: 'Email recipient must be set'
-                        - @not_empty:
-                            parameters: $email_subject
-                            message: 'Email subject must be set'
-                        - @not_empty:
-                            parameters: $email_body
-                            message: 'Email content must be chosen'
-                post_actions:
-                    - @send_email: # Send email
-                        attribute: $email
-                        from:      $email_from
-                        to:        $email_to
-                        subject:   $email_subject
-                        body:      $email_body
-                    - @call_method:
-                        method:    'addEmail'
-                        object:    $request
-                        method_parameters: [ $email ]
             convert_to_opportunity_definition:
                 pre_conditions:
                     @channel_entity_availiable: [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Opportunity']]
