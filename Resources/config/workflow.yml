@@ -113,8 +113,8 @@ workflows:
                             options:
                                 required: false
                     init_actions:
-                        - @assign_active_user: $opportunity_owner
-                        - @format_name:
+                        - '@assign_active_user': $opportunity_owner
+                        - '@format_name':
                             attribute: $opportunity_name
                             object:    $request
             convert_to_lead:
@@ -172,14 +172,14 @@ workflows:
                             options:
                                 required: false
                     init_actions:
-                        - @assign_active_user: $lead_owner
-                        - @format_name:
+                        - '@assign_active_user': $lead_owner
+                        - '@format_name':
                             attribute: $lead_name
                             object:    $request
-                        - @assign_value: [$lead_first_name, $request.firstName]
-                        - @assign_value: [$lead_last_name,  $request.lastName]
-                        - @assign_value: [$lead_phone,  $request.phone]
-                        - @assign_value: [$lead_email,  $request.emailAddress]
+                        - '@assign_value': [$lead_first_name, $request.firstName]
+                        - '@assign_value': [$lead_last_name,  $request.lastName]
+                        - '@assign_value': [$lead_phone,  $request.phone]
+                        - '@assign_value': [$lead_email,  $request.emailAddress]
             resolve:
                 label:      'Resolve'
                 step_to:    resolved
@@ -198,24 +198,24 @@ workflows:
         transition_definitions:
             __start___definition:
                 pre_conditions:
-                    @not_empty: $request.id
+                    '@not_empty': $request.id
             convert_to_opportunity_definition:
                 pre_conditions:
-                    @channel_entity_availiable: [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Opportunity']]
+                    '@channel_entity_availiable': [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Opportunity']]
                 conditions:
-                    @and:
-                        - @not_empty:
+                    '@and':
+                        - '@not_empty':
                             parameters: $opportunity_name
                             message:    'Opportunity name must be set'
-                        - @not_empty:
+                        - '@not_empty':
                             parameters: $opportunity_owner
                             message:    'Owner must be set'
                 post_actions:
-                    - @find_entity:
+                    - '@find_entity':
                         class:       OroCRM\Bundle\SalesBundle\Entity\OpportunityStatus
                         identifier:  'in_progress'
                         attribute:   $.result.opportunity_status
-                    - @create_entity: # create an opportunity
+                    - '@create_entity': # create an opportunity
                         class:     OroCRM\Bundle\SalesBundle\Entity\Opportunity
                         attribute: $request.opportunity
                         data:
@@ -229,27 +229,27 @@ workflows:
 
             convert_to_lead_definition:
                 pre_conditions:
-                    @channel_entity_availiable: [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Lead']]
+                    '@channel_entity_availiable': [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Lead']]
                 conditions:
-                    @and:
-                        - @not_empty:
+                    '@and':
+                        - '@not_empty':
                             parameters: $lead_name
                             message:    'Lead name must be set'
-                        - @not_empty:
+                        - '@not_empty':
                             parameters: $lead_first_name
                             message:    'Lead first name must be set'
-                        - @not_empty:
+                        - '@not_empty':
                             parameters: $lead_last_name
                             message:    'Lead last name must be set'
-                        - @not_empty:
+                        - '@not_empty':
                             parameters: $lead_owner
                             message:    'Lead must be set'
                 post_actions:
-                    - @find_entity:
+                    - '@find_entity':
                         class:       OroCRM\Bundle\SalesBundle\Entity\LeadStatus
                         identifier:  'new'
                         attribute:   $.result.lead_status
-                    - @create_entity: # create a lead
+                    - '@create_entity': # create a lead
                         class:     OroCRM\Bundle\SalesBundle\Entity\Lead
                         attribute: $request.lead
                         data:
@@ -265,4 +265,4 @@ workflows:
                             dataChannel:  $dataChannel
             resolve_definition:
                 pre_conditions:
-                    @not_empty: $request.id
+                    '@not_empty': $request.id
