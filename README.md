@@ -14,7 +14,7 @@ Table of content
 Requirements
 ------------
 
-OroCRMMagentoContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.4.9 or above.
+OroCRMMagentoContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.5.9 or above.
 
 Installation
 ------------
