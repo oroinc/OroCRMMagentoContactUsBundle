@@ -1,27 +1,3 @@
 datagrid:
     orcrm-contact-requests-grid-extended:
         extends: orcrm-contact-requests-grid
-        source:
-            query:
-                select:
-                    - step.label as stepLabel
-                join:
-                    left:
-                        - { join: cr.workflowStep, alias: step }
-        columns:
-            stepLabel:
-                type:  translatable
-                label: orocrm.contactus.contactrequest.status.label
-        sorters:
-            columns:
-                stepLabel:
-                    data_name: stepLabel
-        filters:
-            columns:
-                stepLabel:
-                    type: entity
-                    data_name: cr.workflowStep
-                    options:
-                        field_type: oro_workflow_step_select
-                        field_options:
-                            workflow_entity_class: %orocrm_contact_us.contactrequest.entity.class%
