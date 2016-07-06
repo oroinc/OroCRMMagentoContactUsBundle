@@ -236,12 +236,6 @@ workflows:
                             parameters: $lead_name
                             message:    'Lead name must be set'
                         - '@not_empty':
-                            parameters: $lead_first_name
-                            message:    'Lead first name must be set'
-                        - '@not_empty':
-                            parameters: $lead_last_name
-                            message:    'Lead last name must be set'
-                        - '@not_empty':
                             parameters: $lead_owner
                             message:    'Lead must be set'
                 post_actions:
@@ -258,11 +252,20 @@ workflows:
                             lastName:     $lead_last_name
                             owner:        $lead_owner
                             phoneNumber:  $lead_phone
-                            email:        $lead_email
                             contact:      $contact
                             status:       $.result.lead_status
                             notes:        $feedback
                             dataChannel:  $dataChannel
+                    - '@create_entity': # create a lead email (LeadEmail)
+                        class: OroCRM\Bundle\SalesBundle\Entity\LeadEmail
+                        attribute: $.result.lead_email
+                        data:
+                            email: $lead_email
+                            primary: true
+                    - '@call_method': # add lead email to lead
+                        object: $request.lead
+                        method: addEmail
+                        method_parameters: [$.result.lead_email]
             resolve_definition:
                 pre_conditions:
                     '@not_empty': $request.id
