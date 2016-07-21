@@ -5,7 +5,7 @@ layout:
         - '@setOption':
             id:          embedded_form
             optionName:  preferred_fields
-            optionValue: [firstName, lastName, organizationName, preferredContactMethod, phone, emailAddress, contactReason]
+            optionValue: '=["firstName", "lastName", "organizationName", "preferredContactMethod", "emailAddress",  "phone", "contactReason"]'
         - '@setOption':
             id:          embedded_form
             optionName:  groups
@@ -18,7 +18,4 @@ layout:
             parentId:    embedded_form
             siblingId:   'embedded_form:group_contact'
 
-    conditions:
-        '@eq':
-            - $context.embedded_form_type
-            - 'orocrm_magento_contact_us.embedded_form'
+    conditions: 'context["embedded_form_type"] == "orocrm_magento_contact_us.embedded_form"'
