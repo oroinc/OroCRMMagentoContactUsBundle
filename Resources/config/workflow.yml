@@ -57,6 +57,11 @@ workflows:
             lead_email:
                 label:    'Email'
                 type:     string
+            lead_phone_entity:
+                label: 'Lead Phone'
+                type:  entity
+                options:
+                    class: OroCRM\Bundle\SalesBundle\Entity\LeadPhone
 
             # Other workflow attributes
             feedback:
@@ -211,8 +216,8 @@ workflows:
                             parameters: $opportunity_owner
                             message:    'Owner must be set'
                 post_actions:
-                    - '@find_entity':
-                        class:       OroCRM\Bundle\SalesBundle\Entity\OpportunityStatus
+                    - '@request_enum_entity':
+                        enum_code: opportunity_status
                         identifier:  'in_progress'
                         attribute:   $.result.opportunity_status
                     - '@create_entity': # create an opportunity
@@ -236,17 +241,11 @@ workflows:
                             parameters: $lead_name
                             message:    'Lead name must be set'
                         - '@not_empty':
-                            parameters: $lead_first_name
-                            message:    'Lead first name must be set'
-                        - '@not_empty':
-                            parameters: $lead_last_name
-                            message:    'Lead last name must be set'
-                        - '@not_empty':
                             parameters: $lead_owner
                             message:    'Lead must be set'
                 post_actions:
-                    - '@find_entity':
-                        class:       OroCRM\Bundle\SalesBundle\Entity\LeadStatus
+                    - '@request_enum_entity':
+                        enum_code: lead_status
                         identifier:  'new'
                         attribute:   $.result.lead_status
                     - '@create_entity': # create a lead
@@ -257,12 +256,30 @@ workflows:
                             firstName:    $lead_first_name
                             lastName:     $lead_last_name
                             owner:        $lead_owner
-                            phoneNumber:  $lead_phone
-                            email:        $lead_email
                             contact:      $contact
                             status:       $.result.lead_status
                             notes:        $feedback
                             dataChannel:  $dataChannel
+                    - '@create_entity': # create Lead phone
+                        class:     OroCRM\Bundle\SalesBundle\Entity\LeadPhone
+                        attribute: $lead_phone_entity
+                        data:
+                            phone:   $lead_phone
+                            primary: true
+                    - '@call_method': # add Lead Phone to Lead
+                        object: $request.lead
+                        method: addPhone
+                        method_parameters: [$lead_phone_entity]
+                    - '@create_entity': # create a lead email (LeadEmail)
+                        class: OroCRM\Bundle\SalesBundle\Entity\LeadEmail
+                        attribute: $.result.lead_email
+                        data:
+                            email: $lead_email
+                            primary: true
+                    - '@call_method': # add lead email to lead
+                        object: $request.lead
+                        method: addEmail
+                        method_parameters: [$.result.lead_email]
             resolve_definition:
                 pre_conditions:
                     '@not_empty': $request.id
