@@ -21,6 +21,7 @@ class LoadWorkflowData extends AbstractFixture implements ContainerAwareInterfac
         $configManager  = $this->container->get('oro_entity_config.config_manager');
         $configProvider = $configManager->getProvider('workflow');
 
+        //todo change to use proper manager instead in scope of BAP-11201
         $config = $configProvider->getConfig('OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest');
         $config->set(
             'active_workflows',
