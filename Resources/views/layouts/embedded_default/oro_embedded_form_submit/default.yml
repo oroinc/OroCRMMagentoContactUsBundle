@@ -5,7 +5,7 @@ layout:
         - '@setOption':
             id:          embedded_form
             optionName:  preferred_fields
-            optionValue: '=["firstName", "lastName", "organizationName", "preferredContactMethod", "emailAddress",  "phone", "contactReason"]'
+            optionValue: [firstName, lastName, organizationName, preferredContactMethod, emailAddress,  phone, contactReason]
         - '@setOption':
             id:          embedded_form
             optionName:  groups
