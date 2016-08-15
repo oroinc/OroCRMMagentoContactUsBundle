@@ -17,6 +17,14 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
      */
     public function getName()
     {
+        return $this->getBlockPrefix();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
         return 'orocrm_magento_contactus_contact_request';
     }
 

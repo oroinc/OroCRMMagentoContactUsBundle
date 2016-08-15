@@ -1,6 +1,6 @@
 {
     "name": "oro/crm-magento-embedded-contact-us",
-    "description": "OroCRM Package, Contact Us form for Magento",
+    "description": "OroCRM Magento Embedded Contact Us package",
     "homepage": "https://github.com/orocrm/OroCRMMagentoContactUsBundle.git",
     "license": "OSL-3.0",
     "authors": [
@@ -15,15 +15,8 @@
         }
     },
     "target-dir": "src/OroCRM/Bundle/MagentoContactUsBundle",
-    "repositories": [
-       {
-            "type": "composer",
-            "url": "http://packagist.orocrm.com"
-        }
-    ],
     "require": {
-        "php": ">=5.4.4",
-        "oro/platform": "1.x-dev",
+        "php": ">=5.5.9",
         "oro/crm": "1.x-dev"
     },
     "minimum-stability": "dev",

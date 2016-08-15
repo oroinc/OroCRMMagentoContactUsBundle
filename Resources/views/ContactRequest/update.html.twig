@@ -1,43 +1,4 @@
-{% extends 'OroUIBundle:actions:update.html.twig' %}
-
-{% set formAction = form.vars.value.id ? path('orocrm_contactus_request_update', { 'id': form.vars.value.id }) : path('orocrm_contactus_request_create') %}
-{% set fullname = form.vars.value|oro_format_name|default('N/A') %}
-{% oro_title_set({ params : {"%request.clientName%": fullname} }) %}
-
-{% block navButtons %}
-    {% if form.vars.value.id and resource_granted('orocrm_contactus_request_delete') %}
-        {{ UI.deleteButton({
-            'dataUrl': path('orocrm_contactus_request_delete', {'id': form.vars.value.id}),
-            'dataRedirect': path('orocrm_contactus_request_index'),
-            'aCss': 'no-hash remove-button',
-            'id': 'btn-remove-contact-request-form',
-            'dataId': form.vars.value.id,
-            'entity_label': 'orocrm.contactus.contactrequest.entity_label'|trans,
-        }) }}
-        {{ UI.buttonSeparator() }}
-    {% endif %}
-    {{ UI.button({'path' : path('orocrm_contactus_request_index'), 'title' : 'Cancel'|trans, 'label' : 'Cancel'|trans}) }}
-    {% set html = UI.saveAndCloseButton() %}
-    {% if resource_granted('orocrm_contactus_request_edit') %}
-        {% set html = html ~ UI.saveAndStayButton() %}
-    {% endif %}
-    {{ UI.dropdownSaveButton({'html': html}) }}
-{% endblock %}
-
-{% block pageHeader %}
-    {% if form.vars.value.id %}
-        {% set breadcrumbs = {
-            'entity':      form.vars.value,
-            'indexPath':   path('orocrm_contactus_request_index'),
-            'indexLabel': 'orocrm.contactus.contactrequest.entity_plural_label'|trans,
-            'entityTitle': fullname
-        } %}
-        {{ parent() }}
-    {% else %}
-        {% set title = 'oro.ui.create_entity'|trans({'%entityName%': 'orocrm.contactus.contactrequest.entity_label'|trans}) %}
-        {% include 'OroUIBundle::page_title_block.html.twig' with { title: title } %}
-    {% endif %}
-{% endblock pageHeader %}
+{% extends '!OroCRMContactUsBundle:ContactRequest:update.html.twig' %}
 
 {% block content_data %}
     {% set id = 'contact-request-form' %}
@@ -78,5 +39,6 @@
         'formErrors': form_errors(form)? form_errors(form) : null,
         'dataBlocks': dataBlocks,
     } %}
-    {{ parent() }}
+
+    {{ render_block('OroUIBundle:actions:update.html.twig', 'content_data') }}
 {% endblock content_data %}
