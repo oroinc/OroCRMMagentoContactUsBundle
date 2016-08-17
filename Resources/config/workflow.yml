@@ -117,7 +117,7 @@ workflows:
                             form_type: textarea
                             options:
                                 required: false
-                    init_actions:
+                    form_init:
                         - '@assign_active_user': $opportunity_owner
                         - '@format_name':
                             attribute: $opportunity_name
@@ -176,7 +176,7 @@ workflows:
                             form_type: textarea
                             options:
                                 required: false
-                    init_actions:
+                    form_init:
                         - '@assign_active_user': $lead_owner
                         - '@format_name':
                             attribute: $lead_name
@@ -202,10 +202,10 @@ workflows:
 
         transition_definitions:
             __start___definition:
-                pre_conditions:
+                preconditions:
                     '@not_empty': $request.id
             convert_to_opportunity_definition:
-                pre_conditions:
+                preconditions:
                     '@channel_entity_availiable': [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Opportunity']]
                 conditions:
                     '@and':
@@ -215,7 +215,7 @@ workflows:
                         - '@not_empty':
                             parameters: $opportunity_owner
                             message:    'Owner must be set'
-                post_actions:
+                actions:
                     - '@request_enum_entity':
                         enum_code: opportunity_status
                         identifier:  'in_progress'
@@ -233,7 +233,7 @@ workflows:
                             dataChannel:  $dataChannel
 
             convert_to_lead_definition:
-                pre_conditions:
+                preconditions:
                     '@channel_entity_availiable': [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Lead']]
                 conditions:
                     '@and':
@@ -243,7 +243,7 @@ workflows:
                         - '@not_empty':
                             parameters: $lead_owner
                             message:    'Lead must be set'
-                post_actions:
+                actions:
                     - '@request_enum_entity':
                         enum_code: lead_status
                         identifier:  'new'
@@ -289,5 +289,5 @@ workflows:
                                 method: addEmail
                                 method_parameters: [$.result.lead_email]
             resolve_definition:
-                pre_conditions:
+                preconditions:
                     '@not_empty': $request.id
