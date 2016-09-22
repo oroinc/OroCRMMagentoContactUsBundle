@@ -29,12 +29,12 @@ class DefaultChannelData extends AbstractDefaultChannelDataFixture
         if (!empty($forms)) {
             /** @var Channel|null $channel */
             // looking for magento channel
-            $channel = $this->em->getRepository('OroChannelBundle:Channel')
+            $channel = $this->em->getRepository('OroCRMChannelBundle:Channel:Channel')
                 ->findOneBy(['channelType' => self::PREFERABLE_CHANNEL_TYPE]);
 
             if (!$channel) {
                 // fallback to any custom channel
-                $channel = $this->em->getRepository('OroChannelBundle:Channel')
+                $channel = $this->em->getRepository('OroCRMChannelBundle:Channel:Channel')
                     ->findOneBy(['channelType' => self::FALLBACK_CHANNEL_TYPE]);
             }
 
