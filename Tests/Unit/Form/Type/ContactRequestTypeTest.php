@@ -1,10 +1,9 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
+namespace Oro\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-
-use OroCRM\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
+use Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
 
 class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 {

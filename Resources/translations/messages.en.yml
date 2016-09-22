@@ -1,4 +1,4 @@
-orocrm:
+oro:
     magentocontactus:
         embedded_form:
             label: Magento Contact Us Request

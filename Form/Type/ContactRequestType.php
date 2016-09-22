@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Form\Type;
+namespace Oro\Bundle\MagentoContactUsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

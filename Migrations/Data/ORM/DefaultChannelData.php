@@ -1,11 +1,10 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Migrations\Data\ORM;
+namespace Oro\Bundle\MagentoContactUsBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Oro\Bundle\EmbeddedFormBundle\Entity\EmbeddedForm;
-
 use OroCRM\Bundle\ChannelBundle\Entity\Channel;
 use OroCRM\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use OroCRM\Bundle\ChannelBundle\Migrations\Data\ORM\AbstractDefaultChannelDataFixture;
@@ -15,7 +14,7 @@ class DefaultChannelData extends AbstractDefaultChannelDataFixture
     const PREFERABLE_CHANNEL_TYPE = 'magento';
     const FALLBACK_CHANNEL_TYPE = 'custom';
 
-    const FORM_TYPE = 'orocrm_magento_contact_us.embedded_form';
+    const FORM_TYPE = 'oro_magento_contact_us.embedded_form';
 
     /**
      * {@inheritdoc}
@@ -30,12 +29,12 @@ class DefaultChannelData extends AbstractDefaultChannelDataFixture
         if (!empty($forms)) {
             /** @var Channel|null $channel */
             // looking for magento channel
-            $channel = $this->em->getRepository('OroCRMChannelBundle:Channel')
+            $channel = $this->em->getRepository('OroChannelBundle:Channel')
                 ->findOneBy(['channelType' => self::PREFERABLE_CHANNEL_TYPE]);
 
             if (!$channel) {
                 // fallback to any custom channel
-                $channel = $this->em->getRepository('OroCRMChannelBundle:Channel')
+                $channel = $this->em->getRepository('OroChannelBundle:Channel')
                     ->findOneBy(['channelType' => self::FALLBACK_CHANNEL_TYPE]);
             }
 
