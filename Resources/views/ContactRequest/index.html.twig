@@ -1,7 +1,7 @@
 {% extends 'OroUIBundle:actions:index.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 {% set gridName  = 'orcrm-contact-requests-grid-extended' %}
-{% set pageTitle = 'oro.contactus.contactrequest.entity_plural_label'|trans %}
+{% set pageTitle = 'orocrm.contactus.contactrequest.entity_plural_label'|trans %}
 
 
 {% block navButtons %}
@@ -9,7 +9,7 @@
         <div class="btn-group">
             {{ UI.addButton({
                 'path' : path('orocrm_contactus_request_create'),
-                'entity_label': 'oro.contactus.contactrequest.entity_label'|trans
+                'entity_label': 'orocrm.contactus.contactrequest.entity_label'|trans
             }) }}
         </div>
     {% endif %}
