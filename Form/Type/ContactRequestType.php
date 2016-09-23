@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 
-use OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest;
+use Oro\Bundle\ContactUsBundle\Entity\ContactRequest;
 
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface
 {
