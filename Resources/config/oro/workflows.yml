@@ -1,7 +1,7 @@
 workflows:
     orocrm_contact_us_contact_request:
         label:   'Contact Request'
-        entity:   OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest
+        entity:   Oro\Bundle\ContactUsBundle\Entity\ContactRequest
         entity_attribute: request
         start_step: open
         steps:
@@ -61,7 +61,7 @@ workflows:
                 label: 'Lead Phone'
                 type:  entity
                 options:
-                    class: OroCRM\Bundle\SalesBundle\Entity\LeadPhone
+                    class: Oro\Bundle\SalesBundle\Entity\LeadPhone
 
             # Other workflow attributes
             feedback:
@@ -72,12 +72,12 @@ workflows:
                 label:  'Account'
                 type:   entity
                 options:
-                    class: OroCRM\Bundle\AccountBundle\Entity\Account
+                    class: Oro\Bundle\AccountBundle\Entity\Account
             contact:
                 label:   'Contact'
                 type:     entity
                 options:
-                    class: OroCRM\Bundle\ContactBundle\Entity\Contact
+                    class: Oro\Bundle\ContactBundle\Entity\Contact
             dataChannel:
                 property_path: request.dataChannel
         transitions:
@@ -206,7 +206,7 @@ workflows:
                     '@not_empty': $request.id
             convert_to_opportunity_definition:
                 preconditions:
-                    '@channel_entity_availiable': [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Opportunity']]
+                    '@channel_entity_availiable': [$dataChannel, ['Oro\Bundle\SalesBundle\Entity\Opportunity']]
                 conditions:
                     '@and':
                         - '@not_empty':
@@ -221,7 +221,7 @@ workflows:
                         identifier:  'in_progress'
                         attribute:   $.result.opportunity_status
                     - '@create_entity': # create an opportunity
-                        class:     OroCRM\Bundle\SalesBundle\Entity\Opportunity
+                        class:     Oro\Bundle\SalesBundle\Entity\Opportunity
                         attribute: $request.opportunity
                         data:
                             name:         $opportunity_name
@@ -234,7 +234,7 @@ workflows:
 
             convert_to_lead_definition:
                 preconditions:
-                    '@channel_entity_availiable': [$dataChannel, ['OroCRM\Bundle\SalesBundle\Entity\Lead']]
+                    '@channel_entity_availiable': [$dataChannel, ['Oro\Bundle\SalesBundle\Entity\Lead']]
                 conditions:
                     '@and':
                         - '@not_empty':
@@ -249,7 +249,7 @@ workflows:
                         identifier:  'new'
                         attribute:   $.result.lead_status
                     - '@create_entity': # create a lead
-                        class:     OroCRM\Bundle\SalesBundle\Entity\Lead
+                        class:     Oro\Bundle\SalesBundle\Entity\Lead
                         attribute: $request.lead
                         data:
                             name:         $lead_name
@@ -265,7 +265,7 @@ workflows:
                             '@not_empty': [$lead_phone]
                         actions:
                             - '@create_entity': # create Lead phone
-                                class:     OroCRM\Bundle\SalesBundle\Entity\LeadPhone
+                                class:     Oro\Bundle\SalesBundle\Entity\LeadPhone
                                 attribute: $lead_phone_entity
                                 data:
                                     phone:   $lead_phone
@@ -279,7 +279,7 @@ workflows:
                             '@not_empty': [$lead_email]
                         actions:
                             - '@create_entity': # create a lead email (LeadEmail)
-                                class: OroCRM\Bundle\SalesBundle\Entity\LeadEmail
+                                class: Oro\Bundle\SalesBundle\Entity\LeadEmail
                                 attribute: $.result.lead_email
                                 data:
                                     email: $lead_email

@@ -24,6 +24,6 @@ class OroCRMMagentoContactUsBundle extends Bundle
      */
     public function getParent()
     {
-        return 'OroCRMContactUsBundle';
+        return 'OroContactUsBundle';
     }
 }

@@ -82,7 +82,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
             'contactReason',
             'entity',
             [
-                'class'       => 'OroCRMContactUsBundle:ContactReason',
+                'class'       => 'OroContactUsBundle:ContactReason',
                 'property'    => 'label',
                 'empty_value' => 'orocrm.contactus.contactrequest.choose_contact_reason.label',
                 'required'    => false,
@@ -101,7 +101,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest',
+                'data_class' => 'Oro\Bundle\ContactUsBundle\Entity\ContactRequest',
                 'dataChannelField' => false
             ]
         );

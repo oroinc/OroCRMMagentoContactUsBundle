@@ -1,14 +1,14 @@
-{% extends '!OroCRMContactUsBundle:ContactRequest:update.html.twig' %}
+{% extends '!OroContactUsBundle:ContactRequest:update.html.twig' %}
 
 {% block content_data %}
     {% set id = 'contact-request-form' %}
 
     {% set dataBlocks = [{
-        'title': 'orocrm.contactus.block.general'|trans,
+        'title': 'oro.contactus.block.general'|trans,
         'class': 'active',
         'subblocks': [
             {
-                'title': 'orocrm.contactus.block.request_information'|trans,
+                'title': 'oro.contactus.block.request_information'|trans,
                 'data': [
                     form_row(form.firstName),
                     form_row(form.lastName),
@@ -30,7 +30,7 @@
     {% endfor %}
     {% if additionalData is not empty %}
         {% set dataBlocks = dataBlocks|merge([{
-        'title':     'orocrm.contactus.block.additional'|trans,
+        'title':     'oro.contactus.block.additional'|trans,
         'subblocks': [{ 'title': '', 'useSpan': false, 'data' : additionalData }]
         }] ) %}
     {% endif %}

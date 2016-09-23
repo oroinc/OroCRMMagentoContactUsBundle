@@ -6,9 +6,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use Oro\Bundle\EmbeddedFormBundle\Entity\EmbeddedForm;
 
-use OroCRM\Bundle\ChannelBundle\Entity\Channel;
-use OroCRM\Bundle\ChannelBundle\Model\ChannelAwareInterface;
-use OroCRM\Bundle\ChannelBundle\Migrations\Data\ORM\AbstractDefaultChannelDataFixture;
+use Oro\Bundle\ChannelBundle\Entity\Channel;
+use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
+use Oro\Bundle\ChannelBundle\Migrations\Data\ORM\AbstractDefaultChannelDataFixture;
 
 class DefaultChannelData extends AbstractDefaultChannelDataFixture
 {
@@ -22,7 +22,7 @@ class DefaultChannelData extends AbstractDefaultChannelDataFixture
      */
     public function load(ObjectManager $manager)
     {
-        $entity = 'OroCRM\Bundle\ContactUsBundle\Entity\ContactRequest';
+        $entity = 'Oro\Bundle\ContactUsBundle\Entity\ContactRequest';
 
         $forms = $this->em->getRepository('OroEmbeddedFormBundle:EmbeddedForm')
             ->findBy(['formType' => self::FORM_TYPE]);
@@ -30,20 +30,20 @@ class DefaultChannelData extends AbstractDefaultChannelDataFixture
         if (!empty($forms)) {
             /** @var Channel|null $channel */
             // looking for magento channel
-            $channel = $this->em->getRepository('OroCRMChannelBundle:Channel')
+            $channel = $this->em->getRepository('OroChannelBundle:Channel')
                 ->findOneBy(['channelType' => self::PREFERABLE_CHANNEL_TYPE]);
 
             if (!$channel) {
                 // fallback to any custom channel
-                $channel = $this->em->getRepository('OroCRMChannelBundle:Channel')
+                $channel = $this->em->getRepository('OroChannelBundle:Channel')
                     ->findOneBy(['channelType' => self::FALLBACK_CHANNEL_TYPE]);
             }
 
             if (!$channel) {
                 // create new custom channel if no one was found
-                $builder = $this->container->get('orocrm_channel.builder.factory')->createBuilder();
+                $builder = $this->container->get('oro_channel.builder.factory')->createBuilder();
             } else {
-                $builder = $this->container->get('orocrm_channel.builder.factory')->createBuilderForChannel($channel);
+                $builder = $this->container->get('oro_channel.builder.factory')->createBuilderForChannel($channel);
             }
 
             $builder->setStatus(Channel::STATUS_ACTIVE);
