@@ -25,7 +25,7 @@
 
             {% if entity.opportunity %}
                 {%- if entity.opportunity and resource_granted('VIEW', entity.opportunity) -%}
-                    {% set opportunityView = ui.renderUrl(path('orocrm_sales_opportunity_view', {'id': entity.opportunity.id}), ui.renderEntityViewLabel(entity.opportunity, 'name', 'orocrm.sales.oportunity.entity_label')) %}
+                    {% set opportunityView = ui.renderUrl(path('oro_sales_opportunity_view', {'id': entity.opportunity.id}), ui.renderEntityViewLabel(entity.opportunity, 'name', 'oro.sales.oportunity.entity_label')) %}
                 {%- else -%}
                     {% set opportunityView = ui.renderEntityViewLabel(entity.opportunity, 'name') %}
                 {%- endif -%}
@@ -34,7 +34,7 @@
             {% endif %}
             {% if entity.lead %}
                 {%- if entity.lead and resource_granted('VIEW', entity.lead) -%}
-                    {% set leadView = ui.renderUrl(path('orocrm_sales_lead_view', {'id': entity.lead.id}), entity.lead.name) %}
+                    {% set leadView = ui.renderUrl(path('oro_sales_lead_view', {'id': entity.lead.id}), entity.lead.name) %}
                 {%- else -%}
                     {% set leadView = entity.lead.name %}
                 {%- endif -%}
