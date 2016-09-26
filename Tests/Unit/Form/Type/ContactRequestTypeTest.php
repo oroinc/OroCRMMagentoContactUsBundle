@@ -22,7 +22,7 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testHasName()
     {
-        $this->assertEquals('orocrm_magento_contactus_contact_request', $this->formType->getName());
+        $this->assertEquals('oro_magento_contactus_contact_request', $this->formType->getName());
     }
 
     public function testImplementEmbeddedFormInterface()

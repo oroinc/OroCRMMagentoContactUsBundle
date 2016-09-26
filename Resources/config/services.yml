@@ -6,15 +6,15 @@ services:
         class: %oro_magento_contact_us.embedded_form.class%
         tags:
             - { name: oro_embedded_form, label: oro.magentocontactus.embedded_form.label }
-            - { name: form.type, alias: orocrm_magento_contactus_contact_request }
+            - { name: form.type, alias: oro_magento_contactus_contact_request }
 
     oro_magento_contact_us.contact_request.form:
         class: Symfony\Component\Form\Form
         factory_method: createNamed
         factory_service: form.factory
         arguments:
-            - "orocrm_magento_contactus_contact_request"
-            - "orocrm_magento_contactus_contact_request"
+            - "oro_magento_contactus_contact_request"
+            - "oro_magento_contactus_contact_request"
             - null
             - { dataChannelField : true }
 
