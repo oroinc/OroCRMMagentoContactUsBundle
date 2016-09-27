@@ -1,25 +1,25 @@
 parameters:
-    orocrm_magento_contact_us.embedded_form.class:   OroCRM\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType
-    orocrm_magento_contact_us.datagrid.helper.class: OroCRM\Bundle\MagentoContactUsBundle\Datagrid\ContactRequestDatagridHelper
+    oro_magento_contact_us.embedded_form.class:   Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType
+    oro_magento_contact_us.datagrid.helper.class: Oro\Bundle\MagentoContactUsBundle\Datagrid\ContactRequestDatagridHelper
 services:
-    orocrm_magento_contact_us.embedded_form:
-        class: %orocrm_magento_contact_us.embedded_form.class%
+    oro_magento_contact_us.embedded_form:
+        class: %oro_magento_contact_us.embedded_form.class%
         tags:
-            - { name: oro_embedded_form, label: orocrm.magentocontactus.embedded_form.label }
-            - { name: form.type, alias: orocrm_magento_contactus_contact_request }
+            - { name: oro_embedded_form, label: oro.magentocontactus.embedded_form.label }
+            - { name: form.type, alias: oro_magento_contactus_contact_request }
 
-    orocrm_magento_contact_us.contact_request.form:
+    oro_magento_contact_us.contact_request.form:
         class: Symfony\Component\Form\Form
         factory_method: createNamed
         factory_service: form.factory
         arguments:
-            - "orocrm_magento_contactus_contact_request"
-            - "orocrm_magento_contactus_contact_request"
+            - "oro_magento_contactus_contact_request"
+            - "oro_magento_contactus_contact_request"
             - null
             - { dataChannelField : true }
 
 
-    orocrm_magento_contact_us.datagrid.helper:
-         class: %orocrm_magento_contact_us.datagrid.helper.class%
+    oro_magento_contact_us.datagrid.helper:
+         class: %oro_magento_contact_us.datagrid.helper.class%
          tags:
              - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.before.orcrm-contact-requests-grid-extended, method: buildBefore }

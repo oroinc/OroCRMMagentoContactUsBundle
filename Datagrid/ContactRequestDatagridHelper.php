@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Datagrid;
+namespace Oro\Bundle\MagentoContactUsBundle\Datagrid;
 
 use Doctrine\ORM\EntityManager;
 

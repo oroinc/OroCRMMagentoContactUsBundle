@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Migrations\Data\ORM;
+namespace Oro\Bundle\MagentoContactUsBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -15,7 +15,7 @@ class DefaultChannelData extends AbstractDefaultChannelDataFixture
     const PREFERABLE_CHANNEL_TYPE = 'magento';
     const FALLBACK_CHANNEL_TYPE = 'custom';
 
-    const FORM_TYPE = 'orocrm_magento_contact_us.embedded_form';
+    const FORM_TYPE = 'oro_magento_contact_us.embedded_form';
 
     /**
      * {@inheritdoc}
