@@ -76,17 +76,6 @@ class UpdateWorkflowItemStepData extends ParametrizedMigrationQuery
                ' )';
         $this->logQuery($logger, $sql, $params, $types);
         $this->connection->executeUpdate($sql, $params, $types);
-
-        // Update workflow_step_id for orocrm_contactus_request.
-        $sql = 'UPDATE orocrm_contactus_request ' .
-               ' SET workflow_step_id = :open_id' .
-               ' WHERE workflow_step_id IN (' .
-                   'SELECT s.id FROM oro_workflow_step s' .
-                   ' WHERE s.workflow_name = :workflow_name' .
-                   ' AND s.name = :name' .
-               ' )';
-        $this->logQuery($logger, $sql, $params, $types);
-        $this->connection->executeUpdate($sql, $params, $types);
     }
 
     /**
