@@ -36,23 +36,23 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
         if ($options['dataChannelField']) {
             $builder->add(
                 'dataChannel',
-                'orocrm_channel_select_type',
+                'oro_channel_select_type',
                 [
                     'required' => true,
-                    'label'    => 'orocrm.contactus.contactrequest.data_channel.label',
+                    'label'    => 'oro.contactus.contactrequest.data_channel.label',
                     'entities' => [
-                        'OroCRM\\Bundle\\ContactUsBundle\\Entity\\ContactRequest'
+                        'Oro\\Bundle\\ContactUsBundle\\Entity\\ContactRequest'
                     ],
                 ]
             );
         }
 
-        $builder->add('firstName', 'text', ['label' => 'orocrm.contactus.contactrequest.first_name.label']);
-        $builder->add('lastName', 'text', ['label' => 'orocrm.contactus.contactrequest.last_name.label']);
+        $builder->add('firstName', 'text', ['label' => 'oro.contactus.contactrequest.first_name.label']);
+        $builder->add('lastName', 'text', ['label' => 'oro.contactus.contactrequest.last_name.label']);
         $builder->add(
             'organizationName',
             'text',
-            ['required' => false, 'label' => 'orocrm.contactus.contactrequest.organization_name.label']
+            ['required' => false, 'label' => 'oro.contactus.contactrequest.organization_name.label']
         );
         $builder->add(
             'preferredContactMethod',
@@ -64,19 +64,19 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
                     ContactRequest::CONTACT_METHOD_EMAIL => ContactRequest::CONTACT_METHOD_EMAIL
                 ],
                 'required' => true,
-                'label'    => 'orocrm.contactus.contactrequest.preferred_contact_method.label',
+                'label'    => 'oro.contactus.contactrequest.preferred_contact_method.label',
                 'client_validation' => false,
             ]
         );
         $builder->add(
             'phone',
             'text',
-            ['required' => false, 'label' => 'orocrm.contactus.contactrequest.phone.label']
+            ['required' => false, 'label' => 'oro.contactus.contactrequest.phone.label']
         );
         $builder->add(
             'emailAddress',
             'text',
-            ['required' => false, 'label' => 'orocrm.contactus.contactrequest.email_address.label']
+            ['required' => false, 'label' => 'oro.contactus.contactrequest.email_address.label']
         );
         $builder->add(
             'contactReason',
@@ -84,13 +84,13 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
             [
                 'class'       => 'OroContactUsBundle:ContactReason',
                 'property'    => 'label',
-                'empty_value' => 'orocrm.contactus.contactrequest.choose_contact_reason.label',
+                'empty_value' => 'oro.contactus.contactrequest.choose_contact_reason.label',
                 'required'    => false,
-                'label'       => 'orocrm.contactus.contactrequest.contact_reason.label',
+                'label'       => 'oro.contactus.contactrequest.contact_reason.label',
                 'client_validation' => false,
             ]
         );
-        $builder->add('comment', 'textarea', ['label' => 'orocrm.contactus.contactrequest.comment.label']);
+        $builder->add('comment', 'textarea', ['label' => 'oro.contactus.contactrequest.comment.label']);
         $builder->add('submit', 'submit');
     }
 

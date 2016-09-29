@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class ContactRequestFormPass implements CompilerPassInterface
 {
-    const HANDLER_SERVICE_ID = 'orocrm_contact_us.contact_request.form.handler';
+    const HANDLER_SERVICE_ID = 'oro_contact_us.contact_request.form.handler';
     const FORM_SERVICE_ID    = 'oro_magento_contact_us.contact_request.form';
 
     /**

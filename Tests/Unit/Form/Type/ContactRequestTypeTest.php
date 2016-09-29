@@ -58,7 +58,7 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(
             [
-                'dataChannel'            => 'orocrm_channel_select_type',
+                'dataChannel'            => 'oro_channel_select_type',
                 'firstName'              => 'text',
                 'lastName'               => 'text',
                 'organizationName'       => 'text',
