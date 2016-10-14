@@ -27,6 +27,9 @@ workflows:
                     class: Oro\Bundle\UserBundle\Entity\User
             opportunity_budget:
                 type:  float
+                type:  entity
+                options:
+                    class: Oro\Bundle\CurrencyBundle\Entity\MultiCurrency
 
             # lead attributes
             lead_owner:
