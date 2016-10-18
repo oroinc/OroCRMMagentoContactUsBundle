@@ -1,6 +1,6 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Migrations\Schema\v1_0;
+namespace Oro\Bundle\MagentoContactUsBundle\Migrations\Schema\v1_0;
 
 use Psr\Log\LoggerInterface;
 
