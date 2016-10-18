@@ -1,7 +1,7 @@
 layout:
     actions:
         - '@setBlockTheme':
-            themes: 'OroCRMMagentoContactUsBundle:layouts:embedded_default/oro_embedded_form_submit/magento_form.html.twig'
+            themes: 'OroMagentoContactUsBundle:layouts:embedded_default/oro_embedded_form_submit/magento_form.html.twig'
         - '@setOption':
             id:          embedded_form
             optionName:  preferred_fields
@@ -18,4 +18,4 @@ layout:
             parentId:    embedded_form
             siblingId:   'embedded_form:group_contact'
 
-    conditions: 'context["embedded_form_type"] == "orocrm_magento_contact_us.embedded_form"'
+    conditions: 'context["embedded_form_type"] == "oro_magento_contact_us.embedded_form"'

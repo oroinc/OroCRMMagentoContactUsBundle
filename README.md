@@ -1,4 +1,4 @@
-OroCRMMagentoContactUsBundle
+OroMagentoContactUsBundle
 =====================
 
 This document contains information on how to download, install "OroCRM Contact Us" package.
@@ -14,7 +14,7 @@ Table of content
 Requirements
 ------------
 
-OroCRMMagentoContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.5.9 or above.
+OroMagentoContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.5.9 or above.
 
 Installation
 ------------
