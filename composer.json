@@ -11,10 +11,10 @@
     ],
     "autoload": {
         "psr-0": {
-            "OroCRM\\Bundle\\MagentoContactUsBundle": "src/"
+            "Oro\\Bundle\\MagentoContactUsBundle": "src/"
         }
     },
-    "target-dir": "src/OroCRM/Bundle/MagentoContactUsBundle",
+    "target-dir": "src/Oro/Bundle/MagentoContactUsBundle",
     "require": {
         "php": ">=5.5.9",
         "oro/crm": "1.x-dev"

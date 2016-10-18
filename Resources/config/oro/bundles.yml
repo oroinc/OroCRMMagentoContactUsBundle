@@ -1,2 +1,2 @@
 bundles:
-    - { name: OroCRM\Bundle\MagentoContactUsBundle\OroCRMMagentoContactUsBundle, priority: 30 }
+    - { name: Oro\Bundle\MagentoContactUsBundle\OroMagentoContactUsBundle, priority: 30 }

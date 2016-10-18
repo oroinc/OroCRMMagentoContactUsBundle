@@ -1,10 +1,9 @@
 <?php
 
-namespace OroCRM\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
+namespace Oro\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-
-use OroCRM\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
+use Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
 
 class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +22,7 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testHasName()
     {
-        $this->assertEquals('orocrm_magento_contactus_contact_request', $this->formType->getName());
+        $this->assertEquals('oro_magento_contactus_contact_request', $this->formType->getName());
     }
 
     public function testImplementEmbeddedFormInterface()
@@ -59,7 +58,7 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(
             [
-                'dataChannel'            => 'orocrm_channel_select_type',
+                'dataChannel'            => 'oro_channel_select_type',
                 'firstName'              => 'text',
                 'lastName'               => 'text',
                 'organizationName'       => 'text',
