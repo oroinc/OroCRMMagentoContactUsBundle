@@ -91,7 +91,6 @@ workflows:
                             form_type: oro_contact_select
                             options:
                                 required: false
-                                label:    'Contact'
                         opportunity_budget:
                             form_type: oro_money
                             options:
@@ -125,7 +124,6 @@ workflows:
                             form_type: orocrm_contact_select
                             options:
                                 required: false
-                                label:    'Contact'
                         lead_name:
                             form_type: text
                             options:

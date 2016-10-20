@@ -41,7 +41,13 @@ oro:
             transition:
                 convert_to_opportunity:
                     label: 'Convert to opportunity'
+                    attribute:
+                        contact:
+                            label: Contact
                 convert_to_lead:
                     label: 'Convert to lead'
+                    attribute:
+                        contact:
+                            label: Contact
                 resolve:
                     label: Resolve
