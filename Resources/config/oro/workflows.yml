@@ -142,7 +142,7 @@ workflows:
                                 constraints:
                                     - NotBlank: ~
                         contact:
-                            form_type: orocrm_contact_select
+                            form_type: oro_contact_select
                             options:
                                 required: false
                                 label:    'Contact'
