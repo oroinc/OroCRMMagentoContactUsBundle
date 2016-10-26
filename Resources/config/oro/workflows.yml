@@ -208,7 +208,8 @@ workflows:
                     '@not_empty': $request.id
             convert_to_opportunity_definition:
                 preconditions:
-                    '@channel_entity_availiable': [$dataChannel, ['Oro\Bundle\SalesBundle\Entity\Opportunity']]
+                    '@feature_enabled':
+                        feature: 'sales_opportunity'
                 conditions:
                     '@and':
                         - '@not_empty':
@@ -236,7 +237,8 @@ workflows:
 
             convert_to_lead_definition:
                 preconditions:
-                    '@channel_entity_availiable': [$dataChannel, ['Oro\Bundle\SalesBundle\Entity\Lead']]
+                    - '@feature_enabled':
+                        feature: 'sales_lead'
                 conditions:
                     '@and':
                         - '@not_empty':
