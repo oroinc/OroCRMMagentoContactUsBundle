@@ -1,82 +1,64 @@
 workflows:
     orocrm_contact_us_contact_request:
-        label:   'Contact Request'
         entity:   Oro\Bundle\ContactUsBundle\Entity\ContactRequest
         entity_attribute: request
         start_step: open
         steps:
             open:
-                label: 'Open'
                 order: 10
                 allowed_transitions:
                     - convert_to_opportunity
                     - convert_to_lead
                     - resolve
             resolved:
-                label: 'Resolved'
                 order: 40
             converted_to_opportunity:
-                label: 'Converted to opportunity'
                 order: 30
             converted_to_lead:
-                label: 'Converted to lead'
                 order: 30
 
         attributes:
             # opportunity attributes
             opportunity_name:
-                label: 'Opportunity name'
                 type:   string
             opportunity_owner:
-                label: 'Owner'
                 type:  entity
                 options:
                     class: Oro\Bundle\UserBundle\Entity\User
             opportunity_budget:
-                label: 'Budget amount'
                 type:  entity
                 options:
                     class: Oro\Bundle\CurrencyBundle\Entity\MultiCurrency
 
             # lead attributes
             lead_owner:
-                label: 'Owner'
                 type:  entity
                 options:
                     class: Oro\Bundle\UserBundle\Entity\User
             lead_name:
-                label:    'Lead name'
                 type:      string
             lead_first_name:
-                label:    'First name'
                 type:      string
             lead_last_name:
-                label:    'Last name'
                 type:      string
             lead_phone:
-                label:    'Phone number'
                 type:     string
             lead_email:
-                label:    'Email'
                 type:     string
             lead_phone_entity:
-                label: 'Lead Phone'
                 type:  entity
                 options:
                     class: Oro\Bundle\SalesBundle\Entity\LeadPhone
 
             # Other workflow attributes
             feedback:
-                label:        'Feedback'
                 type:          string
                 property_path: request.feedback
             account:
-                label:  'Account'
                 type:   entity
                 options:
                     class: Oro\Bundle\AccountBundle\Entity\Account
             contact:
-                label:   'Contact'
                 type:     entity
                 options:
                     class: Oro\Bundle\ContactBundle\Entity\Contact
@@ -84,7 +66,6 @@ workflows:
                 property_path: request.dataChannel
         transitions:
             convert_to_opportunity:
-                label:    'Convert to opportunity'
                 step_to:  converted_to_opportunity
                 is_start: true
                 is_unavailable_hidden: true
@@ -110,7 +91,6 @@ workflows:
                             form_type: oro_contact_select
                             options:
                                 required: false
-                                label:    'Contact'
                         opportunity_budget:
                             form_type: oro_money
                             options:
@@ -125,7 +105,6 @@ workflows:
                             attribute: $opportunity_name
                             object:    $request
             convert_to_lead:
-                label:     'Convert to lead'
                 step_to:   converted_to_lead
                 is_start:  true
                 is_unavailable_hidden: true
@@ -145,7 +124,6 @@ workflows:
                             form_type: oro_contact_select
                             options:
                                 required: false
-                                label:    'Contact'
                         lead_name:
                             form_type: text
                             options:
@@ -188,7 +166,6 @@ workflows:
                         - '@assign_value': [$lead_phone,  $request.phone]
                         - '@assign_value': [$lead_email,  $request.emailAddress]
             resolve:
-                label:      'Resolve'
                 step_to:    resolved
                 is_start:   true
                 is_unavailable_hidden: true
