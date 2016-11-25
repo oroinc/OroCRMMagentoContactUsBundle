@@ -14,7 +14,7 @@ Table of content
 Requirements
 ------------
 
-OroMagentoContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.5.9 or above.
+OroMagentoContactUsBundle requires OroPlatform(BAP), OroCRM and PHP 5.6 or above.
 
 Installation
 ------------

@@ -16,7 +16,7 @@
     },
     "target-dir": "src/Oro/Bundle/MagentoContactUsBundle",
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=5.6",
         "oro/crm": "1.x-dev"
     },
     "minimum-stability": "dev",
