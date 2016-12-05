@@ -210,11 +210,10 @@ workflows:
                             contact:      $contact
                             status:       $.result.opportunity_status
                             notes:        $feedback
-                            dataChannel:  $dataChannel
 
             convert_to_lead_definition:
                 preconditions:
-                    - '@feature_enabled':
+                    '@feature_enabled':
                         feature: 'sales_lead'
                 conditions:
                     '@and':
@@ -240,7 +239,6 @@ workflows:
                             contact:      $contact
                             status:       $.result.lead_status
                             notes:        $feedback
-                            dataChannel:  $dataChannel
                     - '@tree':
                         conditions:
                             '@not_empty': [$lead_phone]
