@@ -71,7 +71,7 @@ workflows:
                 is_unavailable_hidden: true
                 acl_resource: oro_sales_opportunity_create
                 frontend_options:
-                    icon: 'icon-usd'
+                    icon: 'fa-usd'
                 transition_definition: convert_to_opportunity_definition
                 form_options:
                     attribute_fields:
@@ -110,7 +110,7 @@ workflows:
                 is_unavailable_hidden: true
                 acl_resource: oro_sales_lead_create
                 frontend_options:
-                    icon: 'icon-phone-sign'
+                    icon: 'fa-phone-square'
                 transition_definition: convert_to_lead_definition
                 form_options:
                     attribute_fields:
@@ -170,7 +170,7 @@ workflows:
                 is_start:   true
                 is_unavailable_hidden: true
                 frontend_options:
-                    icon: 'icon-check'
+                    icon: 'fa-check-square-o'
                 transition_definition: resolve_definition
                 form_options:
                     attribute_fields:
