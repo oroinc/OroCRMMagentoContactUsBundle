@@ -26,7 +26,7 @@ workflows:
                 options:
                     class: Oro\Bundle\UserBundle\Entity\User
             opportunity_budget:
-                type:  entity
+                type:  object
                 options:
                     class: Oro\Bundle\CurrencyBundle\Entity\MultiCurrency
 
@@ -92,7 +92,7 @@ workflows:
                             options:
                                 required: false
                         opportunity_budget:
-                            form_type: oro_money
+                            form_type: oro_multicurrency
                             options:
                                 required: false
                         feedback:
@@ -214,7 +214,7 @@ workflows:
 
             convert_to_lead_definition:
                 preconditions:
-                    - '@feature_enabled':
+                    '@feature_enabled':
                         feature: 'sales_lead'
                 conditions:
                     '@and':
