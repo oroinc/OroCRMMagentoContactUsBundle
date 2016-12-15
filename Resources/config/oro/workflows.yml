@@ -62,8 +62,6 @@ workflows:
                 type:     entity
                 options:
                     class: Oro\Bundle\ContactBundle\Entity\Contact
-            dataChannel:
-                property_path: request.dataChannel
         transitions:
             convert_to_opportunity:
                 step_to:  converted_to_opportunity

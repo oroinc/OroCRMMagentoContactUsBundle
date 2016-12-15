@@ -16,8 +16,6 @@ services:
             - "oro_magento_contactus_contact_request"
             - "oro_magento_contactus_contact_request"
             - null
-            - { dataChannelField : true }
-
 
     oro_magento_contact_us.datagrid.helper:
          class: %oro_magento_contact_us.datagrid.helper.class%
