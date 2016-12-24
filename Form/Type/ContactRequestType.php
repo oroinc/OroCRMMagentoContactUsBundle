@@ -38,7 +38,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
                 'dataChannel',
                 'oro_channel_select_type',
                 [
-                    'required' => true,
+                    'required' => false,
                     'label'    => 'oro.contactus.contactrequest.data_channel.label',
                     'entities' => [
                         'Oro\\Bundle\\ContactUsBundle\\Entity\\ContactRequest'

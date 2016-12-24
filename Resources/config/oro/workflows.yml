@@ -62,8 +62,6 @@ workflows:
                 type:     entity
                 options:
                     class: Oro\Bundle\ContactBundle\Entity\Contact
-            dataChannel:
-                property_path: request.dataChannel
         transitions:
             convert_to_opportunity:
                 step_to:  converted_to_opportunity
@@ -210,7 +208,6 @@ workflows:
                             contact:      $contact
                             status:       $.result.opportunity_status
                             notes:        $feedback
-                            dataChannel:  $dataChannel
 
             convert_to_lead_definition:
                 preconditions:
@@ -240,7 +237,6 @@ workflows:
                             contact:      $contact
                             status:       $.result.lead_status
                             notes:        $feedback
-                            dataChannel:  $dataChannel
                     - '@tree':
                         conditions:
                             '@not_empty': [$lead_phone]

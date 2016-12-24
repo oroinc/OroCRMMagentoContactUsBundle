@@ -42,7 +42,7 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()->getMock();
 
         $fields = [];
-        $builder->expects($this->exactly(10))
+        $builder->expects($this->exactly(9))
             ->method('add')
             ->will(
                 $this->returnCallback(
@@ -54,11 +54,10 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->formType->buildForm($builder, ['dataChannelField' => true]);
+        $this->formType->buildForm($builder, ['dataChannelField' => false]);
 
         $this->assertSame(
             [
-                'dataChannel'            => 'oro_channel_select_type',
                 'firstName'              => 'text',
                 'lastName'               => 'text',
                 'organizationName'       => 'text',
