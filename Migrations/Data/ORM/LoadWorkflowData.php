@@ -18,7 +18,7 @@ class LoadWorkflowData extends AbstractFixture implements ContainerAwareInterfac
      */
     public function load(ObjectManager $manager)
     {
-        $this->container->get('oro_workflow.manager')->activateWorkflow('orocrm_contact_us_contact_request');
+        $this->container->get('oro_workflow.manager.system')->activateWorkflow('orocrm_contact_us_contact_request');
     }
 
     /**
