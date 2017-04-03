@@ -41,13 +41,41 @@ oro:
             transition:
                 convert_to_opportunity:
                     label: 'Convert to opportunity'
+                    warning_message: ''
                     attribute:
                         contact:
                             label: Contact
+                        feedback:
+                            label: 'Feedback'
+                        opportunity_budget:
+                            label: 'Budget amount'
+                        opportunity_name:
+                            label: 'Opportunity name'
+                        opportunity_owner:
+                            label: 'Owner'
                 convert_to_lead:
                     label: 'Convert to lead'
+                    warning_message: ''
                     attribute:
                         contact:
                             label: Contact
+                        feedback:
+                            label: 'Feedback'
+                        lead_email:
+                            label: 'Email'
+                        lead_first_name:
+                            label: 'First name'
+                        lead_last_name:
+                            label: 'Last name'
+                        lead_name:
+                            label: 'Lead name'
+                        lead_owner:
+                            label: 'Owner'
+                        lead_phone:
+                            label: 'Phone number'
                 resolve:
                     label: Resolve
+                    warning_message: ''
+                    attribute:
+                        feedback:
+                            label: 'Feedback'
