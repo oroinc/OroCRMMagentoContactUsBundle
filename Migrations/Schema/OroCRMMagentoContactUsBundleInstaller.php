@@ -29,7 +29,7 @@ class OroCRMMagentoContactUsBundleInstaller implements Installation, ContainerAw
      */
     public function getMigrationVersion()
     {
-        return 'v1_0';
+        return 'v1_0_1';
     }
 
     /**
