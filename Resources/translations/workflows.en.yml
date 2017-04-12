@@ -8,9 +8,9 @@ oro:
                 resolved:
                     label: Resolved
                 converted_to_opportunity:
-                    label: 'Converted to opportunity'
+                    label: 'Converted to Opportunity'
                 converted_to_lead:
-                    label: 'Converted to lead'
+                    label: 'Converted to Lead'
             attribute:
                 opportunity_name:
                     label: 'Opportunity name'
@@ -40,12 +40,12 @@ oro:
                     label: Contact
             transition:
                 convert_to_opportunity:
-                    label: 'Convert to opportunity'
+                    label: 'Convert to Opportunity'
                     attribute:
                         contact:
                             label: Contact
                 convert_to_lead:
-                    label: 'Convert to lead'
+                    label: 'Convert to Lead'
                     attribute:
                         contact:
                             label: Contact
