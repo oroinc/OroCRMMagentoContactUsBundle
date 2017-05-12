@@ -16,10 +16,10 @@ workflows:
                 label: 'Resolved'
                 order: 40
             converted_to_opportunity:
-                label: 'Converted to opportunity'
+                label: 'Converted to Opportunity'
                 order: 30
             converted_to_lead:
-                label: 'Converted to lead'
+                label: 'Converted to Lead'
                 order: 30
 
         attributes:
@@ -82,7 +82,7 @@ workflows:
                 property_path: request.dataChannel
         transitions:
             convert_to_opportunity:
-                label:    'Convert to opportunity'
+                label:    'Convert to Opportunity'
                 step_to:  converted_to_opportunity
                 is_start: true
                 is_unavailable_hidden: true
@@ -123,7 +123,7 @@ workflows:
                             attribute: $opportunity_name
                             object:    $request
             convert_to_lead:
-                label:     'Convert to lead'
+                label:     'Convert to Lead'
                 step_to:   converted_to_lead
                 is_start:  true
                 is_unavailable_hidden: true
