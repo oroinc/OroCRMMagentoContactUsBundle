@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 
 use Oro\Bundle\ContactUsBundle\Entity\ContactRequest;
+use Oro\Bundle\ContactUsBundle\Entity\Repository\ContactReasonRepository;
 
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface
 {
@@ -88,6 +89,9 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
                 'required'    => false,
                 'label'       => 'oro.contactus.contactrequest.contact_reason.label',
                 'client_validation' => false,
+                'query_builder' => function (ContactReasonRepository $er) {
+                    return $er->getExistedContactReasonsQB();
+                },
             ]
         );
         $builder->add('comment', 'textarea', ['label' => 'oro.contactus.contactrequest.comment.label']);
