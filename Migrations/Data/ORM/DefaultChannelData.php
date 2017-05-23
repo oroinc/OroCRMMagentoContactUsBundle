@@ -12,6 +12,9 @@ use Oro\Bundle\ChannelBundle\Migrations\Data\ORM\AbstractDefaultChannelDataFixtu
 
 class DefaultChannelData extends AbstractDefaultChannelDataFixture
 {
+    /**
+     * @todo Remove dependency on exact magento channel type in CRM-8153
+     */
     const PREFERABLE_CHANNEL_TYPE = 'magento';
     const FALLBACK_CHANNEL_TYPE = 'custom';
 
