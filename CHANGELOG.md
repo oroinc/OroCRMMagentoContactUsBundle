@@ -1,6 +1,8 @@
+## 2.5.0 (Unreleased)
 ## 2.4.0 (Unreleased)
 
 ## 2.3.0 (2017-07-28)
+[Show detailed list of changes](file-incompatibilities-2-3-0.md)
 
 ## 2.2.0 (2017-05-31)
 
