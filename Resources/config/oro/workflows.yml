@@ -63,6 +63,10 @@ workflows:
                 type:     entity
                 options:
                     class: Oro\Bundle\ContactBundle\Entity\Contact
+            customer_association:
+                type: entity
+                options:
+                    class: Oro\Bundle\SalesBundle\Entity\Customer
         transitions:
             convert_to_opportunity:
                 step_to:  converted_to_opportunity
@@ -86,6 +90,13 @@ workflows:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
+                        customer_association:
+                            form_type: oro_sales_customer
+                            options:
+                                parent_class: Oro\Bundle\AccountBundle\Entity\Account
+                                required: true
+                                constraints:
+                                    - NotBlank: ~
                         contact:
                             form_type: oro_contact_select
                             options:
@@ -103,6 +114,13 @@ workflows:
                         - '@format_name':
                             attribute: $opportunity_name
                             object:    $request
+                        - '@find_customer_association':
+                            conditions:
+                                '@and': # if customer_association is empty and customer is specified
+                                    - '@empty':     $customer_association
+                                    - '@not_empty': $request.customer_user.customer
+                            customer: $request.customer_user.customer
+                            attribute: $customer_association
             convert_to_lead:
                 step_to:   converted_to_lead
                 is_start:  true
@@ -194,6 +212,9 @@ workflows:
                         - '@not_empty':
                             parameters: $opportunity_owner
                             message:    'Owner must be set'
+                        - '@not_empty':
+                            parameters: $customer_association
+                            message:    'Account must be set'
                 actions:
                     - '@request_enum_entity':
                         enum_code: opportunity_status
@@ -203,12 +224,13 @@ workflows:
                         class:     Oro\Bundle\SalesBundle\Entity\Opportunity
                         attribute: $request.opportunity
                         data:
-                            name:         $opportunity_name
-                            owner:        $opportunity_owner
-                            budgetAmount: $opportunity_budget
-                            contact:      $contact
-                            status:       $.result.opportunity_status
-                            notes:        $feedback
+                            name:                 $opportunity_name
+                            owner:                $opportunity_owner
+                            budgetAmount:         $opportunity_budget
+                            contact:              $contact
+                            status:               $.result.opportunity_status
+                            notes:                $feedback
+                            customer_association: $customer_association
 
             convert_to_lead_definition:
                 preconditions:

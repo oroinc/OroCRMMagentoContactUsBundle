@@ -38,6 +38,8 @@ oro:
                     label: Account
                 contact:
                     label: Contact
+                customer_association:
+                    label: Account
             transition:
                 convert_to_opportunity:
                     label: 'Convert to Opportunity'
