@@ -15,7 +15,7 @@
     },
     "require": {
         "php": "7.1.*",
-        "oro/crm": "2.x-dev"
+        "oro/crm": "2.6.x-dev"
     },
     "repositories": {
         "oro": {
@@ -31,7 +31,7 @@
     "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "2.x-dev"
+            "dev-master": "2.6.x-dev"
         }
     }
 }
