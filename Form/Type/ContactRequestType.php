@@ -2,14 +2,12 @@
 
 namespace Oro\Bundle\MagentoContactUsBundle\Form\Type;
 
+use Oro\Bundle\ContactUsBundle\Entity\ContactRequest;
+use Oro\Bundle\ContactUsBundle\Entity\Repository\ContactReasonRepository;
+use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
-
-use Oro\Bundle\ContactUsBundle\Entity\ContactRequest;
-use Oro\Bundle\ContactUsBundle\Entity\Repository\ContactReasonRepository;
 
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface
 {

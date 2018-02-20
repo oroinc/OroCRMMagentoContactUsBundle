@@ -2,12 +2,10 @@
 
 namespace Oro\Bundle\MagentoContactUsBundle\Migrations\Schema\v1_0;
 
-use Psr\Log\LoggerInterface;
-
-use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Connection;
-
+use Doctrine\DBAL\Types\Type;
 use Oro\Bundle\MigrationBundle\Migration\ParametrizedMigrationQuery;
+use Psr\Log\LoggerInterface;
 
 class UpdateWorkflowItemStepData extends ParametrizedMigrationQuery
 {

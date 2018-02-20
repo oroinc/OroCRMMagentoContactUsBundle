@@ -3,12 +3,10 @@
 namespace Oro\Bundle\MagentoContactUsBundle\Migrations\Data\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-
-use Oro\Bundle\EmbeddedFormBundle\Entity\EmbeddedForm;
-
 use Oro\Bundle\ChannelBundle\Entity\Channel;
-use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
 use Oro\Bundle\ChannelBundle\Migrations\Data\ORM\AbstractDefaultChannelDataFixture;
+use Oro\Bundle\ChannelBundle\Model\ChannelAwareInterface;
+use Oro\Bundle\EmbeddedFormBundle\Entity\EmbeddedForm;
 
 class DefaultChannelData extends AbstractDefaultChannelDataFixture
 {
