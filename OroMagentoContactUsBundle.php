@@ -2,10 +2,9 @@
 
 namespace Oro\Bundle\MagentoContactUsBundle;
 
+use Oro\Bundle\MagentoContactUsBundle\DependencyInjection\Compiler\ContactRequestFormPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-use Oro\Bundle\MagentoContactUsBundle\DependencyInjection\Compiler\ContactRequestFormPass;
 
 class OroMagentoContactUsBundle extends Bundle
 {

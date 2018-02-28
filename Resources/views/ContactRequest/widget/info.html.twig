@@ -17,8 +17,8 @@
             {{ ui.renderHtmlProperty('oro.contactus.contactrequest.email_address.label'|trans, email.email_address_simple(entity.emailAddress)) }}
             {{ ui.renderHtmlProperty('oro.contactus.contactrequest.phone.label'|trans, entity.phone ? ui.renderPhone(entity.phone) : null) }}
             {{ ui.renderProperty('oro.contactus.contactrequest.contact_reason.label'|trans, entity.contactReason|trans) }}
-            {{ ui.renderHtmlProperty('oro.contactus.contactrequest.comment.label'|trans, entity.comment|escape|nl2br) }}
-            {{ ui.renderHtmlProperty('oro.contactus.contactrequest.feedback.label'|trans, entity.feedback|escape|nl2br) }}
+            {{ ui.renderHtmlProperty('oro.contactus.contactrequest.comment.label'|trans, entity.comment|oro_html_sanitize|nl2br) }}
+            {{ ui.renderHtmlProperty('oro.contactus.contactrequest.feedback.label'|trans, entity.feedback|oro_html_sanitize|nl2br) }}
 
             {% if entity.opportunity %}
                 {%- if entity.opportunity and is_granted('VIEW', entity.opportunity) -%}
@@ -30,13 +30,10 @@
                 {{ ui.renderHtmlProperty('oro.contactus.contactrequest.opportunity.label'|trans, opportunityView) }}
             {% endif %}
             {% if entity.lead %}
-                {%- if entity.lead and is_granted('VIEW', entity.lead) -%}
-                    {% set leadView = ui.renderUrl(path('oro_sales_lead_view', {'id': entity.lead.id}), entity.lead.name) %}
-                {%- else -%}
-                    {% set leadView = entity.lead.name %}
-                {%- endif -%}
-
-                {{ ui.renderHtmlProperty('oro.contactus.contactrequest.lead.label'|trans, leadView) }}
+                {{ ui.renderHtmlProperty(
+                    'oro.contactus.contactrequest.lead.label'|trans,
+                    ui.entityViewLink(entity.lead, entity.lead.name, 'oro_sales_lead_view')
+                ) }}
             {% endif %}
         </div>
     </div>

@@ -2,14 +2,12 @@
 
 namespace Oro\Bundle\MagentoContactUsBundle\Migrations\Schema;
 
+use Doctrine\DBAL\Schema\Schema;
+use Oro\Bundle\MagentoContactUsBundle\Migrations\Schema\v1_0\UpdateWorkflowItemStepData;
+use Oro\Bundle\MigrationBundle\Migration\Installation;
+use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Doctrine\DBAL\Schema\Schema;
-
-use Oro\Bundle\MigrationBundle\Migration\QueryBag;
-use Oro\Bundle\MigrationBundle\Migration\Installation;
-use Oro\Bundle\MagentoContactUsBundle\Migrations\Schema\v1_0\UpdateWorkflowItemStepData;
 
 class OroMagentoContactUsBundleInstaller implements Installation, ContainerAwareInterface
 {
