@@ -15,7 +15,7 @@
     },
     "require": {
         "php": "7.1.*",
-        "oro/crm": "3.0.x-dev"
+        "oro/crm": "3.0.*"
     },
     "repositories": {
         "oro": {
