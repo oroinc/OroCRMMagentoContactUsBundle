@@ -1,7 +1,6 @@
-OroMagentoContactUsBundle
-=====================
+# OroMagentoContactUsBundle
 
-This document contains information on how to download, install "OroCRM Contact Us" package.
+OroMagentoContactUsBundle extends [OroContactUsBundle](https://github.com/oroinc/crm/tree/master/src/Oro/Bundle/ContactUsBundle) to add the Magento Contact Us [embedded form](https://github.com/oroinc/platform/tree/master/src/Oro/Bundle/EmbeddedFormBundle) into Oro applications, which helps collect additional information about customer organization, preferred contact method, phone, etc. from Magento websites.
 
 Table of content
 -----------------
