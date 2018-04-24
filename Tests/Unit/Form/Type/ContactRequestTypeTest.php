@@ -4,6 +4,11 @@ namespace Oro\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -58,15 +63,15 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(
             [
-                'firstName'              => 'text',
-                'lastName'               => 'text',
-                'organizationName'       => 'text',
-                'preferredContactMethod' => 'choice',
-                'phone'                  => 'text',
-                'emailAddress'           => 'text',
-                'contactReason'          => 'entity',
-                'comment'                => 'textarea',
-                'submit'                 => 'submit',
+                'firstName'              => TextType::class,
+                'lastName'               => TextType::class,
+                'organizationName'       => TextType::class,
+                'preferredContactMethod' => ChoiceType::class,
+                'phone'                  => TextType::class,
+                'emailAddress'           => TextType::class,
+                'contactReason'          => EntityType::class,
+                'comment'                => TextareaType::class,
+                'submit'                 => SubmitType::class,
             ],
             $fields
         );
