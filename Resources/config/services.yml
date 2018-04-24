@@ -13,7 +13,7 @@ services:
         factory: ['@form.factory', createNamed]
         arguments:
             - "oro_magento_contactus_contact_request"
-            - "oro_magento_contactus_contact_request"
+            - Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType
             - null
 
     oro_magento_contact_us.datagrid.helper:
