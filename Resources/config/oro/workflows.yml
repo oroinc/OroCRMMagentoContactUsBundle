@@ -79,34 +79,34 @@ workflows:
                 form_options:
                     attribute_fields:
                         opportunity_name:
-                            form_type: text
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
                             options:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
                         opportunity_owner:
-                            form_type: oro_user_select
+                            form_type: Oro\Bundle\UserBundle\Form\Type\UserSelectType
                             options:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
                         customer_association:
-                            form_type: oro_sales_customer
+                            form_type: Oro\Bundle\SalesBundle\Form\Type\CustomerType
                             options:
                                 parent_class: Oro\Bundle\AccountBundle\Entity\Account
                                 required: true
                                 constraints:
                                     - NotBlank: ~
                         contact:
-                            form_type: oro_contact_select
+                            form_type: Oro\Bundle\ContactBundle\Form\Type\ContactSelectType
                             options:
                                 required: false
                         opportunity_budget:
-                            form_type: oro_multicurrency
+                            form_type: Oro\Bundle\CurrencyBundle\Form\Type\MultiCurrencyType
                             options:
                                 required: false
                         feedback:
-                            form_type: textarea
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextareaType
                             options:
                                 required: false
                     form_init:
@@ -132,45 +132,45 @@ workflows:
                 form_options:
                     attribute_fields:
                         lead_owner:
-                            form_type: oro_user_select
+                            form_type: Oro\Bundle\UserBundle\Form\Type\UserSelectType
                             options:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
                         contact:
-                            form_type: oro_contact_select
+                            form_type: Oro\Bundle\ContactBundle\Form\Type\ContactSelectType
                             options:
                                 required: false
                         lead_name:
-                            form_type: text
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
                             options:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
                         lead_first_name:
-                            form_type: text
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
                             options:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
                         lead_last_name:
-                            form_type: text
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
                             options:
                                 required: true
                                 constraints:
                                     - NotBlank: ~
                         lead_phone:
-                            form_type: text
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
                             options:
                                 required: false
                         lead_email:
-                            form_type: oro_email_email_address
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
                             options:
                                 required: false
                                 constraints:
                                    - Email: ~
                         feedback:
-                            form_type: textarea
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextareaType
                             options:
                                 required: false
                     form_init:
@@ -192,7 +192,7 @@ workflows:
                 form_options:
                     attribute_fields:
                         feedback:
-                            form_type: textarea
+                            form_type: Symfony\Component\Form\Extension\Core\Type\TextareaType
                             options:
                                 required: false
 
