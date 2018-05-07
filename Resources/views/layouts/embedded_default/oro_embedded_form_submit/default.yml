@@ -18,4 +18,4 @@ layout:
             parentId:    embedded_form
             siblingId:   'embedded_form:group_contact'
 
-    conditions: 'context["embedded_form_type"] == "oro_magento_contact_us.embedded_form"'
+    conditions: 'context["embedded_form_type"] == "Oro\\Bundle\\MagentoContactUsBundle\\Form\\Type\\ContactRequestType"'
