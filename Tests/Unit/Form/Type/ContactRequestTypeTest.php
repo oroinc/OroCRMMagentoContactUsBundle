@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
+class ContactRequestTypeTest extends \PHPUnit\Framework\TestCase
 {
     /** @var ContactRequestType */
     protected $formType;
@@ -54,7 +54,7 @@ class ContactRequestTypeTest extends \PHPUnit_Framework_TestCase
                     function ($fieldName, $fieldType) use (&$fields) {
                         $fields[$fieldName] = $fieldType;
 
-                        return new \PHPUnit_Framework_MockObject_Stub_ReturnSelf();
+                        return new \PHPUnit\Framework\MockObject\Stub\ReturnSelf();
                     }
                 )
             );
