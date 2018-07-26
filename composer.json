@@ -14,7 +14,7 @@
         "exclude-from-classmap": ["/Tests/"]
     },
     "require": {
-        "oro/crm": "2.x-dev"
+        "oro/crm": "3.1.*"
     },
     "repositories": {
         "oro": {
@@ -30,7 +30,7 @@
     "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "2.x-dev"
+            "dev-master": "3.1-dev"
         }
     }
 }
