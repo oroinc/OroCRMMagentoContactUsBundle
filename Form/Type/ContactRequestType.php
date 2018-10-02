@@ -2,6 +2,8 @@
 
 namespace Oro\Bundle\MagentoContactUsBundle\Form\Type;
 
+use Oro\Bundle\ContactUsBundle\Entity\ContactReason;
+use Oro\Bundle\LocaleBundle\Helper\LocalizationHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -11,8 +13,24 @@ use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
 use Oro\Bundle\ContactUsBundle\Entity\ContactRequest;
 use Oro\Bundle\ContactUsBundle\Entity\Repository\ContactReasonRepository;
 
+/**
+ * Represents contact request type for ContactRequest entity
+*/
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface
 {
+    /**
+     * @var LocalizationHelper
+     */
+    private $localizationHelper;
+
+    /**
+     * @param LocalizationHelper $localizationHelper
+     */
+    public function setLocalizationHelper(LocalizationHelper $localizationHelper)
+    {
+        $this->localizationHelper = $localizationHelper;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -84,18 +102,34 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
             'entity',
             [
                 'class'       => 'OroContactUsBundle:ContactReason',
-                'property'    => 'label',
+                'choice_label' => function (ContactReason $entity) {
+                    return $this->getLocalizationHelper()->getLocalizedValue($entity->getTitles());
+                },
                 'empty_value' => 'oro.contactus.contactrequest.choose_contact_reason.label',
                 'required'    => false,
                 'label'       => 'oro.contactus.contactrequest.contact_reason.label',
                 'client_validation' => false,
                 'query_builder' => function (ContactReasonRepository $er) {
-                    return $er->getExistedContactReasonsQB();
+                    return $er->getExistedContactReasonsQB()
+                        ->addSelect('titles')
+                        ->leftJoin('cr.titles', 'titles');
                 },
             ]
         );
         $builder->add('comment', 'textarea', ['label' => 'oro.contactus.contactrequest.comment.label']);
         $builder->add('submit', 'submit');
+    }
+
+    /**
+     * @return LocalizationHelper
+     */
+    private function getLocalizationHelper()
+    {
+        if (!$this->localizationHelper) {
+            throw new \LogicException(sprintf('No localization helper set for %s type', get_class($this)));
+        }
+
+        return $this->localizationHelper;
     }
 
     /**

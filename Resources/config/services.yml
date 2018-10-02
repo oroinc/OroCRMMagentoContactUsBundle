@@ -7,6 +7,8 @@ services:
         tags:
             - { name: oro_embedded_form, label: oro.magentocontactus.embedded_form.label }
             - { name: form.type, alias: oro_magento_contactus_contact_request }
+        calls:
+            - [setLocalizationHelper, ["@oro_locale.helper.default_locale_localization"]]
 
     oro_magento_contact_us.contact_request.form:
         class: Symfony\Component\Form\Form
