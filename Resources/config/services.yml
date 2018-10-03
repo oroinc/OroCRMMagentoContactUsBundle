@@ -4,6 +4,8 @@ parameters:
 services:
     oro_magento_contact_us.embedded_form:
         class: '%oro_magento_contact_us.embedded_form.class%'
+        arguments:
+             - '@oro_locale.helper.default_locale_localization'
         tags:
             - { name: oro_embedded_form, label: oro.magentocontactus.embedded_form.label, type: Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType }
             - { name: form.type, alias: oro_magento_contactus_contact_request }
