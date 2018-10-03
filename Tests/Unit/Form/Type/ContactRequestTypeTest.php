@@ -3,6 +3,7 @@
 namespace Oro\Bundle\MagentoContactUsBundle\Tests\Unit\Form\Type;
 
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
+use Oro\Bundle\LocaleBundle\Helper\LocalizationHelper;
 use Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,12 +13,21 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ContactRequestTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var ContactRequestType */
-    protected $formType;
+    /**
+     * @var ContactRequestType
+     */
+    private $formType;
+
+    /**
+     * @var LocalizationHelper|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $localizationHelper;
+
 
     public function setUp()
     {
-        $this->formType = new ContactRequestType();
+        $this->localizationHelper = $this->createMock(LocalizationHelper::class);
+        $this->formType = new ContactRequestType($this->localizationHelper);
     }
 
     public function tearDown()

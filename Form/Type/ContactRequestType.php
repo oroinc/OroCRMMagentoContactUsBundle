@@ -3,9 +3,11 @@
 namespace Oro\Bundle\MagentoContactUsBundle\Form\Type;
 
 use Oro\Bundle\ChannelBundle\Form\Type\ChannelSelectType;
+use Oro\Bundle\ContactUsBundle\Entity\ContactReason;
 use Oro\Bundle\ContactUsBundle\Entity\ContactRequest;
 use Oro\Bundle\ContactUsBundle\Entity\Repository\ContactReasonRepository;
 use Oro\Bundle\EmbeddedFormBundle\Form\Type\EmbeddedFormInterface;
+use Oro\Bundle\LocaleBundle\Helper\LocalizationHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,8 +17,24 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Represents contact request type for ContactRequest entity
+ */
 class ContactRequestType extends AbstractType implements EmbeddedFormInterface
 {
+    /**
+     * @var LocalizationHelper
+     */
+    private $localizationHelper;
+
+    /**
+     * @param LocalizationHelper $localizationHelper
+     */
+    public function __construct(LocalizationHelper $localizationHelper)
+    {
+        $this->localizationHelper = $localizationHelper;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -88,13 +106,17 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
             EntityType::class,
             [
                 'class'       => 'OroContactUsBundle:ContactReason',
-                'choice_label'    => 'label',
+                'choice_label' => function (ContactReason $entity) {
+                    return $this->localizationHelper->getLocalizedValue($entity->getTitles());
+                },
                 'placeholder' => 'oro.contactus.contactrequest.choose_contact_reason.label',
                 'required'    => false,
                 'label'       => 'oro.contactus.contactrequest.contact_reason.label',
                 'client_validation' => false,
                 'query_builder' => function (ContactReasonRepository $er) {
-                    return $er->getExistedContactReasonsQB();
+                    return $er->getExistedContactReasonsQB()
+                        ->addSelect('titles')
+                        ->leftJoin('cr.titles', 'titles');
                 },
             ]
         );

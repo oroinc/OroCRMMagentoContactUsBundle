@@ -1,0 +1,30 @@
+oro_behat_extension:
+  elements:
+    Magento contact us form with contact reasons:
+      selector: 'div#page'
+      class: Oro\Bundle\TestFrameworkBundle\Behat\Element\Form
+      options:
+        embedded-id: embedded-form
+        mapping:
+          First name: 'oro_magento_contactus_contact_request[firstName]'
+          Last name: 'oro_magento_contactus_contact_request[lastName]'
+          Preferred contact method: 'oro_magento_contactus_contact_request[preferredContactMethod]'
+          Email: 'oro_magento_contactus_contact_request[emailAddress]'
+          Comment: 'oro_magento_contactus_contact_request[comment]'
+          Contact reason: 'oro_magento_contactus_contact_request[contactReason]'
+  suites:
+    OroMagentoContactUsBundle:
+      contexts:
+        - Oro\Bundle\TestFrameworkBundle\Tests\Behat\Context\OroMainContext
+        - OroConfigBundle::FeatureContext
+        - OroSecurityBundle::ACLContext
+        - OroUserBundle::FeatureContext
+        - OroSalesBundle::SalesContext
+        - OroDataGridBundle::GridContext
+        - OroFormBundle::FormContext
+        - OroMagentoBundle::FeatureContext
+        - OroQueryDesignerBundle::QueryDesignerContext
+        - OroConfigBundle::FeatureContext
+        - OroLocaleBundle::LocalizationContext
+      paths:
+        - '@OroMagentoContactUsBundle/Tests/Behat/Features'
