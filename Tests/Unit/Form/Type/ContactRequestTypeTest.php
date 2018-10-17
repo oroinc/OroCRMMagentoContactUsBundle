@@ -19,7 +19,7 @@ class ContactRequestTypeTest extends \PHPUnit\Framework\TestCase
     private $formType;
 
     /**
-     * @var LocalizationHelper|\PHPUnit_Framework_MockObject_MockObject
+     * @var LocalizationHelper|\PHPUnit\Framework\MockObject\MockObject
      */
     private $localizationHelper;
 
