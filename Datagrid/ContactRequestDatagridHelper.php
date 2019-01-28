@@ -2,10 +2,8 @@
 
 namespace Oro\Bundle\MagentoContactUsBundle\Datagrid;
 
-use Doctrine\ORM\EntityManager;
 use Oro\Bundle\DataGridBundle\Event\BuildBefore;
 use Oro\Bundle\DataGridBundle\Extension\Formatter\Configuration;
-use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
 
 class ContactRequestDatagridHelper
 {
