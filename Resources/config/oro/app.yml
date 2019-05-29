@@ -1,0 +1,3 @@
+twig:
+    paths:
+        '%kernel.project_dir%/vendor/oro/crm-magento-embedded-contact-us/Resources/views': 'OroContactUs'
