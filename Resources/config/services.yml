@@ -1,9 +1,6 @@
-parameters:
-    oro_magento_contact_us.embedded_form.class:   Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType
-    oro_magento_contact_us.datagrid.helper.class: Oro\Bundle\MagentoContactUsBundle\Datagrid\ContactRequestDatagridHelper
 services:
     oro_magento_contact_us.embedded_form:
-        class: '%oro_magento_contact_us.embedded_form.class%'
+        class: Oro\Bundle\MagentoContactUsBundle\Form\Type\ContactRequestType
         arguments:
              - '@oro_locale.helper.default_locale_localization'
         tags:
@@ -19,6 +16,6 @@ services:
             - null
 
     oro_magento_contact_us.datagrid.helper:
-         class: '%oro_magento_contact_us.datagrid.helper.class%'
+         class: Oro\Bundle\MagentoContactUsBundle\Datagrid\ContactRequestDatagridHelper
          tags:
              - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.before.orcrm-contact-requests-grid-extended, method: buildBefore }
