@@ -42,3 +42,9 @@ Use as dependency in composer
         "oro/crm-magento-embedded-contact-us": "dev-master",
     }
 ```
+
+Resources
+---------
+
+  * [OroCommerce, OroCRM and OroPlatform Documentation](https://doc.oroinc.com)
+  * [Contributing](https://doc.oroinc.com/community/contribute/)
