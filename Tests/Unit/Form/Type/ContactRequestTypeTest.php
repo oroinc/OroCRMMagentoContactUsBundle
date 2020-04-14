@@ -45,10 +45,10 @@ class ContactRequestTypeTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->formType instanceof EmbeddedFormInterface);
 
         $this->assertNotEmpty($this->formType->getDefaultCss());
-        $this->assertInternalType('string', $this->formType->getDefaultCss());
+        $this->assertIsString($this->formType->getDefaultCss());
 
         $this->assertNotEmpty($this->formType->getDefaultSuccessMessage());
-        $this->assertInternalType('string', $this->formType->getDefaultSuccessMessage());
+        $this->assertIsString($this->formType->getDefaultSuccessMessage());
     }
 
     public function testBuildForm()
