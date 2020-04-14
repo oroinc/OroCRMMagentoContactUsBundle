@@ -24,13 +24,13 @@ class ContactRequestTypeTest extends \PHPUnit\Framework\TestCase
     private $localizationHelper;
 
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->localizationHelper = $this->createMock(LocalizationHelper::class);
         $this->formType = new ContactRequestType($this->localizationHelper);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->formType);
     }
