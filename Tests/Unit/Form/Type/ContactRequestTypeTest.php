@@ -24,13 +24,13 @@ class ContactRequestTypeTest extends \PHPUnit\Framework\TestCase
     private $localizationHelper;
 
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->localizationHelper = $this->createMock(LocalizationHelper::class);
         $this->formType = new ContactRequestType($this->localizationHelper);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->formType);
     }
@@ -45,10 +45,10 @@ class ContactRequestTypeTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->formType instanceof EmbeddedFormInterface);
 
         $this->assertNotEmpty($this->formType->getDefaultCss());
-        $this->assertInternalType('string', $this->formType->getDefaultCss());
+        $this->assertIsString($this->formType->getDefaultCss());
 
         $this->assertNotEmpty($this->formType->getDefaultSuccessMessage());
-        $this->assertInternalType('string', $this->formType->getDefaultSuccessMessage());
+        $this->assertIsString($this->formType->getDefaultSuccessMessage());
     }
 
     public function testBuildForm()
