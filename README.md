@@ -1,6 +1,6 @@
 # OroMagentoContactUsBundle
 
-OroMagentoContactUsBundle extends [OroContactUsBundle](https://github.com/oroinc/crm/tree/master/src/Oro/Bundle/ContactUsBundle) to add the Magento Contact Us [embedded form](https://github.com/oroinc/platform/tree/master/src/Oro/Bundle/EmbeddedFormBundle) into Oro applications, which helps collect additional information about customer organization, preferred contact method, phone, etc. from Magento websites.
+OroMagentoContactUsBundle extends [OroContactUsBundle](https://github.com/oroinc/crm/tree/4.1/src/Oro/Bundle/ContactUsBundle) to add the Magento Contact Us [embedded form](https://github.com/oroinc/platform/tree/4.1/src/Oro/Bundle/EmbeddedFormBundle) into Oro applications, which helps collect additional information about customer organization, preferred contact method, phone, etc. from Magento websites.
 
 Table of content
 -----------------
@@ -22,7 +22,7 @@ Package is available through Oro Package Manager.
 For development purposes it might be cloned from github repository directly.
 
 ```bash
-git clone https://github.com/laboro/OroCRMMagentoContactUsBundle.git
+git clone https://github.com/oroinc/OroCRMMagentoContactUsBundle.git
 ```
 
 Run unit tests
