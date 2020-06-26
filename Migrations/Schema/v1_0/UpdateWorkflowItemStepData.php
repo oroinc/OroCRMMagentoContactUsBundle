@@ -3,7 +3,7 @@
 namespace Oro\Bundle\MagentoContactUsBundle\Migrations\Schema\v1_0;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Oro\Bundle\MigrationBundle\Migration\ParametrizedMigrationQuery;
 use Psr\Log\LoggerInterface;
 
@@ -28,7 +28,7 @@ class UpdateWorkflowItemStepData extends ParametrizedMigrationQuery
             'transitions'   => ['send_email', 'log_call']
         ];
         $types = [
-            'workflow_name' => Type::STRING,
+            'workflow_name' => Types::STRING,
             'transitions'   => Connection::PARAM_STR_ARRAY
         ];
         $sql = 'DELETE FROM oro_workflow_transition_log' .
@@ -47,9 +47,9 @@ class UpdateWorkflowItemStepData extends ParametrizedMigrationQuery
             'name'          => 'contacted'
         ];
         $types = [
-            'open_id'       => Type::INTEGER,
-            'workflow_name' => Type::STRING,
-            'name'          => Type::STRING
+            'open_id'       => Types::INTEGER,
+            'workflow_name' => Types::STRING,
+            'name'          => Types::STRING
         ];
 
         // Update step_from_id for transition logs.
@@ -88,8 +88,8 @@ class UpdateWorkflowItemStepData extends ParametrizedMigrationQuery
             'name'          => 'open'
         ];
         $types  = [
-            'workflow_name' => Type::STRING,
-            'name'          => Type::STRING
+            'workflow_name' => Types::STRING,
+            'name'          => Types::STRING
         ];
         $sql = 'SELECT s.id FROM oro_workflow_step s' .
                ' WHERE s.workflow_name = :workflow_name' .
