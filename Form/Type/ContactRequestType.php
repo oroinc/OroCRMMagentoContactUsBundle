@@ -113,11 +113,7 @@ class ContactRequestType extends AbstractType implements EmbeddedFormInterface
                 'required'    => false,
                 'label'       => 'oro.contactus.contactrequest.contact_reason.label',
                 'client_validation' => false,
-                'query_builder' => function (ContactReasonRepository $er) {
-                    return $er->getExistedContactReasonsQB()
-                        ->addSelect('titles')
-                        ->leftJoin('cr.titles', 'titles');
-                },
+                'query_builder' => fn (ContactReasonRepository $er) => $er->createExistingContactReasonsWithTitlesQB()
             ]
         );
         $builder->add('comment', TextareaType::class, ['label' => 'oro.contactus.contactrequest.comment.label']);
